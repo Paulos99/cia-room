@@ -43,6 +43,7 @@
         <span class="header__direction">ПОМЕЩЕНИЯ</span>
       </a>
       <nav class="header__nav" aria-label="Основная навигация">
+        <a href="#about-cia" class="header__nav-link" data-nav="about-cia">О ЦИА</a>
         <a href="#why" class="header__nav-link" data-nav="why">Зачем проектировать</a>
         <a href="#services" class="header__nav-link" data-nav="services">Услуги</a>
         <a href="#process" class="header__nav-link" data-nav="process">Как работаем</a>
@@ -58,6 +59,7 @@
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Мобильная навигация">
       <ul class="mobile-nav__list">
+        <li><a href="#about-cia" class="mobile-nav__link">О ЦИА</a></li>
         <li><a href="#why" class="mobile-nav__link">Зачем проектировать</a></li>
         <li><a href="#services" class="mobile-nav__link">Услуги</a></li>
         <li><a href="#process" class="mobile-nav__link">Как работаем</a></li>
@@ -88,12 +90,57 @@
       </div>
     </section>
 
+    <!-- CIA IDENTITY -->
+    <section class="section cia-identity" id="about-cia" aria-labelledby="cia-title">
+      <div class="cia-identity__ambient" aria-hidden="true" id="cia-ambient"></div>
+      <div class="container cia-identity__grid">
+        <div class="cia-identity__content">
+          <p class="section-label">ЦИА / КТО МЫ</p>
+          <h2 class="section-title" id="cia-title">Исследуем помещение как акустическую систему</h2>
+          <p class="cia-identity__lead">Центр инновационной акустики не продаёт «типовую шумоизоляцию». Мы фиксируем, как звук возникает, по каким путям передаётся через конструкции и где воспринимается — и только после этого проектируем достаточное решение.</p>
+          <div class="cia-identity__flow" id="cia-flow">
+            <div class="cia-identity__node" data-node="source">
+              <span class="cia-identity__node-index">01</span>
+              <span class="cia-identity__node-label">Источник</span>
+            </div>
+            <div class="cia-identity__connector" aria-hidden="true"></div>
+            <div class="cia-identity__node" data-node="path">
+              <span class="cia-identity__node-index">02</span>
+              <span class="cia-identity__node-label">Путь передачи</span>
+            </div>
+            <div class="cia-identity__connector" aria-hidden="true"></div>
+            <div class="cia-identity__node" data-node="construction">
+              <span class="cia-identity__node-index">03</span>
+              <span class="cia-identity__node-label">Конструкция</span>
+            </div>
+            <div class="cia-identity__connector" aria-hidden="true"></div>
+            <div class="cia-identity__node" data-node="perception">
+              <span class="cia-identity__node-index">04</span>
+              <span class="cia-identity__node-label">Восприятие</span>
+            </div>
+          </div>
+          <p class="cia-identity__detail" id="cia-detail">Нажмите на этап цепочки — увидите, что именно исследует ЦИА на объекте.</p>
+        </div>
+        <figure class="media-slot media-slot--tall" data-image="assets/images/cia-identity.jpg">
+          <img src="assets/images/cia-identity.jpg" alt="Инженерное рабочее место акустического проектирования" width="800" height="1000" loading="lazy" class="media-slot__img">
+          <figcaption class="media-slot__caption">
+            <span class="media-slot__file">cia-identity.jpg</span>
+            <span class="media-slot__hint">Промпт в assets/images/IMAGE_PROMPTS.md</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- WHY -->
     <section class="section why" id="why" aria-labelledby="why-title">
       <div class="container">
         <p class="section-label">01 / ЦЕНА ОШИБКИ</p>
         <h2 class="section-title" id="why-title">Готовая конструкция может быть дорогой — и не решить исходную проблему</h2>
         <p class="section-intro">Одинаковый шум в двух квартирах может передаваться по разным путям. На результат влияют материал и толщина перекрытия, примыкания, инженерные коммуникации, качество монтажа, геометрия помещения и соседние конструкции.</p>
+        <figure class="media-slot media-slot--wide why__media" data-image="assets/images/why-diagnosis.jpg">
+          <img src="assets/images/why-diagnosis.jpg" alt="Схема маршрутов передачи шума в помещении" width="1600" height="500" loading="lazy" class="media-slot__img">
+          <figcaption class="media-slot__caption"><span class="media-slot__file">why-diagnosis.jpg</span></figcaption>
+        </figure>
         <div class="why__grid">
           <div class="why__diagram" id="noise-path-diagram" aria-hidden="true"></div>
           <div class="why__reasons">
@@ -128,59 +175,106 @@
         <div class="services__header">
           <p class="section-label">02 / УСЛУГИ</p>
           <h2 class="section-title" id="services-title">От фактической картины — к обоснованному решению</h2>
+          <p class="section-intro">Два уровня работы связаны: замер даёт данные, проектирование переводит их в конструктивное решение. Выберите услугу — раскроется состав и результат.</p>
         </div>
-        <div class="services__grid">
-          <article class="service-block">
-            <h3 class="service-block__title">Акустические замеры</h3>
-            <p class="service-block__brief">Выездное исследование, которое фиксирует исходные параметры помещения и помогает определить вероятные источники и пути передачи шума.</p>
-            <p class="service-block__subtitle">Что может входить</p>
-            <ul class="service-block__list">
-              <li>измерение звукоизоляции ограждающих конструкций</li>
-              <li>исследование воздушного и ударного шума</li>
-              <li>оценка акустической среды внутри помещения</li>
-              <li>фиксация частотных особенностей и проблемных зон</li>
-              <li>анализ стен, потолка, пола, примыканий и инженерных узлов</li>
-              <li>технический отчёт с выводами и рекомендациями</li>
-            </ul>
-            <div class="service-block__result">
-              <strong>Результат</strong>
-              Вы понимаете, что именно происходит на объекте и какие данные нужны для принятия решения.
+
+        <div class="services__showcase" id="services-showcase">
+          <article class="service-panel is-active" data-service="measurement" id="service-measurement">
+            <figure class="media-slot service-panel__media" data-image="assets/images/service-measurement.jpg">
+              <img src="assets/images/service-measurement.jpg" alt="Акустические замеры в помещении" width="1600" height="1000" loading="lazy" class="media-slot__img">
+              <figcaption class="media-slot__caption">
+                <span class="media-slot__file">service-measurement.jpg</span>
+              </figcaption>
+              <div class="service-panel__scan" aria-hidden="true"></div>
+            </figure>
+            <div class="service-panel__body">
+              <div class="service-panel__head">
+                <span class="service-panel__index">Услуга 01</span>
+                <h3 class="service-panel__title">Акустические замеры</h3>
+                <p class="service-panel__brief">Выездное исследование, которое фиксирует исходные параметры помещения и помогает определить вероятные источники и пути передачи шума.</p>
+              </div>
+              <button type="button" class="service-panel__toggle" aria-expanded="true" aria-controls="measurement-details">
+                <span>Состав и результат</span>
+                <span class="service-panel__toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="service-panel__details" id="measurement-details">
+                <p class="service-block__subtitle">Что может входить</p>
+                <ul class="service-panel__list">
+                  <li>измерение звукоизоляции ограждающих конструкций</li>
+                  <li>исследование воздушного и ударного шума</li>
+                  <li>оценка акустической среды внутри помещения</li>
+                  <li>фиксация частотных особенностей и проблемных зон</li>
+                  <li>анализ стен, потолка, пола, примыканий и инженерных узлов</li>
+                  <li>технический отчёт с выводами и рекомендациями</li>
+                </ul>
+                <div class="service-panel__result">
+                  <strong>Результат</strong>
+                  Вы понимаете, что именно происходит на объекте и какие данные нужны для принятия решения.
+                </div>
+              </div>
+              <a href="#lead" class="btn btn--primary service-panel__cta" data-analytics="service_measurement_click">Заказать замер <span class="btn__arrow" aria-hidden="true">→</span></a>
             </div>
-            <a href="#lead" class="btn btn--secondary" data-analytics="service_measurement_click">Заказать замер</a>
           </article>
-          <article class="service-block">
-            <h3 class="service-block__title">Акустическое проектирование</h3>
-            <p class="service-block__brief">Разработка решения под измеренные или подтверждённые исходные данные, требования к помещению и ограничения объекта.</p>
-            <p class="service-block__subtitle">Что может входить</p>
-            <ul class="service-block__list">
-              <li>постановка целевых показателей</li>
-              <li>выбор принципа и состава конструкций</li>
-              <li>проработка стен, потолка, пола и узлов примыкания</li>
-              <li>расчёт материалов и толщин</li>
-              <li>технические схемы и спецификация</li>
-              <li>рекомендации для подрядчика</li>
-              <li>оценка ограничений и ожидаемого диапазона результата</li>
-              <li>сопровождение и контроль после реализации по отдельному согласованию</li>
-            </ul>
-            <div class="service-block__result">
-              <strong>Результат</strong>
-              Вы получаете понятный инженерный документ, по которому можно планировать бюджет, закупку и монтаж.
+
+          <article class="service-panel" data-service="design" id="service-design">
+            <figure class="media-slot service-panel__media" data-image="assets/images/service-design.jpg">
+              <img src="assets/images/service-design.jpg" alt="Акустическое проектирование конструкций" width="1600" height="1000" loading="lazy" class="media-slot__img">
+              <figcaption class="media-slot__caption">
+                <span class="media-slot__file">service-design.jpg</span>
+              </figcaption>
+              <div class="service-panel__scan" aria-hidden="true"></div>
+            </figure>
+            <div class="service-panel__body">
+              <div class="service-panel__head">
+                <span class="service-panel__index">Услуга 02</span>
+                <h3 class="service-panel__title">Акустическое проектирование</h3>
+                <p class="service-panel__brief">Разработка решения под измеренные или подтверждённые исходные данные, требования к помещению и ограничения объекта.</p>
+              </div>
+              <button type="button" class="service-panel__toggle" aria-expanded="false" aria-controls="design-details">
+                <span>Состав и результат</span>
+                <span class="service-panel__toggle-icon" aria-hidden="true"></span>
+              </button>
+              <div class="service-panel__details" id="design-details" hidden>
+                <p class="service-block__subtitle">Что может входить</p>
+                <ul class="service-panel__list">
+                  <li>постановка целевых показателей</li>
+                  <li>выбор принципа и состава конструкций</li>
+                  <li>проработка стен, потолка, пола и узлов примыкания</li>
+                  <li>расчёт материалов и толщин</li>
+                  <li>технические схемы и спецификация</li>
+                  <li>рекомендации для подрядчика</li>
+                  <li>оценка ограничений и ожидаемого диапазона результата</li>
+                  <li>сопровождение и контроль после реализации по отдельному согласованию</li>
+                </ul>
+                <div class="service-panel__result">
+                  <strong>Результат</strong>
+                  Вы получаете понятный инженерный документ, по которому можно планировать бюджет, закупку и монтаж.
+                </div>
+              </div>
+              <a href="#lead" class="btn btn--primary service-panel__cta" data-analytics="service_design_click">Обсудить проектирование <span class="btn__arrow" aria-hidden="true">→</span></a>
             </div>
-            <a href="#lead" class="btn btn--secondary" data-analytics="service_design_click">Обсудить проектирование</a>
           </article>
         </div>
-        <div class="services__chain">
+
+        <div class="services__tabs" role="tablist" aria-label="Переключение услуг">
+          <button type="button" class="services__tab is-active" role="tab" aria-selected="true" data-target="measurement">Замеры</button>
+          <button type="button" class="services__tab" role="tab" aria-selected="false" data-target="design">Проектирование</button>
+        </div>
+
+        <div class="services__chain" id="services-chain">
+          <p class="services__chain-label">Связь этапов</p>
           <div class="services__chain-track">
-            <span class="services__chain-step">ИЗМЕРЕНИЕ</span>
-            <span class="services__chain-arrow" aria-hidden="true">→</span>
-            <span class="services__chain-step">МОДЕЛЬ ОБЪЕКТА</span>
-            <span class="services__chain-arrow" aria-hidden="true">→</span>
-            <span class="services__chain-step">ПРОЕКТ</span>
-            <span class="services__chain-arrow" aria-hidden="true">→</span>
-            <span class="services__chain-step">РЕАЛИЗАЦИЯ</span>
-            <span class="services__chain-arrow" aria-hidden="true">→</span>
-            <span class="services__chain-step">КОНТРОЛЬ</span>
+            <button type="button" class="services__chain-step is-active" data-chain="0">ИЗМЕРЕНИЕ</button>
+            <span class="services__chain-line" aria-hidden="true"><span class="services__chain-pulse"></span></span>
+            <button type="button" class="services__chain-step" data-chain="1">МОДЕЛЬ ОБЪЕКТА</button>
+            <span class="services__chain-line" aria-hidden="true"><span class="services__chain-pulse"></span></span>
+            <button type="button" class="services__chain-step" data-chain="2">ПРОЕКТ</button>
+            <span class="services__chain-line" aria-hidden="true"><span class="services__chain-pulse"></span></span>
+            <button type="button" class="services__chain-step" data-chain="3">РЕАЛИЗАЦИЯ</button>
+            <span class="services__chain-line" aria-hidden="true"><span class="services__chain-pulse"></span></span>
+            <button type="button" class="services__chain-step" data-chain="4">КОНТРОЛЬ</button>
           </div>
+          <p class="services__chain-desc" id="chain-desc">Фиксируем исходное состояние помещения профессиональным оборудованием.</p>
           <p class="services__chain-note">Состав этапов зависит от задачи. Иногда достаточно замера и заключения. Для сложного объекта требуется полноценный проект и проверка результата.</p>
         </div>
       </div>
@@ -217,6 +311,10 @@
       <div class="container">
         <p class="section-label">04 / ПРОЦЕСС</p>
         <h2 class="section-title" id="process-title">Понятный маршрут от запроса до проверяемого результата</h2>
+        <figure class="media-slot media-slot--wide process__media" data-image="assets/images/process-fieldwork.jpg">
+          <img src="assets/images/process-fieldwork.jpg" alt="Выезд специалиста на объект для акустических замеров" width="1600" height="500" loading="lazy" class="media-slot__img">
+          <figcaption class="media-slot__caption"><span class="media-slot__file">process-fieldwork.jpg</span></figcaption>
+        </figure>
         <div class="process__track" id="process-track">
           <div class="process__line" aria-hidden="true"></div>
           <div class="process__pulse" id="process-pulse" aria-hidden="true"></div>
@@ -278,6 +376,10 @@
             <p class="result__accent">Проект должен быть понятен заказчику, архитектору и монтажной команде.</p>
           </div>
           <div class="result__visual" id="report-visual" role="img" aria-label="Пример структуры материалов отчёта">
+            <figure class="media-slot media-slot--fill" data-image="assets/images/result-report.jpg">
+              <img src="assets/images/result-report.jpg" alt="Пример структуры технического отчёта" width="800" height="1000" loading="lazy" class="media-slot__img">
+              <figcaption class="media-slot__caption"><span class="media-slot__file">result-report.jpg</span></figcaption>
+            </figure>
             <span class="result__visual-label">пример структуры материалов</span>
           </div>
         </div>
@@ -609,6 +711,9 @@
   <script src="js/visuals/object-types.js"></script>
   <script src="js/visuals/report-visual.js"></script>
   <script src="js/visuals/form-visual.js"></script>
+  <script src="js/media-slots.js"></script>
+  <script src="js/cia-identity.js"></script>
+  <script src="js/services.js"></script>
   <script src="js/faq.js"></script>
   <script src="js/form.js"></script>
   <script src="js/animations.js"></script>

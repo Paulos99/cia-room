@@ -4,6 +4,7 @@
   function initReportVisual() {
     const container = document.getElementById('report-visual');
     if (!container) return;
+    if (container.querySelector('.media-slot')) return;
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 300 400');

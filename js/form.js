@@ -1,186 +1,258 @@
 (function () {
   'use strict';
 
-  const form = document.getElementById('lead-form');
-  if (!form) return;
+  const RATE_LIMIT_MS = 30000;
+  const STORAGE_KEY = 'cia_lead_last_submit';
 
-  const step1 = document.getElementById('form-step-1');
-  const step2 = document.getElementById('form-step-2');
-  const btnNext = document.getElementById('form-next');
-  const btnBack = document.getElementById('form-back');
-  const btnSubmit = document.getElementById('form-submit');
-  const statusEl = document.getElementById('form-status');
-  const indicators = document.querySelectorAll('[data-step-indicator]');
-
-  let isSubmitting = false;
-
-  const fields = {
-    objectType: { el: document.getElementById('objectType'), error: document.getElementById('error-objectType'), required: true },
-    city: { el: document.getElementById('city'), error: document.getElementById('error-city'), required: true },
-    area: { el: document.getElementById('area'), error: null, required: false },
-    projectStage: { el: document.getElementById('projectStage'), error: document.getElementById('error-projectStage'), required: true },
-    task: { el: document.getElementById('task'), error: document.getElementById('error-task'), required: true },
-    name: { el: document.getElementById('name'), error: document.getElementById('error-name'), required: true },
-    phone: { el: document.getElementById('phone'), error: document.getElementById('error-phone'), required: true },
-    emailOrTelegram: { el: document.getElementById('emailOrTelegram'), error: null, required: false },
-    preferredContact: { el: document.getElementById('preferredContact'), error: null, required: false },
-    consent: { el: document.getElementById('consent'), error: document.getElementById('error-consent'), required: true },
+  const labels = {
+    objectType: {
+      apartment: 'Квартира',
+      house: 'Частный дом',
+      studio: 'Студия / медиапространство',
+      office: 'Офис / переговорная',
+      horeca: 'HoReCa / коммерческое',
+      industrial: 'Промышленный / нестандартный',
+      other: 'Другое',
+    },
+    projectStage: {
+      before: 'До ремонта',
+      during: 'Ремонт идёт',
+      ready: 'Объект готов',
+    },
+    preferredContact: {
+      phone: 'Телефон',
+      email: 'Email',
+      telegram: 'Telegram',
+    },
   };
 
-  function showStatus(message, type) {
-    statusEl.hidden = false;
-    statusEl.textContent = message;
-    statusEl.className = 'form-status form-status--' + type;
-  }
-
-  function hideStatus() {
-    statusEl.hidden = true;
-    statusEl.textContent = '';
-  }
-
-  function clearErrors() {
-    Object.values(fields).forEach((f) => {
-      if (!f.el) return;
-      f.el.classList.remove('is-error');
-      if (f.error) {
-        f.error.hidden = true;
-        f.error.textContent = '';
-      }
-    });
-  }
-
-  function validateField(key) {
-    const f = fields[key];
-    if (!f.el) return true;
-    const val = f.el.type === 'checkbox' ? f.el.checked : f.el.value.trim();
-
-    if (f.required && !val) {
-      f.el.classList.add('is-error');
-      if (f.error) {
-        f.error.hidden = false;
-        f.error.textContent = 'Заполните это поле';
-      }
-      return false;
+  function track(name, params) {
+    if (window.CIAAnalytics && typeof window.CIAAnalytics.trackEvent === 'function') {
+      window.CIAAnalytics.trackEvent(name, params);
     }
-
-    if (key === 'phone' && val && val.replace(/\D/g, '').length < 10) {
-      f.el.classList.add('is-error');
-      if (f.error) {
-        f.error.hidden = false;
-        f.error.textContent = 'Укажите корректный номер телефона';
-      }
-      return false;
-    }
-
-    return true;
-  }
-
-  function validateStep(step) {
-    clearErrors();
-    const keys = step === 1
-      ? ['objectType', 'city', 'projectStage', 'task']
-      : ['name', 'phone', 'consent'];
-    return keys.every(validateField);
-  }
-
-  function goToStep(step) {
-    step1.hidden = step !== 1;
-    step2.hidden = step !== 2;
-    indicators.forEach((ind) => {
-      ind.classList.toggle('is-active', Number(ind.dataset.stepIndicator) === step);
-    });
-    hideStatus();
   }
 
   function getUtm() {
     const params = new URLSearchParams(window.location.search);
     const utm = {};
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach((key) => {
-      if (params.get(key)) utm[key] = params.get(key);
+      const val = params.get(key);
+      if (val) utm[key] = val;
     });
     return utm;
   }
 
-  function getPayload() {
+  function showError(id, message) {
+    const el = document.getElementById('error-' + id);
+    const input = document.getElementById(id);
+    if (el) {
+      el.textContent = message;
+      el.hidden = !message;
+    }
+    if (input) input.classList.toggle('is-error', Boolean(message));
+  }
+
+  function clearErrors(ids) {
+    ids.forEach((id) => showError(id, ''));
+  }
+
+  function validatePhone(value) {
+    const digits = value.replace(/\D/g, '');
+    return digits.length >= 10;
+  }
+
+  function setStep(step) {
+    const step1 = document.getElementById('form-step-1');
+    const step2 = document.getElementById('form-step-2');
+    if (!step1 || !step2) return;
+    const isFirst = step === 1;
+    step1.hidden = !isFirst;
+    step2.hidden = isFirst;
+    document.querySelectorAll('[data-step-indicator]').forEach((el) => {
+      el.classList.toggle('is-active', el.getAttribute('data-step-indicator') === String(step));
+    });
+    const status = document.getElementById('form-status');
+    if (status) status.hidden = true;
+  }
+
+  function validateStep1() {
+    clearErrors(['objectType', 'city', 'projectStage', 'task']);
+    let ok = true;
+
+    const objectType = document.getElementById('objectType');
+    const city = document.getElementById('city');
+    const projectStage = document.getElementById('projectStage');
+    const task = document.getElementById('task');
+
+    if (!objectType || !objectType.value) {
+      showError('objectType', 'Выберите тип объекта');
+      ok = false;
+    }
+    if (!city || !city.value.trim()) {
+      showError('city', 'Укажите город');
+      ok = false;
+    }
+    if (!projectStage || !projectStage.value) {
+      showError('projectStage', 'Выберите стадию');
+      ok = false;
+    }
+    if (!task || !task.value.trim() || task.value.trim().length < 10) {
+      showError('task', 'Опишите задачу (не менее 10 символов)');
+      ok = false;
+    }
+    return ok;
+  }
+
+  function validateStep2() {
+    clearErrors(['name', 'phone', 'consent']);
+    let ok = true;
+    const name = document.getElementById('name');
+    const phone = document.getElementById('phone');
+    const consent = document.getElementById('consent');
+
+    if (!name || !name.value.trim()) {
+      showError('name', 'Укажите имя');
+      ok = false;
+    }
+    if (!phone || !validatePhone(phone.value)) {
+      showError('phone', 'Укажите корректный телефон');
+      ok = false;
+    }
+    if (!consent || !consent.checked) {
+      showError('consent', 'Необходимо согласие на обработку данных');
+      ok = false;
+    }
+    return ok;
+  }
+
+  function setStatus(type, message) {
+    const status = document.getElementById('form-status');
+    if (!status) return;
+    status.hidden = false;
+    status.className = 'form-status form-status--' + type;
+    status.textContent = message;
+  }
+
+  function collectPayload() {
+    const get = (id) => {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    };
+
     return {
       source: 'cia-rooms-landing',
-      name: fields.name.el.value.trim(),
-      phone: fields.phone.el.value.trim(),
-      emailOrTelegram: fields.emailOrTelegram.el.value.trim(),
-      preferredContact: fields.preferredContact.el.value,
-      objectType: fields.objectType.el.value,
-      city: fields.city.el.value.trim(),
-      area: fields.area.el.value.trim(),
-      projectStage: fields.projectStage.el.value,
-      task: fields.task.el.value.trim(),
+      name: get('name'),
+      phone: get('phone'),
+      emailOrTelegram: get('emailOrTelegram'),
+      preferredContact: get('preferredContact') || 'phone',
+      objectType: get('objectType'),
+      objectTypeLabel: labels.objectType[get('objectType')] || get('objectType'),
+      city: get('city'),
+      area: get('area'),
+      projectStage: get('projectStage'),
+      projectStageLabel: labels.projectStage[get('projectStage')] || get('projectStage'),
+      task: get('task'),
       utm: getUtm(),
       pageUrl: window.location.href,
-      referrer: document.referrer || '',
-      createdAt: new Date().toISOString(),
+      submittedAt: new Date().toISOString(),
     };
   }
 
-  btnNext?.addEventListener('click', () => {
-    if (validateStep(1)) {
-      goToStep(2);
-      if (window.CIAAnalytics) window.CIAAnalytics.track('form_step_1_complete');
-    }
-  });
-
-  btnBack?.addEventListener('click', () => goToStep(1));
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (isSubmitting) return;
-
+  async function submitForm(form) {
     const honeypot = document.getElementById('website');
-    if (honeypot && honeypot.value) return;
-
-    if (!validateStep(2)) return;
-
-    const webhookUrl = typeof CIA_CONFIG !== 'undefined' ? CIA_CONFIG.leadWebhookUrl : '';
-
-    if (!webhookUrl) {
-      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-      if (isLocal) {
-        showStatus('Демо-режим: webhook не настроен. Заявка не отправлена. Заполните leadWebhookUrl в js/config.js.', 'info');
-      } else {
-        showStatus('Онлайн-отправка временно недоступна. Свяжитесь с нами по телефону или в мессенджере — контакты указаны ниже.', 'error');
-      }
-      if (window.CIAAnalytics) window.CIAAnalytics.track('form_error', { reason: 'no_webhook' });
+    if (honeypot && honeypot.value.trim()) {
+      setStatus('success', 'Заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+      form.reset();
+      setStep(1);
       return;
     }
 
-    isSubmitting = true;
-    btnSubmit.disabled = true;
-    showStatus('Отправка заявки…', 'info');
-    if (window.CIAAnalytics) window.CIAAnalytics.track('form_submit');
+    const last = Number(sessionStorage.getItem(STORAGE_KEY) || 0);
+    if (Date.now() - last < RATE_LIMIT_MS) {
+      setStatus('error', 'Пожалуйста, подождите перед повторной отправкой.');
+      return;
+    }
+
+    if (!validateStep2()) return;
+
+    const payload = collectPayload();
+    const webhook = (typeof CIA_CONFIG !== 'undefined' && CIA_CONFIG.leadWebhookUrl) || '';
+
+    track('form_submit', { objectType: payload.objectType });
+
+    const submitBtn = document.getElementById('form-submit');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+    }
+    setStatus('info', 'Отправляем заявку…');
 
     try {
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(getPayload()),
-      });
-
-      if (!response.ok) throw new Error('Server error');
-
-      const responseTime = typeof CIA_CONFIG !== 'undefined' ? CIA_CONFIG.responseTime : '';
-      let successMsg = 'Заявка принята. Специалист свяжется с вами, чтобы уточнить задачу и исходные данные объекта.';
-      if (responseTime && !responseTime.startsWith('[')) {
-        successMsg += ' ' + responseTime;
+      if (!webhook) {
+        await new Promise((r) => setTimeout(r, 600));
+        sessionStorage.setItem(STORAGE_KEY, String(Date.now()));
+        setStatus('success', 'Заявка принята (демо-режим: укажите leadWebhookUrl в js/config.js). Мы свяжемся с вами.');
+        track('form_success', { mode: 'demo' });
+        form.reset();
+        setStep(1);
+        return;
       }
 
-      showStatus(successMsg, 'success');
+      const res = await fetch(webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+
+      sessionStorage.setItem(STORAGE_KEY, String(Date.now()));
+      const responseTime = (typeof CIA_CONFIG !== 'undefined' && CIA_CONFIG.responseTime) || '';
+      const suffix = responseTime && !/^\[/.test(responseTime) ? ' ' + responseTime : '';
+      setStatus('success', 'Заявка отправлена. Мы свяжемся с вами' + suffix + '.');
+      track('form_success', { mode: 'webhook' });
       form.reset();
-      goToStep(1);
-      if (window.CIAAnalytics) window.CIAAnalytics.track('form_success');
-    } catch {
-      showStatus('Не удалось отправить заявку. Попробуйте позже или свяжитесь с нами напрямую по контактам ниже.', 'error');
-      if (window.CIAAnalytics) window.CIAAnalytics.track('form_error', { reason: 'fetch_failed' });
+      setStep(1);
+    } catch (err) {
+      console.error(err);
+      setStatus('error', 'Не удалось отправить заявку. Попробуйте позже или воспользуйтесь контактами ниже.');
+      track('form_error', { message: String(err && err.message ? err.message : err) });
     } finally {
-      isSubmitting = false;
-      btnSubmit.disabled = false;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.removeAttribute('aria-busy');
+      }
     }
-  });
+  }
+
+  function initForm() {
+    const form = document.getElementById('lead-form');
+    if (!form) return;
+
+    setStep(1);
+
+    const nextBtn = document.getElementById('form-next');
+    const backBtn = document.getElementById('form-back');
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        if (validateStep1()) setStep(2);
+      });
+    }
+
+    if (backBtn) {
+      backBtn.addEventListener('click', () => setStep(1));
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submitForm(form);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initForm);
+  } else {
+    initForm();
+  }
 })();

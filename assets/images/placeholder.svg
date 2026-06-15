@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none">
+  <rect width="1600" height="1000" fill="#0D1217"/>
+  <rect x="1" y="1" width="1598" height="998" stroke="rgba(47,125,255,0.35)" stroke-width="2" stroke-dasharray="12 8"/>
+  <line x1="0" y1="500" x2="1600" y2="500" stroke="rgba(255,255,255,0.06)"/>
+  <line x1="800" y1="0" x2="800" y2="1000" stroke="rgba(255,255,255,0.06)"/>
+  <text x="800" y="470" text-anchor="middle" fill="#607080" font-family="monospace" font-size="28" letter-spacing="4">IMAGE PLACEHOLDER</text>
+  <text id="filename" x="800" y="530" text-anchor="middle" fill="#2F7DFF" font-family="monospace" font-size="22">filename.jpg</text>
+  <text x="800" y="580" text-anchor="middle" fill="#94A0AA" font-family="sans-serif" font-size="18">!35=5@8@C9B5 2 ChatGPT ’ assets/images/</text>
+</svg>

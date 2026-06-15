@@ -1,47 +1,59 @@
 (function () {
   'use strict';
 
-  const accordion = document.getElementById('faq-accordion');
-  if (!accordion) return;
+  function initFaq() {
+    const root = document.getElementById('faq-accordion');
+    if (!root) return;
 
-  const triggers = accordion.querySelectorAll('.accordion__trigger');
+    const triggers = root.querySelectorAll('.accordion__trigger');
 
-  triggers.forEach((trigger) => {
-    trigger.addEventListener('click', () => {
-      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+    const closeItem = (trigger) => {
       const panelId = trigger.getAttribute('aria-controls');
-      const panel = document.getElementById(panelId);
+      const panel = panelId ? document.getElementById(panelId) : null;
+      trigger.setAttribute('aria-expanded', 'false');
+      if (panel) panel.hidden = true;
+    };
 
-      triggers.forEach((t) => {
-        t.setAttribute('aria-expanded', 'false');
-        const p = document.getElementById(t.getAttribute('aria-controls'));
-        if (p) p.hidden = true;
+    const openItem = (trigger) => {
+      const panelId = trigger.getAttribute('aria-controls');
+      const panel = panelId ? document.getElementById(panelId) : null;
+      trigger.setAttribute('aria-expanded', 'true');
+      if (panel) panel.hidden = false;
+      if (window.CIAAnalytics && typeof window.CIAAnalytics.trackEvent === 'function') {
+        window.CIAAnalytics.trackEvent('faq_open', { id: panelId });
+      }
+    };
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const expanded = trigger.getAttribute('aria-expanded') === 'true';
+        triggers.forEach((t) => closeItem(t));
+        if (!expanded) openItem(trigger);
       });
 
-      if (!expanded && panel) {
-        trigger.setAttribute('aria-expanded', 'true');
-        panel.hidden = false;
-        if (window.CIAAnalytics) window.CIAAnalytics.track('faq_open', { id: panelId });
-      }
+      trigger.addEventListener('keydown', (e) => {
+        const list = Array.from(triggers);
+        const index = list.indexOf(trigger);
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          list[Math.min(index + 1, list.length - 1)].focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          list[Math.max(index - 1, 0)].focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          list[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          list[list.length - 1].focus();
+        }
+      });
     });
+  }
 
-    trigger.addEventListener('keydown', (e) => {
-      const items = Array.from(triggers);
-      const index = items.indexOf(trigger);
-
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        items[(index + 1) % items.length].focus();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        items[(index - 1 + items.length) % items.length].focus();
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        items[0].focus();
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        items[items.length - 1].focus();
-      }
-    });
-  });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFaq);
+  } else {
+    initFaq();
+  }
 })();

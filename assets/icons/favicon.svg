@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="4" fill="#080B0E"/>
+  <text x="16" y="21" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#F2F5F7">ЦИА</text>
+  <line x1="6" y1="26" x2="26" y2="26" stroke="#2F7DFF" stroke-width="1"/>
+</svg>

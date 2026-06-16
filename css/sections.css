@@ -964,8 +964,9 @@
 
 .object-card__schematic {
   margin-top: var(--space-md);
-  height: 80px;
-  opacity: 0;
+  height: 100px;
+  min-height: 100px;
+  opacity: 0.45;
   transition: opacity var(--duration-normal);
 }
 

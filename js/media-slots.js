@@ -7,11 +7,6 @@
 
     function setPlaceholder() {
       slot.classList.add('is-placeholder');
-      const file = slot.dataset.image || img.getAttribute('src') || '';
-      const name = file.split('/').pop();
-      if (name && slot.querySelector('.media-slot__file')) {
-        slot.querySelector('.media-slot__file').textContent = name;
-      }
     }
 
     if (!img.complete) {

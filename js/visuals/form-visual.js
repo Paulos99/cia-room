@@ -7,72 +7,78 @@
 
     const r = CIAViz.reduced();
 
-    const waves = [];
-    for (let i = 0; i < 5; i++) {
-      const y = 60 + i * 28;
-      waves.push(`<path class="form-wave" d="M30 ${y} Q80 ${y - 18} 130 ${y} T230 ${y}" fill="none" stroke="rgba(120,180,255,0.35)" stroke-width="1"/>`);
-    }
-
-    const svg = CIAViz.mount(container, '0 0 400 400', `
+    const svg = CIAViz.mount(container, '0 0 420 420', `
       <defs>
         <linearGradient id="formScan" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="rgba(47,125,255,0)"/>
-          <stop offset="50%" stop-color="rgba(47,125,255,0.2)"/>
+          <stop offset="45%" stop-color="rgba(47,125,255,0.22)"/>
+          <stop offset="50%" stop-color="rgba(120,180,255,0.38)"/>
+          <stop offset="55%" stop-color="rgba(47,125,255,0.22)"/>
           <stop offset="100%" stop-color="rgba(47,125,255,0)"/>
         </linearGradient>
-        <clipPath id="formRoomClip">
-          <polygon points="220,120 340,120 340,280 220,280"/>
-        </clipPath>
+        <linearGradient id="formPlanFill" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="rgba(47,125,255,0.12)"/>
+          <stop offset="100%" stop-color="rgba(47,125,255,0.02)"/>
+        </linearGradient>
       </defs>
-      <text x="20" y="28" class="viz-label">СИГНАЛ → СКАНИРОВАНИЕ → ПРОЕКТ</text>
+      <text x="24" y="30" class="viz-label">ЗАЯВКА → МОДЕЛЬ ОБЪЕКТА → РЕШЕНИЕ</text>
 
-      <!-- Хаотичный сигнал -->
       <g id="form-chaos" opacity="1">
-        ${waves.join('')}
-        <text x="30" y="220" class="viz-label">исходный сигнал</text>
+        <rect x="36" y="74" width="108" height="42" rx="2" class="viz-zone--muted"/>
+        <rect x="36" y="134" width="108" height="42" rx="2" class="viz-zone--muted"/>
+        <rect x="36" y="194" width="108" height="42" rx="2" class="viz-zone--muted"/>
+        <text x="52" y="100" class="viz-label">объект</text>
+        <text x="52" y="160" class="viz-label">проблема</text>
+        <text x="52" y="220" class="viz-label">контакт</text>
+        <circle cx="124" cy="95" r="3" class="viz-node"/>
+        <circle cx="124" cy="155" r="3" class="viz-node"/>
+        <circle cx="124" cy="215" r="3" class="viz-node"/>
+        <path d="M144 95 C168 95 174 126 196 126" class="viz-path viz-path--soft"/>
+        <path d="M144 155 H196" class="viz-path viz-path--soft"/>
+        <path d="M144 215 C168 215 174 184 196 184" class="viz-path viz-path--soft"/>
+        <text x="40" y="270" class="viz-label">данные заявки</text>
       </g>
 
-      <!-- Линия сканирования -->
-      <rect id="form-scanner" x="130" y="40" width="50" height="320" fill="url(#formScan)" opacity="0.8">
-        ${r ? '' : '<animate attributeName="x" values="130;200;130" dur="4s" repeatCount="indefinite"/>'}
-      </rect>
-      <text x="145" y="370" class="viz-label">анализ</text>
+      <g id="form-room">
+        <text x="204" y="70" class="viz-label viz-label--active">модель помещения</text>
+        <polygon points="196,122 330,92 366,244 232,276" fill="url(#formPlanFill)" stroke="#2F7DFF" stroke-width="1.5"/>
+        <polyline points="196,122 232,276 366,244" class="viz-line"/>
+        <polyline points="240,112 274,264" class="viz-line"/>
+        <polyline points="286,102 320,254" class="viz-line"/>
+        <polyline points="216,180 348,150" class="viz-line"/>
+        <polyline points="226,222 358,192" class="viz-line"/>
+        <circle cx="246" cy="170" r="5" class="viz-node"/>
+        <circle cx="316" cy="154" r="5" class="viz-node viz-node--soft"/>
+        <circle cx="296" cy="224" r="5" class="viz-node viz-node--soft"/>
+        <path id="form-route" d="M246 170 C278 152 296 152 316 154 C330 174 320 204 296 224" class="viz-path"/>
+        ${r ? '' : '<circle r="3" fill="#78B4FF"><animateMotion path="M246 170 C278 152 296 152 316 154 C330 174 320 204 296 224" dur="3s" repeatCount="indefinite"/></circle>'}
+        <rect id="form-scanner" x="206" y="92" width="34" height="190" fill="url(#formScan)" opacity="0.85" transform="skewX(-13)">
+          ${r ? '' : '<animate attributeName="x" values="206;322;206" dur="4.4s" repeatCount="indefinite"/>'}
+        </rect>
+      </g>
 
-      <!-- Структурированный контур помещения -->
       <g id="form-structure" opacity="0.3">
-        <polygon points="220,120 340,120 340,280 220,280" fill="rgba(47,125,255,0.06)" stroke="#2F7DFF" stroke-width="1.5"/>
-        <line x1="220" y1="160" x2="340" y2="160" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-        <line x1="220" y1="200" x2="340" y2="200" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-        <line x1="220" y1="240" x2="340" y2="240" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-        <line x1="260" y1="120" x2="260" y2="280" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <line x1="300" y1="120" x2="300" y2="280" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <circle cx="250" cy="180" r="4" fill="#2F7DFF"/>
-        <circle cx="310" cy="220" r="4" fill="#78B4FF"/>
-        <text x="230" y="300" class="viz-label viz-label--active">проектный контур</text>
+        <rect x="230" y="312" width="118" height="46" rx="2" class="viz-zone"/>
+        <line x1="246" y1="328" x2="332" y2="328" class="viz-line"/>
+        <line x1="246" y1="342" x2="314" y2="342" class="viz-line"/>
+        <text x="248" y="340" class="viz-label viz-label--active">формат работ</text>
+        <path d="M292 276 V312" class="viz-path viz-path--soft"/>
       </g>
 
-      <!-- Спектр -->
-      <g id="form-spectrum" clip-path="url(#formRoomClip)" opacity="0.5">
-        ${[0,1,2,3,4,5,6].map((i) => `<rect x="${225 + i * 16}" y="${200 - i * 8}" width="10" height="${40 + i * 12}" fill="rgba(47,125,255,${0.15 + i * 0.05})"/>`).join('')}
-      </g>
-
-      <path d="M200 200 L220 200" stroke="#607080" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="212" y="296" class="viz-label">анализ маршрутов шума</text>
     `);
 
     if (!r) {
       const chaos = svg.getElementById('form-chaos');
       const structure = svg.getElementById('form-structure');
-      const spectrum = svg.getElementById('form-spectrum');
 
       const tl = () => {
         if (typeof gsap === 'undefined') return;
-        gsap.timeline({ repeat: -1, repeatDelay: 0.5 })
-          .to(chaos, { opacity: 0.2, duration: 2, ease: 'power1.inOut' })
-          .to(structure, { opacity: 1, duration: 2, ease: 'power1.inOut' }, '<')
-          .to(spectrum, { opacity: 0.9, duration: 1.5 }, '-=1')
-          .to(chaos, { opacity: 1, duration: 2 })
-          .to(structure, { opacity: 0.3, duration: 2 }, '<')
-          .to(spectrum, { opacity: 0.4, duration: 1.5 }, '<');
+        gsap.timeline({ repeat: -1, repeatDelay: 0.7 })
+          .to(chaos, { opacity: 0.42, duration: 1.8, ease: 'power1.inOut' })
+          .to(structure, { opacity: 1, duration: 1.8, ease: 'power1.inOut' }, '<')
+          .to(chaos, { opacity: 1, duration: 1.8, ease: 'power1.inOut' })
+          .to(structure, { opacity: 0.35, duration: 1.8, ease: 'power1.inOut' }, '<');
       };
 
       if (typeof gsap !== 'undefined') {

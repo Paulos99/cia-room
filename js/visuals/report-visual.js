@@ -4,6 +4,7 @@
   function initReportVisual() {
     const container = document.getElementById('report-visual');
     if (!container) return;
+    // Photo media-slot is animated in js/animations.js (initResultReveal)
     if (container.querySelector('.media-slot')) return;
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -26,33 +27,6 @@
       <text x="40" y="40" fill="#607080" font-family="IBM Plex Mono, monospace" font-size="9">REPORT / STRUCTURE</text>
     `;
     container.insertBefore(svg, container.firstChild);
-
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!reduced) {
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.from('.report-line', {
-          scaleX: 0,
-          transformOrigin: 'left',
-          stagger: 0.1,
-          duration: 0.6,
-          scrollTrigger: { trigger: '#result', start: 'top 70%' },
-        });
-        gsap.from('.report-block', {
-          opacity: 0,
-          y: 10,
-          stagger: 0.15,
-          duration: 0.5,
-          scrollTrigger: { trigger: '#result', start: 'top 60%' },
-        });
-        gsap.from('.report-point', {
-          scale: 0,
-          stagger: 0.1,
-          duration: 0.4,
-          scrollTrigger: { trigger: '#result', start: 'top 50%' },
-        });
-      }
-    }
   }
 
   if (document.readyState === 'loading') {

@@ -1,110 +1,120 @@
 (function () {
   'use strict';
 
+  const movingDot = (path, color = '#2F7DFF', dur = '2.4s') => {
+    if (CIAViz.reduced()) return '';
+    return `<circle r="3" fill="${color}"><animateMotion path="${path}" dur="${dur}" repeatCount="indefinite"/></circle>`;
+  };
+
   const ZONE_DATA = {
     walls: {
       title: 'Стены',
-      body: 'Материал, толщина, пустоты, розетки, сопряжения и соседние конструкции влияют на фактическую звукоизоляцию.',
-      svg: `
+      body: 'Материал, толщина, розетки и стыки с соседними конструкциями — всё влияет на индекс звукоизоляции стены.',
+      svg: () => `
         <text x="16" y="22" class="viz-label">РАЗРЕЗ СТЕНЫ · ВОЗДУШНЫЙ ШУМ</text>
-        <rect x="40" y="50" width="280" height="180" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)"/>
-        <text x="55" y="75" class="viz-label">помещение A</text>
-        <text x="230" y="75" class="viz-label">помещение B</text>
-        <rect x="130" y="60" width="100" height="160" fill="rgba(47,125,255,0.06)" stroke="#2F7DFF" stroke-width="1.5"/>
-        <line x1="145" y1="70" x2="145" y2="210" stroke="rgba(120,180,255,0.3)" stroke-width="1" stroke-dasharray="4 3"/>
-        <line x1="165" y1="70" x2="165" y2="210" stroke="rgba(120,180,255,0.2)" stroke-width="1" stroke-dasharray="4 3"/>
-        <line x1="185" y1="70" x2="185" y2="210" stroke="rgba(120,180,255,0.2)" stroke-width="1" stroke-dasharray="4 3"/>
-        <rect x="168" y="130" width="24" height="16" fill="none" stroke="#78B4FF" stroke-width="1"/>
-        <text x="155" y="155" class="viz-label">розетка</text>
-        <path d="M70 120 L130 120" stroke="#2F7DFF" stroke-width="1.5" marker-end="url(#arrow)"/>
-        <path d="M230 120 L170 120" stroke="#78B4FF" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>
-        <circle cx="70" cy="120" r="6" fill="rgba(47,125,255,0.2)" stroke="#2F7DFF"/>
-        ${CIAViz.reduced() ? '' : '<circle r="3" fill="#2F7DFF"><animateMotion path="M70 120 L130 120" dur="2s" repeatCount="indefinite"/></circle>'}
+        <rect x="64" y="56" width="72" height="140" class="viz-frame"/>
+        <rect x="136" y="56" width="40" height="140" class="viz-zone"/>
+        <rect x="176" y="56" width="72" height="140" class="viz-frame"/>
+        <line x1="146" y1="66" x2="146" y2="186" class="viz-grid"/>
+        <line x1="156" y1="66" x2="156" y2="186" class="viz-grid"/>
+        <line x1="166" y1="66" x2="166" y2="186" class="viz-grid"/>
+        <text x="78" y="80" class="viz-label">помещение A</text>
+        <text x="194" y="80" class="viz-label">помещение B</text>
+        <rect x="146" y="118" width="20" height="16" class="viz-zone--muted"/>
+        <text x="138" y="162" class="viz-label viz-label--active">слабая точка</text>
+        <path d="M80 126 H136" class="viz-path" marker-end="url(#arrow)"/>
+        <path d="M176 126 H232" class="viz-path viz-path--soft" marker-end="url(#arrowSoft)"/>
+        <circle cx="80" cy="126" r="6" class="viz-node viz-node--soft"/>
+        ${movingDot('M80 126 H136', '#2F7DFF', '1.7s')}
       `,
     },
     ceiling: {
       title: 'Потолок',
-      body: 'Ударный и воздушный шум может передаваться напрямую через перекрытие и обходными путями через стены и узлы.',
-      svg: `
+      body: 'Шум сверху может идти прямо через перекрытие — или обходить его через стены и стыки. Без проверки легко обработать не то.',
+      svg: () => `
         <text x="16" y="22" class="viz-label">ПЕРЕКРЫТИЕ · УДАРНЫЙ И ВОЗДУШНЫЙ ШУМ</text>
-        <rect x="50" y="80" width="260" height="40" fill="rgba(47,125,255,0.1)" stroke="#2F7DFF" stroke-width="1.5"/>
-        <text x="60" y="105" class="viz-label">плита перекрытия</text>
-        <rect x="50" y="40" width="120" height="40" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)"/>
-        <text x="60" y="65" class="viz-label">верхний этаж</text>
-        <rect x="50" y="120" width="120" height="50" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)"/>
-        <text x="60" y="150" class="viz-label">ваше помещение</text>
-        <path d="M110 75 L110 85" stroke="#2F7DFF" stroke-width="2"/>
-        <path d="M105 70 L110 85 L115 70" fill="none" stroke="#2F7DFF" stroke-width="1.5"/>
-        <path d="M200 80 L260 80 L260 140 L200 140" fill="none" stroke="#78B4FF" stroke-width="1" stroke-dasharray="5 3"/>
-        <text x="210" y="165" class="viz-label">обход через стену</text>
-        ${CIAViz.reduced() ? '' : '<circle r="3" fill="#2F7DFF"><animateMotion path="M110 70 L110 120" dur="1.5s" repeatCount="indefinite"/></circle><circle r="3" fill="#78B4FF"><animateMotion path="M200 80 L260 80 L260 140" dur="2.5s" repeatCount="indefinite"/></circle>'}
+        <rect x="64" y="48" width="108" height="46" class="viz-frame"/>
+        <rect x="64" y="94" width="108" height="30" class="viz-zone"/>
+        <rect x="64" y="124" width="108" height="74" class="viz-frame"/>
+        <rect x="172" y="48" width="32" height="150" class="viz-zone--muted"/>
+        <text x="78" y="76" class="viz-label">верхний этаж</text>
+        <text x="72" y="114" class="viz-label viz-label--active">плита перекрытия</text>
+        <text x="78" y="162" class="viz-label">ваше помещение</text>
+        <circle cx="118" cy="62" r="5" class="viz-node"/>
+        <path d="M118 70 V124" class="viz-path" marker-end="url(#arrow)"/>
+        <path d="M172 110 H188 V166 H118" class="viz-path viz-path--soft" marker-end="url(#arrowSoft)"/>
+        <text x="210" y="142" class="viz-label">обход через стену</text>
+        ${movingDot('M118 70 V124', '#2F7DFF', '1.8s')}
+        ${movingDot('M172 110 H188 V166 H118', '#78B4FF', '3s')}
       `,
     },
     floor: {
       title: 'Пол',
-      body: 'Стяжка, покрытие, основание и связь с соседними конструкциями определяют распространение ударной энергии.',
-      svg: `
+      body: 'Стуки, шаги и техника передают удар через стяжку и перекрытие. Важны покрытие, основание и связь с соседними конструкциями.',
+      svg: () => `
         <text x="16" y="22" class="viz-label">ПОЛ · УДАРНАЯ ЭНЕРГИЯ</text>
-        <rect x="60" y="50" width="240" height="30" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)"/>
-        <text x="70" y="70" class="viz-label">покрытие</text>
-        <rect x="60" y="80" width="240" height="35" fill="rgba(47,125,255,0.08)" stroke="#2F7DFF" stroke-width="1"/>
-        <text x="70" y="102" class="viz-label">стяжка</text>
-        <rect x="60" y="115" width="240" height="50" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)"/>
-        <text x="70" y="145" class="viz-label">основание / перекрытие</text>
-        <circle cx="180" cy="65" r="8" fill="rgba(47,125,255,0.15)" stroke="#2F7DFF"/>
-        <path d="M180 73 L180 115" stroke="#2F7DFF" stroke-width="2" stroke-dasharray="4 2"/>
-        <path d="M180 115 L180 165" stroke="#78B4FF" stroke-width="1.5"/>
-        <text x="195" y="90" class="viz-label">удар</text>
-        ${CIAViz.reduced() ? '' : '<circle r="3" fill="#2F7DFF"><animateMotion path="M180 73 L180 165" dur="1.8s" repeatCount="indefinite"/></circle>'}
+        <rect x="64" y="58" width="180" height="32" class="viz-zone--muted"/>
+        <rect x="64" y="90" width="180" height="38" class="viz-zone"/>
+        <rect x="64" y="128" width="180" height="54" class="viz-zone--muted"/>
+        <text x="78" y="78" class="viz-label">покрытие</text>
+        <text x="78" y="115" class="viz-label viz-label--active">стяжка</text>
+        <text x="78" y="158" class="viz-label">основание / перекрытие</text>
+        <circle cx="154" cy="74" r="8" class="viz-node viz-node--soft"/>
+        <text x="170" y="82" class="viz-label">удар</text>
+        <path d="M154 82 V182" class="viz-path" stroke-dasharray="6 4"/>
+        <path d="M110 128 H198" class="viz-path viz-path--soft"/>
+        ${movingDot('M154 82 V182', '#2F7DFF', '1.8s')}
       `,
     },
     joints: {
       title: 'Примыкания',
-      body: 'Даже сильная конструкция теряет эффективность в слабом узле. Особое внимание требуется стыкам, швам и проходкам.',
-      svg: `
+      body: 'Даже сильная стена «протекает» звуком в слабом стыке — шве, проходке или углу. Именно такие места часто упускают.',
+      svg: () => `
         <text x="16" y="22" class="viz-label">УЗЕЛ ПРИМЫКАНИЯ · СЛАБОЕ ЗВЕНО</text>
-        <rect x="80" y="60" width="100" height="140" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)"/>
-        <rect x="180" y="100" width="100" height="100" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.12)"/>
-        <path d="M180 100 L180 200" stroke="#2F7DFF" stroke-width="2.5"/>
-        <rect x="172" y="130" width="16" height="40" fill="rgba(47,125,255,0.15)" stroke="#78B4FF" stroke-width="1"/>
-        <text x="155" y="125" class="viz-label viz-label--active">стык</text>
-        <path d="M60 120 L172 140" stroke="#2F7DFF" stroke-width="1.5" opacity="0.8"/>
-        <path d="M172 140 L280 160" stroke="#78B4FF" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>
-        ${CIAViz.reduced() ? '' : '<circle r="3" fill="#2F7DFF"><animateMotion path="M60 120 L172 140 L280 160" dur="3s" repeatCount="indefinite"/></circle>'}
+        <rect x="64" y="48" width="96" height="100" class="viz-zone--muted"/>
+        <rect x="120" y="148" width="124" height="52" class="viz-zone--muted"/>
+        <rect x="152" y="132" width="20" height="32" class="viz-zone"/>
+        <text x="128" y="124" class="viz-label viz-label--active">стык / шов</text>
+        <path d="M72 98 H144" class="viz-path"/>
+        <path d="M164 148 V168 H220" class="viz-path viz-path--soft" marker-end="url(#arrowSoft)"/>
+        <circle cx="72" cy="98" r="4" class="viz-node"/>
+        ${movingDot('M72 98 H144 L164 168 H220', '#2F7DFF', '3s')}
       `,
     },
     engineering: {
       title: 'Инженерные системы',
-      body: 'Вентиляция, трубы, шахты и оборудование могут проводить и излучать шум между помещениями.',
-      svg: `
+      body: 'Вентиляция, трубы и шахты часто проводят звук между комнатами — мимо стен, которые кажутся «главной проблемой».',
+      svg: () => `
         <text x="16" y="22" class="viz-label">ИНЖЕНЕРНЫЕ КОММУНИКАЦИИ</text>
-        <rect x="50" y="50" width="100" height="150" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)"/>
-        <rect x="200" y="50" width="100" height="150" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)"/>
-        <rect x="150" y="70" width="50" height="110" fill="none" stroke="#78B4FF" stroke-width="1" stroke-dasharray="5 3"/>
-        <text x="158" y="65" class="viz-label">шахта</text>
-        <ellipse cx="175" cy="100" rx="18" ry="10" fill="none" stroke="#2F7DFF" stroke-width="1.5"/>
-        <text x="155" y="130" class="viz-label">вентиляция</text>
-        <line x1="175" y1="110" x2="175" y2="180" stroke="#2F7DFF" stroke-width="2"/>
-        <path d="M100 120 L150 120 L175 140 L200 160" fill="none" stroke="#78B4FF" stroke-width="1.5"/>
-        ${CIAViz.reduced() ? '' : '<circle r="3" fill="#2F7DFF"><animateMotion path="M100 120 L150 120 L175 140 L200 160" dur="2.5s" repeatCount="indefinite"/></circle>'}
+        <rect x="64" y="54" width="80" height="142" class="viz-zone--muted"/>
+        <rect x="196" y="54" width="80" height="142" class="viz-zone--muted"/>
+        <rect x="144" y="68" width="52" height="114" fill="none" stroke="#78B4FF" stroke-width="1" stroke-dasharray="6 5"/>
+        <text x="156" y="62" class="viz-label viz-label--active">шахта</text>
+        <ellipse cx="170" cy="100" rx="18" ry="9" class="viz-zone"/>
+        <path d="M170 109 V182" class="viz-path"/>
+        <text x="154" y="132" class="viz-label">вентиляция</text>
+        <path d="M104 124 H144 L170 146 L196 168" class="viz-path viz-path--soft"/>
+        <circle cx="104" cy="124" r="4" class="viz-node"/>
+        ${movingDot('M104 124 H144 L170 146 L196 168', '#78B4FF', '2.7s')}
       `,
     },
     acoustics: {
       title: 'Акустика внутри',
-      body: 'Отражения, реверберация и геометрия влияют на разборчивость речи, звучание музыки и общий комфорт.',
-      svg: `
+      body: 'Эхо, гул и отражения влияют на разборчивость речи и комфорт — даже когда снаружи уже тихо. Это отдельная часть задачи.',
+      svg: () => `
         <text x="16" y="22" class="viz-label">АКУСТИКА ПОМЕЩЕНИЯ · ОТРАЖЕНИЯ</text>
-        <rect x="70" y="55" width="210" height="140" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.12)"/>
-        <circle cx="110" cy="160" r="8" fill="rgba(47,125,255,0.2)" stroke="#2F7DFF"/>
-        <text x="95" y="185" class="viz-label">источник</text>
-        <circle cx="220" cy="100" r="6" fill="rgba(120,180,255,0.15)" stroke="#78B4FF"/>
-        <text x="200" y="90" class="viz-label">микрофон</text>
-        <path d="M110 160 L70 80" stroke="#2F7DFF" stroke-width="1" opacity="0.5"/>
-        <path d="M110 160 L280 80" stroke="#2F7DFF" stroke-width="1" opacity="0.5"/>
-        <path d="M110 160 L70 195" stroke="#78B4FF" stroke-width="1" opacity="0.4"/>
-        <path d="M110 160 L220 100" stroke="#78B4FF" stroke-width="1.5" opacity="0.7"/>
-        <path d="M70 80 L280 80 L280 195 L70 195 Z" fill="none" stroke="rgba(47,125,255,0.2)" stroke-dasharray="3 5"/>
-        ${CIAViz.reduced() ? '' : '<circle r="2.5" fill="#78B4FF"><animateMotion path="M110 160 L220 100" dur="1.5s" repeatCount="indefinite"/></circle><circle r="2.5" fill="#2F7DFF"><animateMotion path="M110 160 L70 80 L280 80" dur="3s" repeatCount="indefinite"/></circle>'}
+        <rect x="64" y="58" width="180" height="132" class="viz-frame"/>
+        <path d="M64 190 L244 58" class="viz-line"/>
+        <path d="M64 58 H244" class="viz-grid"/>
+        <circle cx="100" cy="154" r="8" class="viz-node viz-node--soft"/>
+        <text x="82" y="178" class="viz-label">источник</text>
+        <circle cx="210" cy="104" r="6" class="viz-node viz-node--soft"/>
+        <text x="188" y="92" class="viz-label">микрофон</text>
+        <path d="M100 154 L210 104" class="viz-path"/>
+        <path d="M100 154 L64 72 H244" class="viz-path viz-path--soft"/>
+        <path d="M100 154 L64 190 H244" class="viz-path viz-path--soft" opacity="0.48"/>
+        ${movingDot('M100 154 L210 104', '#78B4FF', '1.7s')}
+        ${movingDot('M100 154 L64 72 H244', '#2F7DFF', '3.2s')}
       `,
     },
   };
@@ -122,8 +132,8 @@
       const data = ZONE_DATA[zone];
       if (!data) return;
 
-      const arrowDef = `<defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2F7DFF"/></marker></defs>`;
-      svg = CIAViz.mount(container, '0 0 340 240', arrowDef + data.svg);
+      const arrowDef = `<defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2F7DFF"/></marker><marker id="arrowSoft" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#78B4FF"/></marker></defs>`;
+      svg = CIAViz.mount(container, '0 0 340 240', arrowDef + data.svg());
 
       if (titleEl) titleEl.textContent = data.title;
       if (bodyEl) bodyEl.textContent = data.body;
@@ -146,6 +156,8 @@
     });
 
     setZone('walls');
+
+    window.CIARoomLayers = { setZone };
   }
 
   if (document.readyState === 'loading') {

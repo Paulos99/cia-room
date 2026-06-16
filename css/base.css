@@ -11,6 +11,27 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+html.has-smooth-scroll {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -160,4 +181,25 @@ p + p {
 ::selection {
   background: rgba(47, 125, 255, 0.3);
   color: var(--color-text);
+}
+
+/* Motion: initial hidden state before GSAP reveals (html.js set in main.js) */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+html.js [data-reveal='fade'] {
+  transform: none;
+}
+
+html.js [data-reveal='scale'] {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }

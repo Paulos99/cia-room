@@ -153,6 +153,11 @@
   transition: color var(--duration-fast), opacity var(--duration-fast);
 }
 
+.header__nav-idx:empty,
+.header__nav-idx[hidden] {
+  display: none;
+}
+
 .header__nav-link:hover {
   color: var(--color-text);
   background: rgba(255, 255, 255, 0.04);

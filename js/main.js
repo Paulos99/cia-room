@@ -93,6 +93,11 @@
       burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
       nav.classList.toggle('is-open', open);
       document.body.classList.toggle('nav-open', open);
+      const lenis = window.CIA_SMOOTH_SCROLL?.lenis;
+      if (lenis) {
+        if (open) lenis.stop();
+        else lenis.start();
+      }
     };
 
     burger.addEventListener('click', () => {
@@ -114,8 +119,17 @@
     const id = hash.replace('#', '');
     const target = document.getElementById(id);
     if (!target) return;
-    const top = target.getBoundingClientRect().top + window.scrollY - getHeaderOffset() + 1;
-    window.scrollTo({ top, behavior: 'smooth' });
+
+    const offset = -getHeaderOffset() + 1;
+    const lenis = window.CIA_SMOOTH_SCROLL?.lenis;
+
+    if (lenis) {
+      lenis.scrollTo(target, { offset, duration: 1.35 });
+    } else {
+      const top = target.getBoundingClientRect().top + window.scrollY + offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+
     if (replace) {
       history.replaceState(null, '', '#' + id);
     }
@@ -138,7 +152,28 @@
     }
   }
 
+  function syncNavIndices() {
+    document.querySelectorAll('.header__nav-link[data-nav]').forEach((link) => {
+      const idxEl = link.querySelector('.header__nav-idx');
+      if (!idxEl) return;
+
+      const section = document.getElementById(link.getAttribute('data-nav'));
+      const label = section?.querySelector('.section-label');
+      const match = label?.textContent.trim().match(/^(\d{2})\s*\//);
+
+      if (match) {
+        idxEl.textContent = match[1];
+        idxEl.hidden = false;
+      } else {
+        idxEl.textContent = '';
+        idxEl.hidden = true;
+      }
+    });
+  }
+
   function initNavSpy() {
+    syncNavIndices();
+
     const links = new Map();
     document.querySelectorAll('.header__nav-link[data-nav]').forEach((link) => {
       links.set(link.getAttribute('data-nav'), link);
@@ -184,6 +219,7 @@
   }
 
   function boot() {
+    document.documentElement.classList.add('js');
     injectContacts();
     initHeaderScroll();
     initMobileMenu();

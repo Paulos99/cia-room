@@ -40,8 +40,8 @@
   /* Layout */
   --container-max: 72rem;
   --container-narrow: 42rem;
-  --header-height: 4.5rem;
-  --header-height-scrolled: 3.5rem;
+  --header-height: 5.5rem;
+  --header-height-scrolled: 4rem;
 
   /* Radius */
   --radius-sm: 2px;

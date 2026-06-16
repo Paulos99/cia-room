@@ -36,22 +36,33 @@
   <a href="#main" class="skip-link">Перейти к содержимому</a>
 
   <header class="header" id="header">
-    <div class="container header__inner">
+    <div class="header__shell container">
       <a href="#" class="header__brand" aria-label="ЦИА — на главную">
-        <span class="header__logo">ЦИА</span>
-        <span class="header__tagline">Центр инновационной акустики</span>
-        <span class="header__direction">ПОМЕЩЕНИЯ</span>
+        <svg class="header__mark" width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
+          <rect x="1" y="1" width="34" height="34" rx="4" fill="none" stroke="rgba(47,125,255,0.5)" stroke-width="1"/>
+          <path d="M8 24 Q18 10 28 24" fill="none" stroke="#2F7DFF" stroke-width="1.5"/>
+          <circle cx="18" cy="16" r="2" fill="#78B4FF"/>
+        </svg>
+        <span class="header__brand-col">
+          <span class="header__logo-row">
+            <span class="header__logo">ЦИА</span>
+            <span class="header__pill">Помещения</span>
+          </span>
+          <span class="header__tagline">Центр инновационной акустики</span>
+        </span>
       </a>
       <nav class="header__nav" aria-label="Основная навигация">
-        <a href="#about-cia" class="header__nav-link" data-nav="about-cia">О ЦИА</a>
-        <a href="#why" class="header__nav-link" data-nav="why">Зачем проектировать</a>
-        <a href="#services" class="header__nav-link" data-nav="services">Услуги</a>
-        <a href="#process" class="header__nav-link" data-nav="process">Как работаем</a>
-        <a href="#objects" class="header__nav-link" data-nav="objects">Для каких объектов</a>
-        <a href="#faq" class="header__nav-link" data-nav="faq">Вопросы</a>
+        <div class="header__nav-inner">
+          <a href="#about-cia" class="header__nav-link" data-nav="about-cia"><span class="header__nav-idx">01</span>О ЦИА</a>
+          <a href="#why" class="header__nav-link" data-nav="why"><span class="header__nav-idx">02</span>Зачем проектировать</a>
+          <a href="#services" class="header__nav-link" data-nav="services"><span class="header__nav-idx">03</span>Услуги</a>
+          <a href="#process" class="header__nav-link" data-nav="process"><span class="header__nav-idx">04</span>Как работаем</a>
+          <a href="#objects" class="header__nav-link" data-nav="objects"><span class="header__nav-idx">05</span>Объекты</a>
+          <a href="#faq" class="header__nav-link" data-nav="faq"><span class="header__nav-idx">06</span>Вопросы</a>
+        </div>
       </nav>
       <div class="header__actions">
-        <a href="#lead" class="btn btn--primary btn--sm header__cta" data-analytics="header_cta">Обсудить объект</a>
+        <a href="#lead" class="btn btn--primary btn--sm header__cta" data-analytics="header_cta">Обсудить объект <span class="btn__arrow" aria-hidden="true">→</span></a>
         <button class="header__burger" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню">
           <span></span><span></span><span></span>
         </button>
@@ -173,6 +184,11 @@
           <p class="section-intro">Два уровня работы связаны: замер даёт данные, проектирование переводит их в конструктивное решение. Выберите услугу — раскроется состав и результат.</p>
         </div>
 
+        <div class="services__tabs" role="tablist" aria-label="Переключение услуг">
+          <button type="button" class="services__tab is-active" role="tab" aria-selected="true" data-target="measurement">Замеры</button>
+          <button type="button" class="services__tab" role="tab" aria-selected="false" data-target="design">Проектирование</button>
+        </div>
+
         <div class="services__showcase" id="services-showcase">
           <article class="service-panel is-active" data-service="measurement" id="service-measurement">
             <figure class="media-slot service-panel__media" data-image="assets/images/service-measurement.jpg">
@@ -243,11 +259,6 @@
               <a href="#lead" class="btn btn--primary service-panel__cta" data-analytics="service_design_click">Обсудить проектирование <span class="btn__arrow" aria-hidden="true">→</span></a>
             </div>
           </article>
-        </div>
-
-        <div class="services__tabs" role="tablist" aria-label="Переключение услуг">
-          <button type="button" class="services__tab is-active" role="tab" aria-selected="true" data-target="measurement">Замеры</button>
-          <button type="button" class="services__tab" role="tab" aria-selected="false" data-target="design">Проектирование</button>
         </div>
 
         <div class="services__chain" id="services-chain">

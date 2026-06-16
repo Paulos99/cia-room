@@ -71,24 +71,4 @@
       }
     });
   });
-
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduced && showcase) {
-      gsap.registerPlugin(ScrollTrigger);
-      panels.forEach((panel) => {
-        gsap.from(panel, {
-          opacity: 0,
-          y: 48,
-          duration: 0.9,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: panel,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-        });
-      });
-    }
-  }
 })();

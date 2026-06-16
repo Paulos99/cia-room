@@ -85,12 +85,12 @@
 
     gsap.utils.toArray('.service-panel').forEach((el, i) => {
       gsap.from(el, {
-        opacity: 0,
-        y: 32,
-        duration: 0.8,
-        delay: i * 0.12,
+        y: 24,
+        duration: 0.7,
+        delay: i * 0.08,
         ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+        clearProps: 'transform',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
       });
     });
 

@@ -384,13 +384,10 @@
 
     const markerPositions = () => {
       const trackRect = track.getBoundingClientRect();
-      const horizontal = isDesktop() || isMobileViewport();
       return Array.from(steps).map((step) => {
         const marker = step.querySelector('.process__step-marker');
         const rect = (marker || step).getBoundingClientRect();
-        return horizontal
-          ? rect.left + rect.width / 2 - trackRect.left
-          : rect.top + rect.height / 2 - trackRect.top;
+        return rect.left + rect.width / 2 - trackRect.left;
       });
     };
 
@@ -407,17 +404,9 @@
     const applyPulse = (progress) => {
       const positions = markerPositions();
       const pos = interpolate(positions, progress);
-      const horizontal = isDesktop() || isMobileViewport();
-
-      if (horizontal) {
-        pulse.style.left = pos - 4 + 'px';
-        pulse.style.top = '20px';
-        if (lineFill) lineFill.style.width = Math.max(0, pos) + 'px';
-      } else {
-        pulse.style.top = pos - 4 + 'px';
-        pulse.style.left = '19px';
-        if (lineFill) lineFill.style.height = Math.max(0, pos) + 'px';
-      }
+      pulse.style.left = pos - 4 + 'px';
+      pulse.style.top = '20px';
+      if (lineFill) lineFill.style.width = Math.max(0, pos) + 'px';
     };
 
     const setStepStates = (progress) => {

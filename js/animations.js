@@ -25,6 +25,14 @@
     return window.matchMedia('(min-width: 768px)').matches;
   }
 
+  function isMobileViewport() {
+    return window.matchMedia('(max-width: 767px)').matches;
+  }
+
+  function revealStart() {
+    return isMobileViewport() ? 'top 94%' : 'top 82%';
+  }
+
   function revealFrom(trigger, elements, options) {
     const els = gsap.utils.toArray(elements);
     if (!els.length) return;
@@ -34,7 +42,7 @@
       duration: 0.8,
       ease: 'power3.out',
       stagger: 0.1,
-      scrollTrigger: { trigger, start: 'top 82%', once: true },
+      scrollTrigger: { trigger, start: revealStart(), once: true },
       ...options,
     });
   }
@@ -341,20 +349,21 @@
 
   function initProcessPulse() {
     const track = document.getElementById('process-track');
+    const stepsContainer = document.getElementById('process-steps');
     const pulse = document.getElementById('process-pulse');
     const lineFill = document.getElementById('process-line-fill');
-    const steps = track ? track.querySelectorAll('.process__step') : [];
+    const steps = stepsContainer ? stepsContainer.querySelectorAll('.process__step') : [];
     if (!track || !pulse || !steps.length) return;
 
     const isDesktop = () => window.matchMedia('(min-width: 768px)').matches;
 
     const markerPositions = () => {
       const trackRect = track.getBoundingClientRect();
-      const desktop = isDesktop();
+      const horizontal = isDesktop() || isMobileViewport();
       return Array.from(steps).map((step) => {
         const marker = step.querySelector('.process__step-marker');
         const rect = (marker || step).getBoundingClientRect();
-        return desktop
+        return horizontal
           ? rect.left + rect.width / 2 - trackRect.left
           : rect.top + rect.height / 2 - trackRect.top;
       });
@@ -391,9 +400,9 @@
     const updateProgress = (progress) => {
       const positions = markerPositions();
       const pos = interpolate(positions, progress);
-      const desktop = isDesktop();
+      const horizontal = isDesktop() || isMobileViewport();
 
-      if (desktop) {
+      if (horizontal) {
         pulse.style.left = pos - 4 + 'px';
         pulse.style.top = '20px';
         if (lineFill) lineFill.style.width = Math.max(0, pos) + 'px';
@@ -413,9 +422,9 @@
         lineFill.style.height = '0';
       }
       const positions = markerPositions();
-      const desktop = isDesktop();
+      const horizontal = isDesktop() || isMobileViewport();
       const start = positions[0] || 0;
-      if (desktop) {
+      if (horizontal) {
         pulse.style.left = start - 4 + 'px';
         pulse.style.top = '20px';
       } else {
@@ -423,6 +432,35 @@
         pulse.style.left = '19px';
       }
     };
+
+    const getMobileScrollProgress = () => {
+      if (!stepsContainer) return 0;
+      const maxScroll = stepsContainer.scrollWidth - stepsContainer.clientWidth;
+      if (maxScroll <= 0) return 0;
+      return stepsContainer.scrollLeft / maxScroll;
+    };
+
+    const bindMobileProcessScroll = () => {
+      if (!stepsContainer) return;
+
+      let frame = 0;
+      const onScroll = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          updateProgress(getMobileScrollProgress());
+        });
+      };
+
+      stepsContainer.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      onScroll();
+    };
+
+    if (isMobileViewport()) {
+      bindMobileProcessScroll();
+      return;
+    }
 
     const processEnd = isDesktop() ? 'top 38%' : 'top 22%';
 
@@ -447,6 +485,49 @@
     window.addEventListener('resize', () => {
       updateProgress(processTrigger.progress);
     });
+  }
+
+  function initStuckRevealFallback() {
+    if (!isMobileViewport()) return;
+
+    const revealSelectors = [
+      '.section-label',
+      '.section-title',
+      '.why__reason',
+      '.service-panel__media',
+      '.service-panel__body',
+      '.object-card',
+      '.accordion__item',
+      '.process__step-marker',
+      '.principle',
+    ];
+
+    let timer = 0;
+    const unlockVisible = () => {
+      revealSelectors.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((el) => {
+          const style = window.getComputedStyle(el);
+          if (style.opacity === '0' || Number(style.opacity) < 0.05) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.96 && rect.bottom > 0) {
+              gsap.set(el, { clearProps: 'opacity,transform,scale,clipPath' });
+            }
+          }
+        });
+      });
+    };
+
+    const schedule = () => {
+      clearTimeout(timer);
+      timer = setTimeout(unlockVisible, 120);
+    };
+
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('load', () => {
+      schedule();
+      setTimeout(unlockVisible, 800);
+    });
+    schedule();
   }
 
   function initScrollRefresh() {
@@ -482,6 +563,7 @@
     }
 
     gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
 
     initHeroMotion();
     initSectionReveals();
@@ -491,6 +573,7 @@
     initObjectsFaqLead();
     initResultReveal();
     initProcessPulse();
+    initStuckRevealFallback();
     initScrollRefresh();
   }
 

@@ -72,12 +72,16 @@
     }
   }
 
+  function getScrollY() {
+    return window.CIA_SMOOTH_SCROLL?.lenis?.scroll ?? window.scrollY;
+  }
+
   function initHeaderScroll() {
     const header = document.getElementById('header');
     if (!header) return;
 
     const onScroll = () => {
-      header.classList.toggle('is-scrolled', window.scrollY > 8);
+      header.classList.toggle('is-scrolled', getScrollY() > 8);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -216,13 +220,17 @@
     const lead = document.getElementById('lead');
     if (!bar || !hero) return;
 
+    let visible = false;
+
     const update = () => {
       const heroBottom = hero.getBoundingClientRect().bottom;
-      const leadVisible = lead && lead.getBoundingClientRect().top < window.innerHeight * 0.85;
-      const show = heroBottom < 0 && !leadVisible;
+      const leadVisible = lead && lead.getBoundingClientRect().top < window.innerHeight * 0.88;
+      const show = heroBottom < -32 && !leadVisible;
+
+      if (show === visible) return;
+      visible = show;
       bar.classList.toggle('is-visible', show);
       bar.classList.toggle('is-hidden', leadVisible);
-      document.body.classList.toggle('has-mobile-cta-padding', show && !leadVisible);
     };
 
     update();

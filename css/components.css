@@ -679,15 +679,18 @@
   border-top: 1px solid var(--color-line);
   backdrop-filter: blur(8px);
   transform: translateY(100%);
-  transition: transform var(--duration-normal) var(--ease-out);
+  visibility: hidden;
+  transition: transform var(--duration-normal) var(--ease-out), visibility var(--duration-normal) var(--ease-out);
 }
 
 .mobile-cta.is-visible {
   transform: translateY(0);
+  visibility: visible;
 }
 
 .mobile-cta.is-hidden {
-  display: none;
+  transform: translateY(100%);
+  visibility: hidden;
 }
 
 @media (max-width: 767px) {

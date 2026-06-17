@@ -53,9 +53,26 @@ body.nav-open {
   overflow: hidden;
 }
 
+/* Horizontal scroll rails on mobile */
+.scroll-rail {
+  position: relative;
+}
+
 @media (max-width: 767px) {
-  body.has-mobile-cta-padding {
-    padding-bottom: calc(var(--mobile-cta-height) + env(safe-area-inset-bottom, 0px));
+  .scroll-rail {
+    --scroll-rail-gutter: clamp(1rem, 4vw, 2rem);
+    margin-inline: calc(-1 * var(--scroll-rail-gutter));
+    padding-inline: var(--scroll-rail-gutter);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-padding-inline: var(--scroll-rail-gutter);
+  }
+
+  .scroll-rail::-webkit-scrollbar {
+    display: none;
   }
 }
 

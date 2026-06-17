@@ -160,6 +160,37 @@
         }
       });
     });
+
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      let frame = 0;
+      const syncActiveFromScroll = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          const railCenter = grid.getBoundingClientRect().left + grid.clientWidth / 2;
+          let closest = cards[0];
+          let closestDistance = Infinity;
+
+          cards.forEach((card) => {
+            const rect = card.getBoundingClientRect();
+            const cardCenter = rect.left + rect.width / 2;
+            const distance = Math.abs(cardCenter - railCenter);
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closest = card;
+            }
+          });
+
+          if (!closest.classList.contains('is-active')) {
+            cards.forEach((c) => c.classList.remove('is-active'));
+            closest.classList.add('is-active');
+          }
+        });
+      };
+
+      grid.addEventListener('scroll', syncActiveFromScroll, { passive: true });
+      syncActiveFromScroll();
+    }
   }
 
   if (document.readyState === 'loading') {

@@ -5,8 +5,12 @@
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
+  function isMobileViewport() {
+    return window.matchMedia('(max-width: 767px)').matches;
+  }
+
   function initSmoothScroll() {
-    if (prefersReducedMotion() || typeof Lenis === 'undefined') return null;
+    if (prefersReducedMotion() || typeof Lenis === 'undefined' || isMobileViewport()) return null;
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -14,9 +18,8 @@
       lerp: 0.085,
       smoothWheel: true,
       wheelMultiplier: 0.85,
-      touchMultiplier: 1.1,
-      syncTouch: true,
-      syncTouchLerp: 0.08,
+      touchMultiplier: 1,
+      syncTouch: false,
     });
 
     document.documentElement.classList.add('has-smooth-scroll');

@@ -64,7 +64,7 @@
     root.scale.setScalar(0.56);
     scene.add(root);
 
-    const shellPoints = isMobile ? 3000 : 8000;
+    const shellPoints = 3000;
     const geo = new THREE.BufferGeometry();
     const posArray = new Float32Array(shellPoints * 3);
     const normArray = new Float32Array(shellPoints * 3);

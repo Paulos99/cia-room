@@ -10,6 +10,8 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
 html.has-smooth-scroll {
@@ -45,35 +47,14 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
+  overscroll-behavior-x: none;
   -webkit-font-smoothing: antialiased;
 }
 
 body.nav-open {
   overflow: hidden;
-}
-
-/* Horizontal scroll rails on mobile */
-.scroll-rail {
-  position: relative;
-}
-
-@media (max-width: 767px) {
-  .scroll-rail {
-    --scroll-rail-gutter: clamp(1rem, 4vw, 2rem);
-    margin-inline: calc(-1 * var(--scroll-rail-gutter));
-    padding-inline: var(--scroll-rail-gutter);
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    scroll-padding-inline: var(--scroll-rail-gutter);
-  }
-
-  .scroll-rail::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 img,
@@ -130,6 +111,12 @@ ol {
   max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+@media (max-width: 767px) {
+  .container {
+    overflow-x: clip;
+  }
 }
 
 .container--narrow {

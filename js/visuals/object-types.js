@@ -162,12 +162,15 @@
     });
 
     if (window.matchMedia('(max-width: 767px)').matches) {
+      const viewport = document.getElementById('objects-viewport');
+      if (!viewport) return;
+
       let frame = 0;
       const syncActiveFromScroll = () => {
         if (frame) return;
         frame = requestAnimationFrame(() => {
           frame = 0;
-          const railCenter = grid.getBoundingClientRect().left + grid.clientWidth / 2;
+          const railCenter = viewport.getBoundingClientRect().left + viewport.clientWidth / 2;
           let closest = cards[0];
           let closestDistance = Infinity;
 
@@ -188,7 +191,7 @@
         });
       };
 
-      grid.addEventListener('scroll', syncActiveFromScroll, { passive: true });
+      viewport.addEventListener('scroll', syncActiveFromScroll, { passive: true });
       syncActiveFromScroll();
     }
   }

@@ -281,7 +281,13 @@
 
         <div class="services__chain" id="services-chain">
           <p class="services__chain-label">Инженерный цикл</p>
-          <div class="services__chain-track scroll-rail" id="services-chain-track">
+          <div class="mobile-carousel mobile-carousel--chain" data-mobile-carousel>
+            <p class="mobile-carousel__hint" aria-hidden="true">
+              <span>Листайте этапы</span>
+              <svg class="mobile-carousel__hint-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </p>
+            <div class="mobile-carousel__viewport" id="services-chain-viewport" tabindex="0" role="region" aria-label="Этапы инженерного цикла">
+              <div class="services__chain-track" id="services-chain-track">
             <button type="button" class="services__chain-step is-active" data-chain="0">ФАКТ</button>
             <span class="services__chain-line" aria-hidden="true"><span class="services__chain-pulse"></span></span>
             <button type="button" class="services__chain-step" data-chain="1">ЦЕЛЬ И МОДЕЛЬ</button>
@@ -291,6 +297,9 @@
             <button type="button" class="services__chain-step" data-chain="3">РЕАЛИЗАЦИЯ</button>
             <span class="services__chain-line" aria-hidden="true"><span class="services__chain-pulse"></span></span>
             <button type="button" class="services__chain-step" data-chain="4">ПОДТВЕРЖДЕНИЕ</button>
+              </div>
+              <div class="mobile-carousel__edge" aria-hidden="true"></div>
+            </div>
           </div>
           <p class="services__chain-desc" id="chain-desc">Фиксируем факт: жалобу заказчика, назначение помещения, состояние конструкций, уровни и характер акустического воздействия.</p>
           <p class="services__chain-note">Состав цикла определяется задачей объекта. Для локальной проблемы может быть достаточно обследования и рекомендаций. Для комплексных пространств требуется проект, контроль критических узлов и проверка результата.</p>
@@ -337,7 +346,13 @@
             <div class="process__line-fill" id="process-line-fill"></div>
           </div>
           <div class="process__pulse" id="process-pulse" aria-hidden="true"></div>
-          <div class="process__steps scroll-rail" id="process-steps">
+          <div class="mobile-carousel mobile-carousel--process" data-mobile-carousel>
+            <p class="mobile-carousel__hint" aria-hidden="true">
+              <span>Листайте этапы</span>
+              <svg class="mobile-carousel__hint-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </p>
+            <div class="mobile-carousel__viewport" id="process-steps-viewport" tabindex="0" role="region" aria-label="Этапы процесса работы">
+              <div class="process__steps" id="process-steps">
             <article class="process__step">
               <div class="process__step-marker">01</div>
               <h3 class="process__step-title">Постановка задачи</h3>
@@ -368,6 +383,9 @@
               <h3 class="process__step-title">Проверка результата</h3>
               <p class="process__step-text">При согласованном формате проводим контрольные измерения, сравниваем план и факт и определяем причины отклонений.</p>
             </article>
+              </div>
+              <div class="mobile-carousel__edge" aria-hidden="true"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -411,7 +429,13 @@
       <div class="container">
         <p class="section-label">06 / ОБЛАСТИ ПРИМЕНЕНИЯ</p>
         <h2 class="section-title" id="objects-title">Акустические задачи жилых, коммерческих и специальных пространств</h2>
-        <div class="objects__grid scroll-rail" id="objects-grid">
+        <div class="mobile-carousel mobile-carousel--objects" data-mobile-carousel>
+          <p class="mobile-carousel__hint" aria-hidden="true">
+            <span>Листайте типы объектов</span>
+            <svg class="mobile-carousel__hint-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </p>
+          <div class="mobile-carousel__viewport" id="objects-viewport" tabindex="0" role="region" aria-label="Типы объектов">
+            <div class="objects__grid" id="objects-grid">
           <article class="object-card is-active" tabindex="0" data-object="apartment" data-analytics-object="apartment">
             <p class="object-card__index">01</p>
             <h3 class="object-card__title">Квартира</h3>
@@ -448,6 +472,9 @@
             <p class="object-card__text">Локализация источников, структурный шум и вибрация, инженерное оборудование, защита рабочих и смежных зон с учётом режима эксплуатации.</p>
             <div class="object-card__schematic" data-schematic="industrial"></div>
           </article>
+            </div>
+            <div class="mobile-carousel__edge" aria-hidden="true"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -458,7 +485,13 @@
         <p class="section-label">07 / ПОДХОД</p>
         <h2 class="section-title" id="approach-title">Три принципа инженерной ответственности</h2>
         <div class="principles__field">
-          <div class="principles__grid scroll-rail">
+          <div class="mobile-carousel mobile-carousel--on-secondary" data-mobile-carousel>
+            <p class="mobile-carousel__hint" aria-hidden="true">
+              <span>Листайте принципы</span>
+              <svg class="mobile-carousel__hint-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </p>
+            <div class="mobile-carousel__viewport" tabindex="0" role="region" aria-label="Принципы подхода">
+              <div class="principles__grid">
             <article class="principle">
               <p class="principle__index">01</p>
               <h3 class="principle__title">Факт до выбора решения</h3>
@@ -474,6 +507,9 @@
               <h3 class="principle__title">Прогноз и подтверждение</h3>
               <p class="principle__text">Фиксируем условия, при которых ожидается результат, задаём критерии приёмки и при необходимости сопоставляем расчётные показатели с измерениями после реализации.</p>
             </article>
+              </div>
+              <div class="mobile-carousel__edge" aria-hidden="true"></div>
+            </div>
           </div>
           <p class="principles__note">ЦИА создаёт общий инженерный язык для заказчика, архитектора, проектировщика и подрядчика.</p>
         </div>
@@ -767,6 +803,7 @@
   <script src="js/services.js"></script>
   <script src="js/faq.js"></script>
   <script src="js/form.js"></script>
+  <script src="js/carousel.js"></script>
   <script src="js/animations.js"></script>
   <script src="js/main.js"></script>
 </body>

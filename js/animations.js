@@ -434,14 +434,16 @@
     };
 
     const getMobileScrollProgress = () => {
-      if (!stepsContainer) return 0;
-      const maxScroll = stepsContainer.scrollWidth - stepsContainer.clientWidth;
+      const viewport = document.getElementById('process-steps-viewport');
+      if (!viewport) return 0;
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
       if (maxScroll <= 0) return 0;
-      return stepsContainer.scrollLeft / maxScroll;
+      return viewport.scrollLeft / maxScroll;
     };
 
     const bindMobileProcessScroll = () => {
-      if (!stepsContainer) return;
+      const viewport = document.getElementById('process-steps-viewport');
+      if (!viewport) return;
 
       let frame = 0;
       const onScroll = () => {
@@ -452,7 +454,7 @@
         });
       };
 
-      stepsContainer.addEventListener('scroll', onScroll, { passive: true });
+      viewport.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
       onScroll();
     };

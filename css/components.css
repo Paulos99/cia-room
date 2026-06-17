@@ -665,6 +665,106 @@
   margin-top: var(--space-xl);
 }
 
+/* Mobile carousel — contained horizontal swipe with peek + hint */
+.mobile-carousel {
+  --carousel-fade: var(--color-bg);
+  position: relative;
+}
+
+.mobile-carousel__hint,
+.mobile-carousel__edge {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-carousel__hint {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-tech);
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .mobile-carousel__hint-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    opacity: 0.85;
+    animation: carouselHintNudge 1.8s ease-in-out infinite;
+  }
+
+  @keyframes carouselHintNudge {
+    0%, 100% { transform: translateX(0); opacity: 0.7; }
+    50% { transform: translateX(4px); opacity: 1; }
+  }
+
+  .mobile-carousel.is-at-end .mobile-carousel__hint,
+  .mobile-carousel:not(.is-scrollable) .mobile-carousel__hint {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .mobile-carousel__viewport {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-x pan-y;
+  }
+
+  .mobile-carousel__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-carousel__viewport:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  .mobile-carousel__edge {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2.75rem;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent 0%, var(--carousel-fade) 88%);
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-out);
+    z-index: 2;
+  }
+
+  .mobile-carousel.is-scrollable:not(.is-at-end) .mobile-carousel__edge {
+    opacity: 1;
+  }
+
+  .mobile-carousel--on-secondary {
+    --carousel-fade: var(--color-bg-secondary);
+  }
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+  .mobile-carousel__hint-icon {
+    animation: none;
+  }
+}
+
 /* Mobile CTA bar */
 .mobile-cta {
   display: none;

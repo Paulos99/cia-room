@@ -111,6 +111,7 @@
   max-width: 480px;
   min-height: 280px;
   margin-inline: auto;
+  cursor: crosshair;
 }
 
 .why__reasons {

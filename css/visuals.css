@@ -42,12 +42,24 @@
 
 .viz-label--room {
   font-size: 10px;
-  fill: #a8b8c8;
+  fill: #b0c0d0;
 }
 
 .viz-label--caption {
   font-size: 9px;
-  fill: #788898;
+  fill: #8a9cb0;
+}
+
+.viz-label--path {
+  font-size: 9px;
+  fill: #c0d0e4;
+  letter-spacing: 0.04em;
+}
+
+.viz-label--hint {
+  font-size: 9px;
+  fill: #6e8094;
+  letter-spacing: 0.03em;
 }
 
 .viz-label--active {
@@ -143,6 +155,67 @@
 .viz-pulse {
   fill: #2F7DFF;
   opacity: 0.9;
+}
+
+/* Noise path diagram */
+.noise-path-label-bg {
+  fill: rgba(8, 14, 24, 0.88);
+  stroke: rgba(120, 180, 255, 0.22);
+  stroke-width: 0.75;
+  vector-effect: non-scaling-stroke;
+}
+
+.noise-path-group.is-active .noise-path-label-bg {
+  stroke: rgba(120, 180, 255, 0.55);
+}
+
+.noise-path-group.is-active .noise-path-label {
+  fill: #9ec8ff;
+}
+
+.noise-path-source-ring {
+  fill: rgba(47, 125, 255, 0.12);
+  stroke: #2F7DFF;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.noise-path-source-dot {
+  fill: #2F7DFF;
+}
+
+.noise-path-endpoint-ring {
+  fill: rgba(47, 125, 255, 0.1);
+  stroke: rgba(47, 125, 255, 0.55);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.noise-path-endpoint-ring--soft {
+  fill: rgba(120, 180, 255, 0.08);
+  stroke: rgba(120, 180, 255, 0.45);
+}
+
+.noise-path-endpoint {
+  fill: #2F7DFF;
+}
+
+.noise-path-endpoint--soft {
+  fill: #78B4FF;
+}
+
+.noise-path-vent-shaft {
+  fill: rgba(120, 180, 255, 0.12);
+  stroke: rgba(120, 180, 255, 0.4);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.noise-path-group .viz-path,
+.noise-path-label-wrap,
+.noise-path-endpoint,
+.noise-path-endpoint-ring {
+  transition: opacity 0.22s ease, stroke-width 0.22s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

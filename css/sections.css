@@ -276,6 +276,42 @@
   }
 }
 
+@media (max-width: 767px) {
+  .cia-identity__grid {
+    gap: var(--space-2xl);
+  }
+
+  .cia-identity__content {
+    display: contents;
+  }
+
+  .cia-identity__content .section-label { order: 1; }
+  .cia-identity__content .section-title { order: 2; }
+  .cia-identity__lead {
+    order: 3;
+    margin-bottom: 0;
+    max-width: none;
+  }
+
+  .cia-identity__grid > .media-slot {
+    order: 4;
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 16 / 11;
+  }
+
+  .cia-identity__flow {
+    order: 5;
+    margin-top: 0;
+    margin-bottom: var(--space-md);
+    max-width: none;
+  }
+
+  .cia-identity__detail {
+    order: 6;
+  }
+}
+
 .cia-identity__lead {
   font-size: var(--text-lg);
   color: var(--color-text-secondary);

@@ -21,14 +21,14 @@
           <stop offset="100%" stop-color="rgba(47,125,255,0.02)"/>
         </linearGradient>
       </defs>
-      <text x="24" y="30" class="viz-label">ЗАЯВКА → МОДЕЛЬ ОБЪЕКТА → РЕШЕНИЕ</text>
+      <text x="24" y="30" class="viz-label viz-label--title">ЗАДАЧА → МОДЕЛЬ ОБЪЕКТА → ПРОЕКТ</text>
 
       <g id="form-chaos" opacity="1">
         <rect x="36" y="74" width="108" height="42" rx="2" class="viz-zone--muted"/>
         <rect x="36" y="134" width="108" height="42" rx="2" class="viz-zone--muted"/>
         <rect x="36" y="194" width="108" height="42" rx="2" class="viz-zone--muted"/>
         <text x="52" y="100" class="viz-label">объект</text>
-        <text x="52" y="160" class="viz-label">проблема</text>
+        <text x="52" y="160" class="viz-label">задача</text>
         <text x="52" y="220" class="viz-label">контакт</text>
         <circle cx="124" cy="95" r="3" class="viz-node"/>
         <circle cx="124" cy="155" r="3" class="viz-node"/>
@@ -36,7 +36,7 @@
         <path d="M144 95 C168 95 174 126 196 126" class="viz-path viz-path--soft"/>
         <path d="M144 155 H196" class="viz-path viz-path--soft"/>
         <path d="M144 215 C168 215 174 184 196 184" class="viz-path viz-path--soft"/>
-        <text x="40" y="270" class="viz-label">данные заявки</text>
+        <text x="40" y="270" class="viz-label">исходные данные</text>
       </g>
 
       <g id="form-room">
@@ -65,7 +65,7 @@
         <path d="M292 276 V312" class="viz-path viz-path--soft"/>
       </g>
 
-      <text x="212" y="296" class="viz-label">анализ маршрутов шума</text>
+      <text x="212" y="296" class="viz-label">анализ путей передачи</text>
     `);
 
     if (!r) {

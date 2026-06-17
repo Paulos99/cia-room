@@ -8,7 +8,7 @@
   --color-line: rgba(255, 255, 255, 0.12);
   --color-accent: #2f7dff;
   --color-accent-light: #78b4ff;
-  --color-tech: #607080;
+  --color-tech: #7a8a98;
   --color-error: #c45c5c;
   --color-success: #5a9a6e;
 
@@ -58,6 +58,18 @@
 
   /* Shadows */
   --shadow-subtle: 0 1px 0 var(--color-line);
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-elevated: 10;
+  --z-sticky: 100;
+  --z-mobile-cta: 900;
+  --z-header: 1000;
+  --z-overlay: 1100;
+  --z-skip: 10000;
+
+  /* Mobile sticky CTA */
+  --mobile-cta-height: 4.75rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

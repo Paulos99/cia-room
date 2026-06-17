@@ -9,7 +9,7 @@
 
 @media (min-width: 1024px) {
   .hero {
-    min-height: 85vh;
+    min-height: 85dvh;
     display: grid;
     align-items: center;
   }
@@ -215,6 +215,53 @@
   border-color: var(--color-accent);
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(47, 125, 255, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cia-identity__node:hover,
+  .cia-identity__node.is-active {
+    transform: none;
+  }
+}
+
+/* Trust strip — social proof / authority (Trust & Authority pattern) */
+.trust-strip {
+  padding-block: var(--space-xl);
+  background: var(--color-bg-secondary);
+  border-block: 1px solid var(--color-line);
+}
+
+.trust-strip__grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .trust-strip__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+.trust-strip__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--color-accent);
+}
+
+.trust-strip__value {
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.trust-strip__label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  max-width: 28ch;
 }
 
 .cia-identity__node-index {
@@ -944,6 +991,13 @@
   }
 }
 
+.result__intro {
+  margin-bottom: var(--space-md);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
 .result__list {
   display: grid;
   gap: var(--space-sm);
@@ -1055,8 +1109,8 @@
 
 .object-card__schematic {
   margin-top: var(--space-md);
-  height: 150px;
-  min-height: 150px;
+  height: 165px;
+  min-height: 165px;
   opacity: 0.82;
   transition: opacity var(--duration-normal);
 }
@@ -1165,6 +1219,8 @@
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   margin-bottom: var(--space-sm);
+  cursor: pointer;
+  transition: color var(--duration-fast);
 }
 
 .lead__contacts a:hover {
@@ -1188,6 +1244,12 @@
   border: 1px solid var(--color-line);
   padding: var(--space-2xl);
   border-radius: var(--radius-lg);
+}
+
+@media (max-width: 767px) {
+  .lead {
+    padding-bottom: calc(var(--space-section) + var(--mobile-cta-height));
+  }
 }
 
 /* FAQ */

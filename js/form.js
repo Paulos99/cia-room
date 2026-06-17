@@ -49,7 +49,26 @@
       el.textContent = message;
       el.hidden = !message;
     }
-    if (input) input.classList.toggle('is-error', Boolean(message));
+    if (input) {
+      input.classList.toggle('is-error', Boolean(message));
+      if (message) {
+        input.setAttribute('aria-invalid', 'true');
+        input.setAttribute('aria-describedby', 'error-' + id);
+      } else {
+        input.removeAttribute('aria-invalid');
+        input.removeAttribute('aria-describedby');
+      }
+    }
+  }
+
+  function focusFirstInvalid(ids) {
+    for (const id of ids) {
+      const input = document.getElementById(id);
+      if (input && input.classList.contains('is-error')) {
+        input.focus();
+        break;
+      }
+    }
   }
 
   function clearErrors(ids) {
@@ -71,6 +90,17 @@
     document.querySelectorAll('[data-step-indicator]').forEach((el) => {
       el.classList.toggle('is-active', el.getAttribute('data-step-indicator') === String(step));
     });
+
+    const progress = document.getElementById('form-progress');
+    const progressFill = document.getElementById('form-progress-fill');
+    if (progress) {
+      progress.setAttribute('aria-valuenow', String(step));
+      progress.setAttribute('aria-label', 'Шаг ' + step + ' из 2');
+    }
+    if (progressFill) {
+      progressFill.style.width = step === 1 ? '50%' : '100%';
+    }
+
     const status = document.getElementById('form-status');
     if (status) status.hidden = true;
   }
@@ -100,6 +130,7 @@
       showError('task', 'Опишите задачу (не менее 10 символов)');
       ok = false;
     }
+    if (!ok) focusFirstInvalid(['objectType', 'city', 'projectStage', 'task']);
     return ok;
   }
 
@@ -122,6 +153,7 @@
       showError('consent', 'Необходимо согласие на обработку данных');
       ok = false;
     }
+    if (!ok) focusFirstInvalid(['name', 'phone', 'consent']);
     return ok;
   }
 
@@ -161,7 +193,7 @@
   async function submitForm(form) {
     const honeypot = document.getElementById('website');
     if (honeypot && honeypot.value.trim()) {
-      setStatus('success', 'Заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+      setStatus('success', 'Задача отправлена. Мы свяжемся с вами для уточнения исходных данных.');
       form.reset();
       setStep(1);
       return;
@@ -185,13 +217,13 @@
       submitBtn.disabled = true;
       submitBtn.setAttribute('aria-busy', 'true');
     }
-    setStatus('info', 'Отправляем заявку…');
+    setStatus('info', 'Отправляем задачу…');
 
     try {
       if (!webhook) {
         await new Promise((r) => setTimeout(r, 600));
         sessionStorage.setItem(STORAGE_KEY, String(Date.now()));
-        setStatus('success', 'Заявка принята (демо-режим: укажите leadWebhookUrl в js/config.js). Мы свяжемся с вами.');
+        setStatus('success', 'Задача принята (демо-режим: укажите leadWebhookUrl в js/config.js). Мы свяжемся с вами для уточнения исходных данных.');
         track('form_success', { mode: 'demo' });
         form.reset();
         setStep(1);
@@ -209,13 +241,13 @@
       sessionStorage.setItem(STORAGE_KEY, String(Date.now()));
       const responseTime = (typeof CIA_CONFIG !== 'undefined' && CIA_CONFIG.responseTime) || '';
       const suffix = responseTime && !/^\[/.test(responseTime) ? ' ' + responseTime : '';
-      setStatus('success', 'Заявка отправлена. Мы свяжемся с вами' + suffix + '.');
+      setStatus('success', 'Задача отправлена. Мы свяжемся с вами' + suffix + '.');
       track('form_success', { mode: 'webhook' });
       form.reset();
       setStep(1);
     } catch (err) {
       console.error(err);
-      setStatus('error', 'Не удалось отправить заявку. Попробуйте позже или воспользуйтесь контактами ниже.');
+      setStatus('error', 'Не удалось отправить форму. Попробуйте позже или воспользуйтесь контактами ниже.');
       track('form_error', { message: String(err && err.message ? err.message : err) });
     } finally {
       if (submitBtn) {
@@ -225,11 +257,85 @@
     }
   }
 
+  function validateField(id) {
+    const validators = {
+      objectType: () => {
+        const el = document.getElementById('objectType');
+        if (!el || !el.value) {
+          showError('objectType', 'Выберите тип объекта');
+          return false;
+        }
+        showError('objectType', '');
+        return true;
+      },
+      city: () => {
+        const el = document.getElementById('city');
+        if (!el || !el.value.trim()) {
+          showError('city', 'Укажите город');
+          return false;
+        }
+        showError('city', '');
+        return true;
+      },
+      projectStage: () => {
+        const el = document.getElementById('projectStage');
+        if (!el || !el.value) {
+          showError('projectStage', 'Выберите стадию');
+          return false;
+        }
+        showError('projectStage', '');
+        return true;
+      },
+      task: () => {
+        const el = document.getElementById('task');
+        if (!el || !el.value.trim() || el.value.trim().length < 10) {
+          showError('task', 'Опишите задачу (не менее 10 символов)');
+          return false;
+        }
+        showError('task', '');
+        return true;
+      },
+      name: () => {
+        const el = document.getElementById('name');
+        if (!el || !el.value.trim()) {
+          showError('name', 'Укажите имя');
+          return false;
+        }
+        showError('name', '');
+        return true;
+      },
+      phone: () => {
+        const el = document.getElementById('phone');
+        if (!el || !validatePhone(el.value)) {
+          showError('phone', 'Укажите корректный телефон');
+          return false;
+        }
+        showError('phone', '');
+        return true;
+      },
+    };
+
+    if (validators[id]) validators[id]();
+  }
+
   function initForm() {
     const form = document.getElementById('lead-form');
     if (!form) return;
 
     setStep(1);
+
+    ['objectType', 'city', 'projectStage', 'task', 'name', 'phone'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('blur', () => validateField(id));
+    });
+
+    const consent = document.getElementById('consent');
+    if (consent) {
+      consent.addEventListener('change', () => {
+        if (consent.checked) showError('consent', '');
+      });
+    }
 
     const nextBtn = document.getElementById('form-next');
     const backBtn = document.getElementById('form-back');

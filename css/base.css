@@ -8,6 +8,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -48,6 +49,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.nav-open {
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  body.has-mobile-cta-padding {
+    padding-bottom: calc(var(--mobile-cta-height) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 img,
 svg {
   display: block;
@@ -57,6 +68,15 @@ svg {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+a[href],
+button,
+label[for],
+summary,
+[role='button'],
+[role='tab'] {
+  touch-action: manipulation;
 }
 
 button,
@@ -76,7 +96,7 @@ ol {
   position: absolute;
   top: -100%;
   left: var(--space-md);
-  z-index: 10000;
+  z-index: var(--z-skip);
   padding: var(--space-sm) var(--space-md);
   background: var(--color-accent);
   color: var(--color-bg);
@@ -176,6 +196,15 @@ p + p {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
+}
+
+#main:focus {
+  outline: none;
+}
+
+#main:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
 ::selection {

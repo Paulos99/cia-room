@@ -25,12 +25,58 @@
 .viz-label {
   font-family: var(--font-mono);
   font-size: 10px;
-  fill: #8090a0;
-  letter-spacing: 0.06em;
+  fill: #94a4b8;
+  letter-spacing: 0.05em;
+}
+
+.viz-label--title {
+  font-size: 10px;
+  fill: #b8c4d4;
+  letter-spacing: 0.08em;
+}
+
+.viz-label--layer {
+  font-size: 11px;
+  fill: #c8d4e4;
+}
+
+.viz-label--room {
+  font-size: 10px;
+  fill: #a8b8c8;
+}
+
+.viz-label--caption {
+  font-size: 9px;
+  fill: #788898;
 }
 
 .viz-label--active {
   fill: #78B4FF;
+}
+
+.viz-layer-edge {
+  stroke: rgba(120, 180, 255, 0.22);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.viz-callout {
+  fill: rgba(47, 125, 255, 0.08);
+  stroke: rgba(120, 180, 255, 0.55);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.viz-legend line {
+  vector-effect: non-scaling-stroke;
+}
+
+.viz-motion-dot {
+  filter: drop-shadow(0 0 4px rgba(47, 125, 255, 0.65));
+}
+
+.viz-impact-ripple {
+  vector-effect: non-scaling-stroke;
 }
 
 .viz-frame {

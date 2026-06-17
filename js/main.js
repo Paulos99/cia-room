@@ -123,11 +123,22 @@
     const offset = -getHeaderOffset() + 1;
     const lenis = window.CIA_SMOOTH_SCROLL?.lenis;
 
+    const onScrollDone = () => {
+      const heading = target.querySelector('h1, h2, .section-title');
+      const focusEl = heading || target;
+      if (!focusEl.hasAttribute('tabindex')) {
+        focusEl.setAttribute('tabindex', '-1');
+      }
+      focusEl.focus({ preventScroll: true });
+    };
+
     if (lenis) {
       lenis.scrollTo(target, { offset, duration: 1.35 });
+      setTimeout(onScrollDone, 1400);
     } else {
       const top = target.getBoundingClientRect().top + window.scrollY + offset;
       window.scrollTo({ top, behavior: 'smooth' });
+      setTimeout(onScrollDone, 450);
     }
 
     if (replace) {
@@ -211,6 +222,7 @@
       const show = heroBottom < 0 && !leadVisible;
       bar.classList.toggle('is-visible', show);
       bar.classList.toggle('is-hidden', leadVisible);
+      document.body.classList.toggle('has-mobile-cta-padding', show && !leadVisible);
     };
 
     update();

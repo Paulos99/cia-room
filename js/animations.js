@@ -50,6 +50,7 @@
     tl.to(content, { opacity: 1, y: 0, duration: 0.85, stagger: 0.12 });
 
     if (visual) {
+      visual.style.opacity = '1';
       gsap.set(visual, { opacity: 0, x: 48, scale: 0.94 });
       tl.to(visual, { opacity: 1, x: 0, scale: 1, duration: 1.1, clearProps: 'opacity,transform' }, '-=0.55');
 
@@ -467,6 +468,11 @@
         el.style.opacity = '1';
         el.style.transform = 'none';
       });
+      const visual = document.getElementById('hero-visual');
+      if (visual) {
+        visual.style.opacity = '1';
+        visual.style.transform = 'none';
+      }
       document.querySelectorAll('.process__step').forEach((step) => {
         step.classList.add('is-reached');
       });

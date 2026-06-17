@@ -17,6 +17,7 @@
   <meta name="twitter:description" content="Инженерная диагностика и проектирование акустического комфорта: от фактических измерений объекта до проекта и подтверждения результата.">
   <meta name="robots" content="index, follow">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -37,18 +38,14 @@
 
   <header class="header" id="header">
     <div class="header__shell container">
-      <a href="#" class="header__brand" aria-label="ЦИА — на главную">
-        <svg class="header__mark" width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
-          <rect x="1" y="1" width="34" height="34" rx="4" fill="none" stroke="rgba(47,125,255,0.5)" stroke-width="1"/>
-          <path d="M8 24 Q18 10 28 24" fill="none" stroke="#2F7DFF" stroke-width="1.5"/>
-          <circle cx="18" cy="16" r="2" fill="#78B4FF"/>
-        </svg>
-        <span class="header__brand-col">
-          <span class="header__logo-row">
-            <span class="header__logo">ЦИА</span>
-            <span class="header__pill">Помещения</span>
+      <a href="#" class="header__brand" aria-label="ЦИА Помещения — на главную">
+        <span class="header__brand-inner">
+          <span class="header__lockup">
+            <span class="header__name">ЦИА</span>
+            <span class="header__sep" aria-hidden="true">/</span>
+            <span class="header__unit">Помещения</span>
           </span>
-          <span class="header__tagline">Центр инновационной акустики</span>
+          <span class="header__descriptor">Центр инновационной акустики</span>
         </span>
       </a>
       <nav class="header__nav" aria-label="Основная навигация">
@@ -62,7 +59,7 @@
         </div>
       </nav>
       <div class="header__actions">
-        <a href="#lead" class="btn btn--primary btn--sm header__cta" data-analytics="header_cta">Разобрать задачу объекта <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a href="#lead" class="btn btn--primary btn--sm header__cta" data-analytics="header_cta">Обсудить объект <span class="btn__arrow" aria-hidden="true">→</span></a>
         <button class="header__burger" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню">
           <span></span><span></span><span></span>
         </button>
@@ -76,7 +73,7 @@
         <li><a href="#process" class="mobile-nav__link">Как работаем</a></li>
         <li><a href="#objects" class="mobile-nav__link">Для каких объектов</a></li>
         <li><a href="#faq" class="mobile-nav__link">Вопросы</a></li>
-        <li><a href="#lead" class="mobile-nav__link">Разобрать задачу объекта</a></li>
+        <li><a href="#lead" class="mobile-nav__link">Обсудить объект</a></li>
       </ul>
     </nav>
   </header>
@@ -91,13 +88,13 @@
           <h1 class="hero__title" id="hero-title">Проектируем акустический комфорт с измеримым результатом</h1>
           <p class="hero__subtitle">ЦИА исследует помещение как единую акустическую систему: фиксирует фактическое состояние, выявляет источники и пути передачи звука, рассчитывает достаточное решение и задаёт критерии проверки. Вы заранее понимаете, что нужно сделать, почему и какой результат реалистичен.</p>
           <div class="hero__actions">
-            <a href="#lead" class="btn btn--primary" data-analytics="hero_primary_cta_click">Разобрать задачу объекта <span class="btn__arrow" aria-hidden="true">→</span></a>
+            <a href="#lead" class="btn btn--primary" data-analytics="hero_primary_cta_click">Обсудить объект <span class="btn__arrow" aria-hidden="true">→</span></a>
             <a href="#process" class="btn btn--secondary" data-analytics="hero_process_click">Посмотреть метод работы</a>
           </div>
           <p class="hero__objects">Жилые · общественные · коммерческие · специализированные · промышленные пространства</p>
           <p class="hero__note">Работа начинается с факта, цели и физики конкретного объекта — до выбора материалов и конструкции.</p>
         </div>
-        <div class="hero__visual" id="hero-visual" role="img" aria-label="Интерактивная инженерная визуализация источников и путей передачи звука в помещении"></div>
+        <div class="hero__visual" id="hero-visual" role="img" aria-label="Интерактивное акустическое поле: в покое плавно перетекает синим. Клик — всплеск энергии и возврат к управляемому покою."></div>
       </div>
     </section>
 
@@ -748,7 +745,7 @@
   </footer>
 
   <div class="mobile-cta" id="mobile-cta">
-    <a href="#lead" class="btn btn--primary">Разобрать задачу объекта</a>
+    <a href="#lead" class="btn btn--primary">Обсудить объект</a>
   </div>
 
   <script src="js/config.js"></script>
@@ -758,6 +755,7 @@
   <script src="js/smooth-scroll.js"></script>
   <script src="js/analytics.js"></script>
   <script src="js/visuals/viz-common.js"></script>
+  <script src="js/vendor/three.min.js"></script>
   <script src="js/visuals/hero-visual.js"></script>
   <script src="js/visuals/noise-path.js"></script>
   <script src="js/visuals/room-layers.js"></script>

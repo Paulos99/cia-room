@@ -43,67 +43,74 @@
 }
 
 .header__brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
+  display: block;
   flex-shrink: 0;
   min-width: 0;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.header__mark {
-  flex-shrink: 0;
-  transition: transform var(--duration-normal) var(--ease-out);
+.header__brand:hover {
+  opacity: 0.92;
 }
 
-.header__brand:hover .header__mark {
-  transform: scale(1.05);
-}
-
-.header__brand-col {
+.header__brand-inner {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+  gap: 3px;
 }
 
-.header__logo-row {
+.header__lockup {
   display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-}
-
-.header__logo {
-  font-size: 1.125rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  align-items: baseline;
+  gap: 0.45rem;
   line-height: 1;
 }
 
-.header__pill {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-accent-light);
-  padding: 3px 8px;
-  border: 1px solid rgba(47, 125, 255, 0.35);
-  border-radius: var(--radius-sm);
-  line-height: 1.2;
+.header__name {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
 }
 
-.header__tagline {
-  font-size: 0.6875rem;
-  color: var(--color-text-secondary);
+.header__sep {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-tech);
+  opacity: 0.4;
+  user-select: none;
+}
+
+.header__unit {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-accent-light);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.header__brand:hover .header__unit {
+  color: var(--color-accent);
+}
+
+.header__descriptor {
+  font-size: 0.625rem;
+  font-weight: 400;
+  color: var(--color-tech);
   line-height: 1.2;
+  letter-spacing: 0.02em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 220px;
-  transition: opacity var(--duration-fast), max-height var(--duration-fast);
+  max-width: min(260px, 52vw);
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    max-height var(--duration-fast) var(--ease-out);
 }
 
-.header.is-scrolled .header__tagline {
+.header.is-scrolled .header__descriptor {
   opacity: 0;
   max-height: 0;
   overflow: hidden;

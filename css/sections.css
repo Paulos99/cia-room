@@ -4,7 +4,7 @@
   padding-top: calc(var(--header-height) + var(--space-2xl));
   padding-bottom: var(--space-3xl);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 @media (min-width: 1024px) {
@@ -18,6 +18,7 @@
 .hero__grid {
   display: grid;
   gap: var(--space-2xl);
+  overflow: visible;
 }
 
 @media (min-width: 1024px) {
@@ -76,14 +77,95 @@
 
 .hero__visual {
   position: relative;
-  aspect-ratio: 4/3;
-  min-height: 240px;
+  width: 100%;
+  max-width: 300px;
+  margin-inline: auto;
+  margin-top: -20px;
+  justify-self: center;
+  aspect-ratio: 1;
+  min-height: 0;
+  height: clamp(200px, 52vw, 300px);
+  cursor: default;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  pointer-events: auto;
+}
+
+.hero-visual__stage {
+  position: absolute;
+  inset: 0;
+  transform: translateY(-28px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-visual__glow {
+  position: absolute;
+  inset: -70%;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(47, 125, 255, 0.18) 0%, transparent 70%);
+  opacity: 0.35;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  z-index: 1;
+}
+
+.hero-visual--fallback {
+  background: radial-gradient(circle at 50% 45%, rgba(47, 125, 255, 0.18), transparent 60%);
+}
+
+.hero-visual__caption {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  z-index: 3;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: var(--color-accent-light);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: color 0.5s ease;
+}
+
+@media (min-width: 1024px) {
+  .hero-visual__stage {
+    transform: translateY(-40px);
+  }
+
+  .hero-visual__caption {
+    font-size: 0.8125rem;
+    letter-spacing: 0.16em;
+    bottom: -4px;
+  }
+}
+
+.hero-field {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: block;
+  pointer-events: none;
 }
 
 @media (min-width: 1024px) {
   .hero__visual {
-    aspect-ratio: auto;
-    min-height: 420px;
+    max-width: 340px;
+    height: 340px;
+    margin-inline: auto;
+    margin-top: -36px;
+    justify-self: center;
   }
 }
 

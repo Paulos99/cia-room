@@ -19,6 +19,23 @@
     panels.forEach((p) => {
       const active = p.dataset.service === target;
       p.classList.toggle('is-active', active);
+
+      if (active) {
+        const img = p.querySelector('.service-panel__media img');
+        if (img?.getAttribute('loading') === 'lazy' && !img.complete) {
+          img.loading = 'eager';
+          if (img.dataset.src) img.src = img.dataset.src;
+        }
+
+        if (window.CIA_REVEAL_SERVICE_PANEL) {
+          window.CIA_REVEAL_SERVICE_PANEL(p);
+        } else {
+          p.querySelectorAll('.service-panel__media, .service-panel__body').forEach((el) => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+        }
+      }
     });
     tabs.forEach((t) => {
       const active = t.dataset.target === target;

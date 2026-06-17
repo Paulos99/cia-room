@@ -29,6 +29,24 @@
   }
 }
 
+@media (max-width: 767px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__content {
+    display: contents;
+  }
+
+  .hero__label { order: 1; }
+  .hero__title { order: 2; margin-bottom: var(--space-md); max-width: none; }
+  .hero__visual { order: 3; margin-top: 0; margin-bottom: var(--space-lg); }
+  .hero__subtitle { order: 4; max-width: none; }
+  .hero__actions { order: 5; }
+  .hero__objects { order: 6; }
+  .hero__note { order: 7; max-width: none; }
+}
+
 .hero__label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -945,18 +963,23 @@
     left: 0;
   }
 
+  .mobile-carousel--process .mobile-carousel__viewport {
+    --process-card-width: calc(100% - 2.75rem);
+  }
+
   .process__steps {
     display: flex;
     gap: var(--space-md);
-    width: auto;
-    min-width: 0;
+    width: max-content;
+    min-width: 100%;
     padding-top: var(--space-2xl);
     padding-bottom: var(--space-xs);
     padding-right: var(--space-xs);
   }
 
   .process__step {
-    flex: 0 0 calc(100% - 2.75rem);
+    flex: 0 0 var(--process-card-width);
+    width: var(--process-card-width);
     scroll-snap-align: start;
     padding-left: 0;
   }
@@ -1017,16 +1040,31 @@
 
 @media (max-width: 767px) {
   .process__step {
-    opacity: 0.45;
+    opacity: 0.42;
   }
 
   .process__step.is-reached {
-    opacity: 0.72;
+    opacity: 0.68;
   }
 
   .process__step.is-current {
     opacity: 1;
     transform: none;
+  }
+
+  .process__step.is-current .process__step-marker {
+    border-color: var(--color-accent);
+    background: rgba(47, 125, 255, 0.12);
+    box-shadow: 0 0 20px rgba(47, 125, 255, 0.35);
+    color: var(--color-accent);
+  }
+
+  .process__step.is-current .process__step-title {
+    color: var(--color-text);
+  }
+
+  .process__step.is-current .process__step-text {
+    color: var(--color-text-secondary);
   }
 }
 
@@ -1307,17 +1345,36 @@
 }
 
 @media (max-width: 767px) {
+  .mobile-carousel--principles .mobile-carousel__viewport {
+    --carousel-card-width: calc(100% - 2.75rem);
+  }
+
   .principles__grid {
     display: flex;
     gap: var(--space-md);
-    width: auto;
-    min-width: 0;
+    width: max-content;
+    min-width: 100%;
     padding-right: var(--space-xs);
   }
 
   .principle {
-    flex: 0 0 calc(100% - 2.75rem);
+    flex: 0 0 var(--carousel-card-width);
+    width: var(--carousel-card-width);
     scroll-snap-align: start;
+    scroll-snap-stop: always;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .principle__title,
+  .principle__text {
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  .principle__title {
+    line-height: 1.35;
   }
 }
 

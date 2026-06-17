@@ -379,25 +379,7 @@
       return positions[index] + (positions[index + 1] - positions[index]) * frac;
     };
 
-    const setStepStates = (progress) => {
-      const p = Math.max(0, Math.min(1, progress));
-      const span = Math.max(1, steps.length - 1);
-      let currentIndex = 0;
-
-      for (let i = steps.length - 1; i >= 0; i -= 1) {
-        if (p >= i / span) {
-          currentIndex = i;
-          break;
-        }
-      }
-
-      steps.forEach((step, index) => {
-        step.classList.toggle('is-reached', p >= index / span);
-        step.classList.toggle('is-current', index === currentIndex);
-      });
-    };
-
-    const updateProgress = (progress) => {
+    const applyPulse = (progress) => {
       const positions = markerPositions();
       const pos = interpolate(positions, progress);
       const horizontal = isDesktop() || isMobileViewport();
@@ -411,8 +393,68 @@
         pulse.style.left = '19px';
         if (lineFill) lineFill.style.height = Math.max(0, pos) + 'px';
       }
+    };
 
+    const setStepStates = (progress) => {
+      const p = Math.max(0, Math.min(1, progress));
+      const span = Math.max(1, steps.length - 1);
+      let currentIndex = 0;
+
+      for (let i = steps.length - 1; i >= 0; i -= 1) {
+        if (p >= i / span) {
+          currentIndex = i;
+          break;
+        }
+      }
+
+      steps.forEach((step, index) => {
+        step.classList.toggle('is-reached', index <= currentIndex);
+        step.classList.toggle('is-current', index === currentIndex);
+      });
+    };
+
+    const updateProgress = (progress) => {
+      applyPulse(progress);
       setStepStates(progress);
+    };
+
+    const getActiveStepIndex = () => {
+      const viewport = document.getElementById('process-steps-viewport');
+      if (!viewport) return 0;
+
+      const probe = viewport.getBoundingClientRect().left + Math.min(viewport.clientWidth * 0.32, 120);
+      let closest = 0;
+      let closestDist = Infinity;
+
+      steps.forEach((step, index) => {
+        const rect = step.getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+        const dist = Math.abs(center - probe);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = index;
+        }
+      });
+
+      return closest;
+    };
+
+    const updateFromActiveStep = () => {
+      const currentIndex = getActiveStepIndex();
+      const positions = markerPositions();
+      const horizontal = isDesktop() || isMobileViewport();
+
+      steps.forEach((step, index) => {
+        step.classList.toggle('is-reached', index <= currentIndex);
+        step.classList.toggle('is-current', index === currentIndex);
+      });
+
+      const pos = positions[currentIndex] ?? positions[0] ?? 0;
+      if (horizontal) {
+        pulse.style.left = pos - 4 + 'px';
+        pulse.style.top = '20px';
+        if (lineFill) lineFill.style.width = Math.max(0, pos) + 'px';
+      }
     };
 
     const resetProgress = () => {
@@ -433,36 +475,39 @@
       }
     };
 
-    const getMobileScrollProgress = () => {
-      const viewport = document.getElementById('process-steps-viewport');
-      if (!viewport) return 0;
-      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
-      if (maxScroll <= 0) return 0;
-      return viewport.scrollLeft / maxScroll;
-    };
-
     const bindMobileProcessScroll = () => {
       const viewport = document.getElementById('process-steps-viewport');
       if (!viewport) return;
 
       let frame = 0;
-      const onScroll = () => {
+      const tick = () => {
         if (frame) return;
         frame = requestAnimationFrame(() => {
           frame = 0;
-          updateProgress(getMobileScrollProgress());
+          updateFromActiveStep();
         });
       };
 
-      viewport.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-      onScroll();
+      viewport.addEventListener('scroll', tick, { passive: true });
+      viewport.addEventListener('scrollend', tick, { passive: true });
+      window.addEventListener('resize', tick);
+      window.addEventListener('load', tick);
+
+      if ('ResizeObserver' in window) {
+        const ro = new ResizeObserver(tick);
+        ro.observe(viewport);
+        steps.forEach((step) => ro.observe(step));
+      }
+
+      tick();
     };
 
     if (isMobileViewport()) {
       bindMobileProcessScroll();
       return;
     }
+
+    if (typeof ScrollTrigger === 'undefined') return;
 
     const processEnd = isDesktop() ? 'top 38%' : 'top 22%';
 
@@ -546,6 +591,8 @@
   }
 
   function boot() {
+    initProcessPulse();
+
     if (!canAnimate()) {
       document.querySelectorAll('.hero__content > *').forEach((el) => {
         el.style.opacity = '1';
@@ -556,11 +603,13 @@
         visual.style.opacity = '1';
         visual.style.transform = 'none';
       }
-      document.querySelectorAll('.process__step').forEach((step) => {
-        step.classList.add('is-reached');
-      });
-      const lineFill = document.getElementById('process-line-fill');
-      if (lineFill) lineFill.style.width = '100%';
+      if (!isMobileViewport()) {
+        document.querySelectorAll('.process__step').forEach((step) => {
+          step.classList.add('is-reached');
+        });
+        const lineFill = document.getElementById('process-line-fill');
+        if (lineFill) lineFill.style.width = '100%';
+      }
       return;
     }
 
@@ -574,7 +623,6 @@
     initMediaParallax();
     initObjectsFaqLead();
     initResultReveal();
-    initProcessPulse();
     initStuckRevealFallback();
     initScrollRefresh();
   }

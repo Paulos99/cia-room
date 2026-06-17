@@ -757,6 +757,10 @@
   .mobile-carousel--on-secondary {
     --carousel-fade: var(--color-bg-secondary);
   }
+
+  .mobile-carousel--principles .mobile-carousel__edge {
+    background: linear-gradient(90deg, transparent 0%, var(--color-bg-secondary) 88%);
+  }
 }
 
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) {

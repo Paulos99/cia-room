@@ -1,0 +1,289 @@
+/* Bento glass ambient background */
+.site-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--ambient-bg);
+  transition: background var(--duration-theme) var(--ease-in-out);
+}
+
+.site-ambient__grid {
+  position: absolute;
+  inset: -1px;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(var(--ambient-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ambient-grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, black 20%, transparent 75%);
+}
+
+.site-ambient__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+}
+
+.site-ambient__orb--1 {
+  width: min(52vw, 520px);
+  height: min(52vw, 520px);
+  top: 8%;
+  right: -8%;
+  background: var(--ambient-orb-1);
+  animation: ambient-drift-a 28s ease-in-out infinite alternate;
+}
+
+.site-ambient__orb--2 {
+  width: min(44vw, 440px);
+  height: min(44vw, 440px);
+  bottom: 12%;
+  left: -10%;
+  background: var(--ambient-orb-2);
+  animation: ambient-drift-b 34s ease-in-out infinite alternate;
+}
+
+.site-ambient__orb--3 {
+  width: min(36vw, 360px);
+  height: min(36vw, 360px);
+  top: 42%;
+  left: 38%;
+  background: var(--ambient-orb-3);
+  animation: ambient-drift-c 22s ease-in-out infinite alternate;
+}
+
+.site-ambient__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--ambient-veil);
+}
+
+/* Acoustic markers — scroll-linked clusters, suspended in zone */
+.acoustic-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.acoustic-marker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  color: #8ec8ff;
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  mix-blend-mode: var(--ambient-marker-blend);
+  filter: drop-shadow(0 0 18px rgba(80, 160, 255, 0.45));
+}
+
+.acoustic-marker--depth-0 {
+  color: var(--ambient-marker-0);
+  filter: var(--ambient-marker-glow-0);
+}
+
+.acoustic-marker--depth-1 {
+  color: var(--ambient-marker-1);
+  filter: var(--ambient-marker-glow-1);
+}
+
+.acoustic-marker--depth-2 {
+  color: var(--ambient-marker-2);
+  filter: var(--ambient-marker-glow-2);
+}
+
+.acoustic-marker__glyph {
+  display: block;
+  transform: rotate(var(--marker-rotate, 0deg)) scale(var(--marker-scale, 1));
+  animation: acoustic-float var(--float-dur, 5s) ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+@keyframes acoustic-float {
+  0%, 100% {
+    transform: rotate(var(--marker-rotate, 0deg)) scale(var(--marker-scale, 1)) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(var(--marker-rotate, 0deg)) scale(var(--marker-scale, 1)) translate3d(0, calc(var(--float-amp, 5px) * -1), 0);
+  }
+}
+
+/* dot */
+.acoustic-marker--dot .acoustic-marker__glyph {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 16px var(--color-accent-glow);
+}
+
+.acoustic-marker--dot.acoustic-marker--depth-0 .acoustic-marker__glyph {
+  width: 8px;
+  height: 8px;
+}
+
+/* cross */
+.acoustic-marker--cross .acoustic-marker__glyph {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+
+.acoustic-marker--cross .acoustic-marker__glyph::before,
+.acoustic-marker--cross .acoustic-marker__glyph::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  border-radius: 1px;
+}
+
+.acoustic-marker--cross .acoustic-marker__glyph::before {
+  width: 14px;
+  height: 1px;
+}
+
+.acoustic-marker--cross .acoustic-marker__glyph::after {
+  width: 1px;
+  height: 14px;
+}
+
+/* node — cross with ring */
+.acoustic-marker--node .acoustic-marker__glyph {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.acoustic-marker--node .acoustic-marker__glyph::before,
+.acoustic-marker--node .acoustic-marker__glyph::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.acoustic-marker--node .acoustic-marker__glyph::before { width: 8px; height: 1px; }
+.acoustic-marker--node .acoustic-marker__glyph::after { width: 1px; height: 8px; }
+
+/* ring */
+.acoustic-marker--ring .acoustic-marker__glyph {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.88;
+}
+
+.acoustic-marker--ring.acoustic-marker--depth-2 .acoustic-marker__glyph {
+  width: 28px;
+  height: 28px;
+  border-style: dashed;
+  opacity: 0.58;
+}
+
+/* horizontal line */
+.acoustic-marker--line-h .acoustic-marker__glyph {
+  width: 52px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, currentColor 18%, currentColor 82%, transparent);
+  opacity: 0.82;
+}
+
+.acoustic-marker--line-h.acoustic-marker--depth-1 .acoustic-marker__glyph { width: 68px; }
+.acoustic-marker--line-h.acoustic-marker--depth-2 .acoustic-marker__glyph { width: 84px; opacity: 0.58; }
+
+/* vertical line */
+.acoustic-marker--line-v .acoustic-marker__glyph {
+  width: 1.5px;
+  height: 44px;
+  background: linear-gradient(180deg, transparent, currentColor 20%, currentColor 80%, transparent);
+  opacity: 0.72;
+}
+
+.acoustic-marker--line-v.acoustic-marker--depth-1 .acoustic-marker__glyph { height: 58px; }
+.acoustic-marker--line-v.acoustic-marker--depth-2 .acoustic-marker__glyph { height: 74px; opacity: 0.52; }
+
+/* tick / corner marker */
+.acoustic-marker--tick .acoustic-marker__glyph {
+  width: 14px;
+  height: 14px;
+  border-left: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  opacity: 0.88;
+}
+
+.acoustic-marker--tick.acoustic-marker--right .acoustic-marker__glyph {
+  border-left: none;
+  border-right: 1px solid currentColor;
+}
+
+/* dashed segment */
+.acoustic-marker--dash .acoustic-marker__glyph {
+  width: 36px;
+  height: 1.5px;
+  background: repeating-linear-gradient(
+    90deg,
+    currentColor 0,
+    currentColor 5px,
+    transparent 5px,
+    transparent 9px
+  );
+  opacity: 0.68;
+}
+
+.acoustic-marker--dash.acoustic-marker--depth-0 .acoustic-marker__glyph { width: 44px; }
+
+@media (max-width: 1023px) {
+  .acoustic-marker--line-h .acoustic-marker__glyph { width: 32px; }
+  .acoustic-marker--line-v .acoustic-marker__glyph { height: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acoustic-ambient {
+    display: none;
+  }
+
+  .acoustic-marker__glyph {
+    animation: none;
+  }
+}
+
+@keyframes ambient-drift-a {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-4%, 6%) scale(1.08); }
+}
+
+@keyframes ambient-drift-b {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(5%, -4%) scale(1.06); }
+}
+
+@keyframes ambient-drift-c {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-3%, 5%); }
+}
+
+body.has-ambient > main,
+body.has-ambient > footer {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-ambient__orb {
+    animation: none;
+  }
+}

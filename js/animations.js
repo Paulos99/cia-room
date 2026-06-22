@@ -48,7 +48,9 @@
   }
 
   function initHeroMotion() {
-    const content = document.querySelectorAll('.hero__content > *');
+    const content = document.querySelectorAll(
+      '.hero__content > *, .hero__method-item, .hero__foot > *'
+    );
     const visual = document.getElementById('hero-visual');
     if (!content.length) return;
 
@@ -101,7 +103,7 @@
       scrollTrigger: { trigger: '#about-cia', start: 'top 72%', once: true },
     });
 
-    gsap.from('.why__diagram', {
+    gsap.from('.why__content', {
       opacity: 0,
       x: -24,
       duration: 0.85,
@@ -109,15 +111,12 @@
       scrollTrigger: { trigger: '.why__grid', start: 'top 80%', once: true },
     });
 
-    gsap.utils.toArray('.why__reason').forEach((el, i) => {
-      gsap.from(el, {
-        opacity: 0,
-        x: -16,
-        duration: 0.6,
-        delay: i * 0.06,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      });
+    gsap.from('.why__diagram-panel', {
+      opacity: 0,
+      x: 24,
+      duration: 0.85,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.why__grid', start: 'top 80%', once: true },
     });
 
     gsap.from('.system__grid > *', {
@@ -482,7 +481,8 @@
     const revealSelectors = [
       '.section-label',
       '.section-title',
-      '.why__reason',
+      '.why__content',
+      '.why__diagram-panel',
       '.service-panel__media',
       '.service-panel__body',
       '.object-card',

@@ -1,0 +1,136 @@
+/* Zone-bound acoustic floats — parallax depth layers */
+.section-acoustic {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.section > .container,
+.section > .grid-bg,
+.section > .cia-identity__ambient {
+  position: relative;
+  z-index: 1;
+}
+
+.acoustic-float {
+  position: absolute;
+  color: var(--color-accent-light);
+  opacity: var(--float-opacity, 0.45);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.acoustic-float--depth-far {
+  --float-opacity: 0.34;
+}
+
+.acoustic-float--depth-mid {
+  --float-opacity: 0.48;
+}
+
+.acoustic-float--depth-near {
+  --float-opacity: 0.62;
+}
+
+.acoustic-float__parallax {
+  will-change: transform;
+}
+
+.acoustic-float__drift {
+  display: block;
+  filter: var(--float-glow, drop-shadow(0 0 14px rgba(59, 140, 255, 0.42)));
+  animation: acoustic-drift var(--drift-duration, 6s) ease-in-out infinite alternate;
+  animation-delay: var(--drift-delay, 0s);
+}
+
+.acoustic-float--depth-far .acoustic-float__drift {
+  --float-glow: drop-shadow(0 0 10px rgba(59, 140, 255, 0.28));
+}
+
+.acoustic-float--depth-mid .acoustic-float__drift {
+  --float-glow: drop-shadow(0 0 16px rgba(59, 140, 255, 0.45));
+}
+
+.acoustic-float--depth-near .acoustic-float__drift {
+  --float-glow: drop-shadow(0 0 22px rgba(110, 179, 255, 0.55));
+}
+
+.acoustic-float svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.acoustic-float svg [stroke] {
+  stroke-width: 1.15;
+}
+
+.acoustic-float--sm { width: clamp(84px, 14vw, 128px); }
+.acoustic-float--md { width: clamp(118px, 19vw, 185px); }
+.acoustic-float--lg { width: clamp(142px, 22vw, 228px); }
+.acoustic-float--xl { width: clamp(168px, 26vw, 268px); }
+
+.acoustic-float--type-microphone { width: clamp(68px, 11vw, 104px); }
+.acoustic-float--type-floorplan,
+.acoustic-float--type-blueprint { width: clamp(128px, 20vw, 210px); }
+.acoustic-float--type-chart { width: clamp(138px, 21vw, 220px); }
+.acoustic-float--type-report { width: clamp(76px, 12vw, 112px); }
+
+[data-theme='light'] .acoustic-float {
+  color: var(--color-accent);
+}
+
+[data-theme='light'] .acoustic-float--depth-far { --float-opacity: 0.38; }
+[data-theme='light'] .acoustic-float--depth-mid { --float-opacity: 0.52; }
+[data-theme='light'] .acoustic-float--depth-near { --float-opacity: 0.66; }
+
+[data-theme='light'] .acoustic-float__drift {
+  --float-glow: drop-shadow(0 0 12px rgba(26, 95, 212, 0.22));
+}
+
+[data-theme='light'] .acoustic-float--depth-near .acoustic-float__drift {
+  --float-glow: drop-shadow(0 0 18px rgba(26, 95, 212, 0.32));
+}
+
+@keyframes acoustic-drift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(var(--drift-rotate-from, 0deg));
+  }
+  to {
+    transform: translate3d(var(--drift-x, 0), var(--drift-y, -10px), 0) rotate(var(--drift-rotate-to, 2deg));
+  }
+}
+
+@media (max-width: 767px) {
+  .acoustic-float--hide-mobile {
+    display: none;
+  }
+
+  .acoustic-float--depth-far { --float-opacity: 0.3; }
+  .acoustic-float--depth-mid { --float-opacity: 0.42; }
+  .acoustic-float--depth-near { --float-opacity: 0.55; }
+}
+
+/* Result — декор только в нижнем левом поле, вне колонок с текстом и фото */
+@media (min-width: 1024px) {
+  .result .section-acoustic {
+    clip-path: polygon(0 72%, 38% 72%, 38% 100%, 0 100%);
+  }
+}
+
+.result .result__grid {
+  position: relative;
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acoustic-float__drift {
+    animation: none;
+  }
+
+  .acoustic-float {
+    opacity: calc(var(--float-opacity, 0.45) * 0.75);
+  }
+}

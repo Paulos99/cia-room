@@ -25,6 +25,19 @@
     let isPressing = false;
     let lastBurstStrength = 0;
 
+    function isLightTheme() {
+      return document.documentElement.getAttribute('data-theme') === 'light';
+    }
+
+    function updateCaptionColor(captionWarm, calm) {
+      if (isLightTheme()) {
+        caption.style.removeProperty('color');
+        return;
+      }
+
+      caption.style.color = `rgba(${Math.round(168 + captionWarm * 80)}, ${Math.round(210 - captionWarm * 60)}, 255, ${0.88 + calm * 0.08})`;
+    }
+
     container.innerHTML = '';
     container.classList.add('hero-visual--field');
 
@@ -231,11 +244,43 @@
     root.add(fieldMesh);
 
     const wirePivot = new THREE.Group();
-    const wireMat = new THREE.MeshBasicMaterial({
-      color: 0x9ec8ff,
+    const wireUniforms = {
+      uColor: { value: new THREE.Color(0x9ec8ff) },
+      uOpacity: { value: 0.28 },
+    };
+    const wireMat = new THREE.ShaderMaterial({
+      uniforms: wireUniforms,
       wireframe: true,
       transparent: true,
-      opacity: 0.28,
+      depthWrite: false,
+      depthTest: true,
+      side: THREE.FrontSide,
+      vertexShader: `
+        varying vec3 vWorldPos;
+        varying vec3 vNormal;
+
+        void main() {
+          vec4 worldPos = modelMatrix * vec4(position, 1.0);
+          vWorldPos = worldPos.xyz;
+          vNormal = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * viewMatrix * worldPos;
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vWorldPos;
+        varying vec3 vNormal;
+        uniform vec3 uColor;
+        uniform float uOpacity;
+
+        void main() {
+          vec3 viewDir = normalize(cameraPosition - vWorldPos);
+          float facing = dot(normalize(vNormal), viewDir);
+          if (facing < 0.0) discard;
+
+          float edgeFade = smoothstep(0.0, 0.15, facing);
+          gl_FragColor = vec4(uColor, uOpacity * edgeFade);
+        }
+      `,
     });
     const wireMesh = new THREE.Mesh(wireGeo, wireMat);
     wirePivot.add(wireMesh);
@@ -362,8 +407,8 @@
         wirePivot.rotation.y -= 0.0016;
       }
 
-      wireMat.color.copy(new THREE.Color(0x9ec8ff)).lerp(new THREE.Color(0xffaa66), chaos * 0.35 + irritation * 0.25);
-      wireMat.opacity = 0.22 + energy * 0.04 + chaos * 0.05 + irritation * 0.06;
+      wireUniforms.uColor.value.copy(new THREE.Color(0x9ec8ff)).lerp(new THREE.Color(0xffaa66), chaos * 0.35 + irritation * 0.25);
+      wireUniforms.uOpacity.value = 0.22 + energy * 0.04 + chaos * 0.05 + irritation * 0.06;
 
       const lightEase = 1 - Math.pow(0.02, dt);
       const lightOrbit = elapsed * 0.35;
@@ -375,11 +420,11 @@
       fillLight.intensity += (0.58 + chaos * 0.5 - fillLight.intensity) * lightEase;
 
       const glowWarm = chaos * 0.65;
-      glow.style.opacity = String(0.2 + energy * 0.16 + pull.strength * 0.08);
-      glow.style.background = `radial-gradient(circle, rgba(${Math.round(47 + glowWarm * 180)}, ${Math.round(125 - glowWarm * 55)}, ${Math.round(255 - glowWarm * 210)}, ${0.14 + chaos * 0.08}) 0%, transparent 70%)`;
+      glow.style.opacity = String(0.34 + energy * 0.14 + pull.strength * 0.08);
+      glow.style.background = `radial-gradient(circle, rgba(${Math.round(47 + glowWarm * 180)}, ${Math.round(125 - glowWarm * 55)}, ${Math.round(255 - glowWarm * 210)}, ${0.28 + chaos * 0.08}) 0%, rgba(59, 140, 255, 0.1) 50%, transparent 72%)`;
 
       const captionWarm = Math.min(1, chaos * 0.85 + energy * 0.25);
-      caption.style.color = `rgba(${Math.round(168 + captionWarm * 80)}, ${Math.round(210 - captionWarm * 60)}, 255, ${0.88 + calm * 0.08})`;
+      updateCaptionColor(captionWarm, calm);
 
       renderer.render(scene, camera);
 
@@ -473,6 +518,10 @@
         lastTime = performance.now();
         raf = requestAnimationFrame(draw);
       }
+    });
+
+    window.addEventListener('cia:theme-change', () => {
+      updateCaptionColor(0, field.calm);
     });
   }
 

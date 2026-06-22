@@ -4,55 +4,59 @@
   const PATHS = [
     {
       id: 'np-ceiling',
-      d: 'M100 134 L100 74 L218 74 L218 128',
+      d: 'M120 158 L120 88 L268 88 L268 152',
       label: 'через перекрытие',
-      lx: 160,
-      ly: 86,
+      desc: 'Ударный и воздушный шум соседей сверху передаётся через плиту перекрытия — даже если кажется, что источник «в стене».',
+      lx: 194,
+      ly: 100,
       anchor: 'middle',
       reason: 0,
       color: '#2F7DFF',
       soft: false,
-      endX: 218,
-      endY: 128,
+      endX: 268,
+      endY: 152,
     },
     {
       id: 'np-wall',
-      d: 'M100 134 L52 134 L52 198 L100 198',
+      d: 'M120 158 L62 158 L62 232 L120 232',
       label: 'через стену',
-      lx: 24,
-      ly: 164,
+      desc: 'Прямой воздушный путь через ограждающую стену — самый очевидный, но не всегда главный маршрут.',
+      lx: 28,
+      ly: 192,
       anchor: 'start',
       reason: 1,
       color: '#2F7DFF',
       soft: false,
-      endX: 100,
-      endY: 198,
+      endX: 120,
+      endY: 232,
     },
     {
       id: 'np-flank',
-      d: 'M100 134 L268 134 L268 198 L180 198',
+      d: 'M120 158 L318 158 L318 232 L216 232',
       label: 'обходной путь',
-      lx: 276,
-      ly: 164,
+      desc: 'Звук обходит основную конструкцию по смежным стенам, полу или потолку — типичная причина «не сработавшей» звукоизоляции.',
+      lx: 326,
+      ly: 192,
       anchor: 'end',
       reason: 2,
       color: '#78B4FF',
       soft: true,
-      endX: 180,
-      endY: 198,
+      endX: 216,
+      endY: 232,
     },
     {
       id: 'np-vent',
-      d: 'M160 134 L160 68 L232 68 L232 88',
+      d: 'M192 158 L192 82 L288 82 L288 104',
       label: 'вентиляция',
-      lx: 204,
-      ly: 56,
+      desc: 'Вентиляционные каналы, шахты и проходки создают обходной маршрут между помещениями.',
+      lx: 252,
+      ly: 68,
       anchor: 'middle',
       reason: 3,
       color: '#78B4FF',
       soft: true,
-      endX: 232,
-      endY: 88,
+      endX: 288,
+      endY: 104,
     },
   ];
 
@@ -79,25 +83,27 @@
     const ringCls = soft ? 'noise-path-endpoint-ring noise-path-endpoint-ring--soft' : 'noise-path-endpoint-ring';
     const dotCls = soft ? 'noise-path-endpoint noise-path-endpoint--soft' : 'noise-path-endpoint';
     return `
-      <circle cx="${x}" cy="${y}" r="7" class="${ringCls}"/>
-      <circle cx="${x}" cy="${y}" r="3.5" class="${dotCls}"/>`;
+      <circle cx="${x}" cy="${y}" r="8" class="${ringCls}"/>
+      <circle cx="${x}" cy="${y}" r="4" class="${dotCls}"/>`;
   }
 
   function initNoisePath() {
     const container = document.getElementById('noise-path-diagram');
-    const whySection = document.getElementById('why');
+    const tabsRoot = document.getElementById('why-path-tabs');
+    const detailEl = document.getElementById('why-path-detail');
     if (!container || !window.CIAViz) return;
 
     const V = window.CIAViz;
     const r = V.reduced();
     const pulses = r
       ? ''
-      : PATHS.map((p, i) => V.movingDot(p.d, p.color, '2.8s', `${i * 0.4}s`)).join('');
+      : PATHS.map((p, i) => V.movingDot(p.d, p.color, '2.6s', `${i * 0.35}s`)).join('');
 
     const pathEls = PATHS.map((p) => {
       const pathCls = p.soft ? 'viz-path viz-path--soft' : 'viz-path';
       return `
-      <g class="noise-path-group" data-reason="${p.reason}">
+      <g class="noise-path-group" data-reason="${p.reason}" role="button" tabindex="0" aria-label="${p.label}">
+        <path d="${p.d}" class="noise-path-hit"/>
         <path id="${p.id}" d="${p.d}" class="${pathCls}" stroke="${p.color}" opacity="0.28"/>
         ${pathEndpoint(p.endX, p.endY, p.soft)}
         ${pathLabel(p)}
@@ -106,84 +112,153 @@
 
     const svg = V.mount(
       container,
-      '0 0 320 276',
+      '0 0 400 320',
       `
       ${V.arrowMarkers('np')}
 
-      <text x="16" y="22" class="viz-label viz-label--title">ПЛАН КВАРТИРЫ · МАРШРУТЫ ШУМА</text>
+      <text x="20" y="26" class="viz-label viz-label--title">ПЛАН КВАРТИРЫ · МАРШРУТЫ ШУМА</text>
 
-      <rect x="40" y="48" width="240" height="192" class="viz-frame" rx="2"/>
-      <line x1="160" y1="48" x2="160" y2="240" class="viz-line"/>
-      <line x1="40" y1="144" x2="280" y2="144" class="viz-line"/>
+      <rect x="48" y="56" width="304" height="232" class="viz-frame" rx="2"/>
+      <line x1="200" y1="56" x2="200" y2="288" class="viz-line"/>
+      <line x1="48" y1="172" x2="352" y2="172" class="viz-line"/>
 
-      <text x="100" y="102" class="viz-label viz-label--room" text-anchor="middle">гостиная</text>
-      <text x="220" y="102" class="viz-label viz-label--room" text-anchor="middle">спальня</text>
-      <text x="100" y="206" class="viz-label viz-label--room" text-anchor="middle">кухня</text>
-      <text x="220" y="206" class="viz-label viz-label--room" text-anchor="middle">санузел</text>
+      <text x="124" y="122" class="viz-label viz-label--room" text-anchor="middle">гостиная</text>
+      <text x="276" y="122" class="viz-label viz-label--room" text-anchor="middle">спальня</text>
+      <text x="124" y="246" class="viz-label viz-label--room" text-anchor="middle">кухня</text>
+      <text x="276" y="246" class="viz-label viz-label--room" text-anchor="middle">санузел</text>
 
-      <rect x="224" y="48" width="12" height="20" class="noise-path-vent-shaft" rx="1"/>
+      <rect x="284" y="56" width="14" height="24" class="noise-path-vent-shaft" rx="1"/>
 
       <g class="noise-path-source">
-        <circle cx="100" cy="134" r="14" class="noise-path-source-ring"/>
-        <circle cx="100" cy="134" r="5" class="noise-path-source-dot">
-          ${r ? '' : '<animate attributeName="r" values="4;6;4" dur="1.5s" repeatCount="indefinite"/>'}
+        <circle cx="120" cy="158" r="16" class="noise-path-source-ring"/>
+        <circle cx="120" cy="158" r="6" class="noise-path-source-dot">
+          ${r ? '' : '<animate attributeName="r" values="5;7;5" dur="1.5s" repeatCount="indefinite"/>'}
         </circle>
-        <text x="100" y="116" class="viz-label viz-label--active" text-anchor="middle">источник</text>
+        <text x="120" y="136" class="viz-label viz-label--active" text-anchor="middle">источник</text>
       </g>
-      ${r ? '' : V.impactRipples(100, 134)}
+      ${r ? '' : V.impactRipples(120, 158)}
 
       ${pathEls}
       ${pulses}
 
-      ${V.pathLegend(16, 256)}
+      ${V.pathLegend(20, 304)}
     `
     );
 
-    let activeIndex = -1;
-
-    function pathIndexFromY(clientY) {
-      const rect = container.getBoundingClientRect();
-      const rel = (clientY - rect.top) / rect.height;
-      if (rel <= 0) return 0;
-      if (rel >= 1) return 3;
-      return Math.min(3, Math.floor(rel * 4));
+    const tabButtons = [];
+    if (tabsRoot) {
+      PATHS.forEach((p, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'why__path-tab';
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', 'false');
+        btn.dataset.reason = String(p.reason);
+        btn.textContent = p.label;
+        btn.addEventListener('click', () => {
+          pauseAutoCycle();
+          highlightPath(i, true);
+        });
+        tabsRoot.appendChild(btn);
+        tabButtons.push(btn);
+      });
     }
 
-    function highlightPath(index) {
-      if (index === activeIndex) return;
+    let activeIndex = -1;
+    let autoTimer = null;
+    let autoIndex = 0;
+
+    function highlightPath(index, fromUser) {
+      if (index < 0 || index >= PATHS.length) return;
+      if (index === activeIndex && fromUser) return;
       activeIndex = index;
+
       PATHS.forEach((p) => {
         const group = svg.querySelector(`[data-reason="${p.reason}"]`);
         const path = svg.getElementById(p.id);
         const labelWrap = group && group.querySelector('.noise-path-label-wrap');
         const endpoints = group && group.querySelectorAll('.noise-path-endpoint, .noise-path-endpoint-ring');
         const active = p.reason === index;
-        if (group) group.classList.toggle('is-active', active);
-        if (path) {
-          path.setAttribute('opacity', active ? '1' : '0.22');
-          path.setAttribute('stroke-width', active ? (p.soft ? '2' : '2.4') : p.soft ? '1.4' : '1.6');
+        if (group) {
+          group.classList.toggle('is-active', active);
+          group.setAttribute('aria-pressed', active ? 'true' : 'false');
         }
-        if (labelWrap) labelWrap.setAttribute('opacity', active ? '1' : '0.72');
+        if (path) {
+          path.setAttribute('opacity', active ? '1' : '0.18');
+          path.setAttribute('stroke-width', active ? (p.soft ? '2.2' : '2.6') : p.soft ? '1.4' : '1.6');
+        }
+        if (labelWrap) labelWrap.setAttribute('opacity', active ? '1' : '0.65');
         if (endpoints) {
-          endpoints.forEach((node) => node.setAttribute('opacity', active ? '1' : '0.45'));
+          endpoints.forEach((node) => node.setAttribute('opacity', active ? '1' : '0.4'));
+        }
+      });
+
+      tabButtons.forEach((btn, i) => {
+        const active = i === index;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+
+      if (detailEl) {
+        detailEl.textContent = PATHS[index].desc;
+        detailEl.classList.add('is-active');
+      }
+    }
+
+    function bindGroup(group, index) {
+      group.addEventListener('mouseenter', () => {
+        pauseAutoCycle();
+        highlightPath(index, false);
+      });
+      group.addEventListener('focus', () => {
+        pauseAutoCycle();
+        highlightPath(index, false);
+      });
+      group.addEventListener('click', () => {
+        pauseAutoCycle();
+        highlightPath(index, true);
+      });
+      group.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          pauseAutoCycle();
+          highlightPath(index, true);
         }
       });
     }
 
-    function handlePointer(clientX, clientY) {
-      const rect = container.getBoundingClientRect();
-      const padX = 32;
-      if (clientX < rect.left - padX || clientX > rect.right + padX) return;
-      highlightPath(pathIndexFromY(clientY));
+    PATHS.forEach((p) => {
+      const group = svg.querySelector(`[data-reason="${p.reason}"]`);
+      if (group) bindGroup(group, p.reason);
+    });
+
+    function pauseAutoCycle() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
     }
 
-    whySection.addEventListener('mousemove', (e) => handlePointer(e.clientX, e.clientY));
-    whySection.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
-      if (touch) handlePointer(touch.clientX, touch.clientY);
-    }, { passive: true });
+    function startAutoCycle() {
+      if (r || autoTimer) return;
+      autoTimer = setInterval(() => {
+        autoIndex = (autoIndex + 1) % PATHS.length;
+        highlightPath(autoIndex, false);
+      }, 4500);
+    }
 
-    highlightPath(0);
+    container.addEventListener('mouseenter', pauseAutoCycle);
+    container.addEventListener('mouseleave', () => {
+      startAutoCycle();
+    });
+
+    if (tabsRoot) {
+      tabsRoot.addEventListener('mouseenter', pauseAutoCycle);
+      tabsRoot.addEventListener('mouseleave', startAutoCycle);
+    }
+
+    highlightPath(0, false);
+    startAutoCycle();
   }
 
   if (document.readyState === 'loading') {

@@ -4,9 +4,10 @@
 .lead__visual,
 .object-card__schematic {
   background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-xl);
   overflow: hidden;
+  box-shadow: var(--shadow-glass);
 }
 
 .viz-svg {
@@ -27,56 +28,56 @@
 .viz-label {
   font-family: var(--font-mono);
   font-size: 10px;
-  fill: #94a4b8;
+  fill: var(--viz-label);
   letter-spacing: 0.05em;
 }
 
 .viz-label--title {
   font-size: 10px;
-  fill: #b8c4d4;
+  fill: var(--viz-label-title);
   letter-spacing: 0.08em;
 }
 
 .viz-label--layer {
   font-size: 11px;
-  fill: #c8d4e4;
+  fill: var(--viz-label-layer);
 }
 
 .viz-label--room {
   font-size: 10px;
-  fill: #b0c0d0;
+  fill: var(--viz-label-room);
 }
 
 .viz-label--caption {
   font-size: 9px;
-  fill: #8a9cb0;
+  fill: var(--viz-label-caption);
 }
 
 .viz-label--path {
   font-size: 9px;
-  fill: #c0d0e4;
+  fill: var(--viz-label-path);
   letter-spacing: 0.04em;
 }
 
 .viz-label--hint {
   font-size: 9px;
-  fill: #6e8094;
+  fill: var(--viz-label-hint);
   letter-spacing: 0.03em;
 }
 
 .viz-label--active {
-  fill: #78B4FF;
+  fill: var(--viz-label-active);
 }
 
 .viz-layer-edge {
-  stroke: rgba(120, 180, 255, 0.22);
+  stroke: var(--viz-stroke-soft);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 .viz-callout {
-  fill: rgba(47, 125, 255, 0.08);
-  stroke: rgba(120, 180, 255, 0.55);
+  fill: var(--color-accent-subtle);
+  stroke: var(--color-accent-border-strong);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
@@ -86,7 +87,7 @@
 }
 
 .viz-motion-dot {
-  filter: drop-shadow(0 0 4px rgba(47, 125, 255, 0.65));
+  filter: drop-shadow(0 0 4px var(--color-accent-glow-soft));
 }
 
 .viz-impact-ripple {
@@ -94,34 +95,34 @@
 }
 
 .viz-frame {
-  fill: rgba(255, 255, 255, 0.018);
-  stroke: rgba(160, 180, 205, 0.16);
+  fill: var(--viz-fill-panel);
+  stroke: var(--viz-stroke-panel);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 .viz-zone {
-  fill: rgba(47, 125, 255, 0.055);
-  stroke: rgba(47, 125, 255, 0.9);
+  fill: var(--color-accent-subtle);
+  stroke: var(--color-accent);
   stroke-width: 1.25;
   vector-effect: non-scaling-stroke;
 }
 
 .viz-zone--muted {
-  fill: rgba(255, 255, 255, 0.025);
-  stroke: rgba(160, 180, 205, 0.16);
+  fill: var(--color-grid-faint);
+  stroke: var(--viz-stroke-panel);
 }
 
 .viz-line {
   fill: none;
-  stroke: rgba(160, 180, 205, 0.18);
+  stroke: var(--viz-stroke-panel);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 .viz-path {
   fill: none;
-  stroke: #2F7DFF;
+  stroke: var(--color-accent);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -129,86 +130,86 @@
 }
 
 .viz-path--soft {
-  stroke: #78B4FF;
+  stroke: var(--color-accent-pale);
   stroke-width: 1.2;
   stroke-dasharray: 5 5;
   opacity: 0.78;
 }
 
 .viz-node {
-  fill: #2F7DFF;
-  stroke: rgba(120, 180, 255, 0.75);
+  fill: var(--color-accent);
+  stroke: var(--color-accent-border-strong);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 .viz-node--soft {
-  fill: rgba(120, 180, 255, 0.18);
+  fill: var(--color-accent-muted);
 }
 
 .viz-grid {
   fill: none;
-  stroke: rgba(120, 180, 255, 0.12);
+  stroke: var(--viz-stroke-soft);
   stroke-width: 1;
   stroke-dasharray: 2 8;
   vector-effect: non-scaling-stroke;
 }
 
 .viz-pulse {
-  fill: #2F7DFF;
+  fill: var(--color-accent);
   opacity: 0.9;
 }
 
 /* Noise path diagram */
 .noise-path-label-bg {
-  fill: rgba(8, 14, 24, 0.88);
-  stroke: rgba(120, 180, 255, 0.22);
+  fill: var(--viz-fill-tooltip);
+  stroke: var(--viz-stroke-soft);
   stroke-width: 0.75;
   vector-effect: non-scaling-stroke;
 }
 
 .noise-path-group.is-active .noise-path-label-bg {
-  stroke: rgba(120, 180, 255, 0.55);
+  stroke: var(--color-accent-border-strong);
 }
 
 .noise-path-group.is-active .noise-path-label {
-  fill: #9ec8ff;
+  fill: var(--color-accent-light);
 }
 
 .noise-path-source-ring {
-  fill: rgba(47, 125, 255, 0.12);
-  stroke: #2F7DFF;
+  fill: var(--color-accent-muted);
+  stroke: var(--color-accent);
   stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
 }
 
 .noise-path-source-dot {
-  fill: #2F7DFF;
+  fill: var(--color-accent);
 }
 
 .noise-path-endpoint-ring {
-  fill: rgba(47, 125, 255, 0.1);
-  stroke: rgba(47, 125, 255, 0.55);
+  fill: var(--color-accent-subtle);
+  stroke: var(--color-accent-border-strong);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 .noise-path-endpoint-ring--soft {
-  fill: rgba(120, 180, 255, 0.08);
-  stroke: rgba(120, 180, 255, 0.45);
+  fill: var(--color-accent-subtle);
+  stroke: var(--color-accent-border);
 }
 
 .noise-path-endpoint {
-  fill: #2F7DFF;
+  fill: var(--color-accent);
 }
 
 .noise-path-endpoint--soft {
-  fill: #78B4FF;
+  fill: var(--color-accent-pale);
 }
 
 .noise-path-vent-shaft {
-  fill: rgba(120, 180, 255, 0.12);
-  stroke: rgba(120, 180, 255, 0.4);
+  fill: var(--color-accent-muted);
+  stroke: var(--color-accent-border);
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
@@ -218,6 +219,18 @@
 .noise-path-endpoint,
 .noise-path-endpoint-ring {
   transition: opacity 0.22s ease, stroke-width 0.22s ease;
+}
+
+.noise-path-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 18;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.noise-path-group {
+  cursor: pointer;
 }
 
 @media (prefers-reduced-motion: reduce) {

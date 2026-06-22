@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  const NAV_SECTIONS = ['about-cia', 'why', 'services', 'process', 'objects', 'faq', 'lead'];
   const PLACEHOLDER_RE = /^\[[^\]]+\]$/;
 
   function isPlaceholder(value) {
@@ -10,7 +9,20 @@
 
   function getHeaderOffset() {
     const header = document.getElementById('header');
-    return header ? header.getBoundingClientRect().height : 72;
+    if (!header) return 80;
+    return Math.ceil(header.getBoundingClientRect().height) + 12;
+  }
+
+  function getScrollAnchor(section) {
+    return (
+      section.querySelector(
+        '.section-label, .section-title, .hero__label, h1, h2'
+      ) || section
+    );
+  }
+
+  function getScrollTopForElement(el) {
+    return el.getBoundingClientRect().top + getScrollY();
   }
 
   function normalizeTelegram(value) {
@@ -78,10 +90,21 @@
 
   function initHeaderScroll() {
     const header = document.getElementById('header');
+    const progressFill = document.getElementById('header-progress-fill');
     if (!header) return;
 
     const onScroll = () => {
-      header.classList.toggle('is-scrolled', getScrollY() > 8);
+      const scrollY = getScrollY();
+      header.classList.toggle('is-scrolled', scrollY > 8);
+
+      if (progressFill) {
+        const maxScroll = Math.max(
+          1,
+          document.documentElement.scrollHeight - window.innerHeight
+        );
+        const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
+        progressFill.style.width = `${progress * 100}%`;
+      }
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -124,11 +147,12 @@
     const target = document.getElementById(id);
     if (!target) return;
 
-    const offset = -getHeaderOffset() + 1;
+    const anchor = getScrollAnchor(target);
+    const top = Math.max(0, getScrollTopForElement(anchor) - getHeaderOffset());
     const lenis = window.CIA_SMOOTH_SCROLL?.lenis;
 
     const onScrollDone = () => {
-      const heading = target.querySelector('h1, h2, .section-title');
+      const heading = target.querySelector('h1, h2, .section-title, .section-label');
       const focusEl = heading || target;
       if (!focusEl.hasAttribute('tabindex')) {
         focusEl.setAttribute('tabindex', '-1');
@@ -136,13 +160,15 @@
       focusEl.focus({ preventScroll: true });
     };
 
+    if (typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.refresh();
+    }
+
     if (lenis) {
-      lenis.scrollTo(target, { offset, duration: 1.35 });
-      setTimeout(onScrollDone, 1400);
+      lenis.scrollTo(top, { duration: 1.15, onComplete: onScrollDone });
     } else {
-      const top = target.getBoundingClientRect().top + window.scrollY + offset;
       window.scrollTo({ top, behavior: 'smooth' });
-      setTimeout(onScrollDone, 450);
+      setTimeout(onScrollDone, 500);
     }
 
     if (replace) {
@@ -163,52 +189,39 @@
     });
 
     if (window.location.hash) {
-      requestAnimationFrame(() => scrollToHash(window.location.hash, false));
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => scrollToHash(window.location.hash, false));
+      });
     }
   }
 
-  function syncNavIndices() {
-    document.querySelectorAll('.header__nav-link[data-nav]').forEach((link) => {
-      const idxEl = link.querySelector('.header__nav-idx');
-      if (!idxEl) return;
-
-      const section = document.getElementById(link.getAttribute('data-nav'));
-      const label = section?.querySelector('.section-label');
-      const match = label?.textContent.trim().match(/^(\d{2})\s*\//);
-
-      if (match) {
-        idxEl.textContent = match[1];
-        idxEl.hidden = false;
-      } else {
-        idxEl.textContent = '';
-        idxEl.hidden = true;
-      }
-    });
-  }
-
   function initNavSpy() {
-    syncNavIndices();
-
     const links = new Map();
     document.querySelectorAll('.header__nav-link[data-nav]').forEach((link) => {
       links.set(link.getAttribute('data-nav'), link);
     });
     if (!links.size) return;
 
+    const setActive = (id) => {
+      links.forEach((link, key) => {
+        const active = key === id;
+        link.classList.toggle('is-active', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          const id = entry.target.id;
-          links.forEach((link, key) => {
-            link.classList.toggle('is-active', key === id);
-          });
+          setActive(entry.target.id);
         });
       },
       { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
     );
 
-    NAV_SECTIONS.forEach((id) => {
+    links.forEach((_, id) => {
       const section = document.getElementById(id);
       if (section) observer.observe(section);
     });
@@ -240,6 +253,7 @@
 
   function boot() {
     document.documentElement.classList.add('js');
+    document.body.classList.add('has-ambient');
     injectContacts();
     initHeaderScroll();
     initMobileMenu();

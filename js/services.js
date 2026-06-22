@@ -15,6 +15,65 @@
     'Сравниваем план и факт: повторные измерения и анализ отклонений.',
   ];
 
+  const MODEL_COPY = {
+    source: 'Источник — речь, музыка, шаги, техника, улица. Определяем уровень, спектр и режим шума.',
+    path: 'Путь передачи — через стену, перекрытие, стык, вентиляцию или трубы. Часто доминирует неочевидный маршрут.',
+    construction: 'Конструкции и узлы — состав стен, перекрытий, примыканий. Один слабый стык может свести на нет всю систему.',
+    perception: 'Целевой результат зависит от назначения: сон, работа, запись, приватность речи. Переводим задачу в измеримые показатели.',
+  };
+
+  function initAcousticModelFlow(flow, detail) {
+    if (!flow) return;
+
+    const nodes = flow.querySelectorAll('.cia-identity__node');
+    let autoIndex = 0;
+    let interval;
+
+    function activate(node) {
+      const key = node.dataset.node;
+      nodes.forEach((n) => {
+        n.classList.toggle('is-active', n === node);
+        n.setAttribute('aria-pressed', n === node ? 'true' : 'false');
+      });
+      if (detail && MODEL_COPY[key]) {
+        detail.textContent = MODEL_COPY[key];
+        detail.classList.add('is-active');
+      }
+    }
+
+    nodes.forEach((node, i) => {
+      node.setAttribute('role', 'button');
+      node.setAttribute('tabindex', '0');
+      node.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+      node.addEventListener('click', () => activate(node));
+      node.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate(node);
+        }
+      });
+    });
+
+    if (nodes[0]) activate(nodes[0]);
+
+    const autoCycle = () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      autoIndex = (autoIndex + 1) % nodes.length;
+      activate(nodes[autoIndex]);
+    };
+
+    interval = setInterval(autoCycle, 5000);
+    flow.addEventListener('mouseenter', () => clearInterval(interval));
+    flow.addEventListener('mouseleave', () => {
+      interval = setInterval(autoCycle, 5000);
+    });
+  }
+
+  initAcousticModelFlow(
+    document.getElementById('service-model-flow'),
+    document.getElementById('service-model-detail')
+  );
+
   function setActiveService(target) {
     panels.forEach((p) => {
       const active = p.dataset.service === target;

@@ -8,7 +8,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--header-height);
+  scroll-padding-top: calc(var(--header-height) + var(--space-md));
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
   max-width: 100%;
@@ -90,22 +90,6 @@ ol {
   list-style: none;
 }
 
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: var(--space-md);
-  z-index: var(--z-skip);
-  padding: var(--space-sm) var(--space-md);
-  background: var(--color-accent);
-  color: var(--color-bg);
-  border-radius: var(--radius-md);
-  font-weight: 600;
-}
-
-.skip-link:focus {
-  top: var(--space-md);
-}
-
 .container {
   width: 100%;
   max-width: var(--container-max);
@@ -172,11 +156,18 @@ ol {
   position: relative;
 }
 
-.section + .section {
-  border-top: 1px solid var(--color-line);
+.section[id] {
+  scroll-margin-top: calc(var(--header-height) + var(--space-md));
 }
 
-h1, h2, h3 {
+.section + .section {
+  border-top: 1px solid var(--color-section-divider);
+}
+
+h1, h2, h3,
+.section-title,
+.hero__title {
+  font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.02em;
 }
@@ -212,7 +203,7 @@ p + p {
 }
 
 ::selection {
-  background: rgba(47, 125, 255, 0.3);
+  background: var(--color-selection);
   color: var(--color-text);
 }
 

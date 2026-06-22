@@ -6,6 +6,19 @@
   <title>Политика конфиденциальности — ЦИА Помещения</title>
   <meta name="robots" content="noindex, follow">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <script>
+    (function () {
+      var key = 'cia-theme';
+      var theme = 'dark';
+      try {
+        var stored = localStorage.getItem(key);
+        if (stored === 'light' || stored === 'dark') theme = stored;
+        else if (window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+      } catch (e) { /* ignore */ }
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.style.colorScheme = theme;
+    })();
+  </script>
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -31,6 +44,7 @@
     </div>
   </main>
   <script src="js/config.js"></script>
+  <script src="js/theme.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

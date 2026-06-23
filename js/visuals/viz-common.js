@@ -52,7 +52,7 @@
         <line x1="0" y1="5" x2="22" y2="5" class="viz-path"/>
         <text x="28" y="9" class="viz-label viz-label--caption">прямой путь</text>
         <line x1="0" y1="21" x2="22" y2="21" class="viz-path viz-path--soft"/>
-        <text x="28" y="25" class="viz-label viz-label--caption">фланговый / обходной путь</text>
+        <text x="28" y="25" class="viz-label viz-label--caption">обходной путь</text>
       </g>`;
     },
     layerStack(x, y, w, layers) {

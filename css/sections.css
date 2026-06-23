@@ -51,7 +51,6 @@
     position: static;
     top: auto;
     margin-top: 0;
-    transform: translateX(-5.5rem);
   }
 
   .hero__method {
@@ -499,7 +498,8 @@
   .hero__visual {
     max-width: 300px;
     height: 300px;
-    margin-inline: 0;
+    margin-inline-end: 0;
+    margin-inline-start: -5.5rem;
     justify-self: start;
   }
 }

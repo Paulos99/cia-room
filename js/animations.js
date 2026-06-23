@@ -62,7 +62,7 @@
     if (visual) {
       visual.style.opacity = '1';
       gsap.set(visual, { opacity: 0, x: 48, scale: 0.94 });
-      tl.to(visual, { opacity: 1, x: 0, scale: 1, duration: 1.1, clearProps: 'opacity,transform' }, '-=0.55');
+      tl.to(visual, { opacity: 1, x: 0, scale: 1, duration: 1.1, clearProps: 'opacity' }, '-=0.55');
 
       if (isDesktopParallax()) {
         gsap.to(visual, {

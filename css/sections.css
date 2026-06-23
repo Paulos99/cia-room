@@ -371,13 +371,13 @@
 .hero__visual {
   position: relative;
   width: 100%;
-  max-width: 320px;
+  max-width: 480px;
   margin-inline: auto;
   margin-top: 0;
   justify-self: center;
   aspect-ratio: 1;
   min-height: 0;
-  height: clamp(220px, 48vw, 320px);
+  height: clamp(330px, 72vw, 480px);
   cursor: default;
   background: transparent;
   border: none;
@@ -429,12 +429,12 @@
 .hero-visual__caption {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: -1.5rem;
   transform: translateX(-50%);
   z-index: 3;
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.625rem;
+  font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -448,7 +448,7 @@
 
 [data-theme='light'] .hero-visual__caption {
   font-weight: 600;
-  font-size: 0.6875rem;
+  font-size: 1.375rem;
   color: var(--color-accent-light);
   text-shadow: none;
 }
@@ -475,9 +475,9 @@
   }
 
   .hero-visual__caption {
-    font-size: 0.6875rem;
+    font-size: 1.375rem;
     letter-spacing: 0.14em;
-    bottom: 2px;
+    bottom: -1.25rem;
   }
 }
 
@@ -496,8 +496,8 @@
 
 @media (min-width: 1024px) {
   .hero__visual {
-    max-width: 300px;
-    height: 300px;
+    max-width: 450px;
+    height: 450px;
     margin-inline-end: 0;
     margin-inline-start: -5.5rem;
     justify-self: start;
@@ -706,19 +706,48 @@
   }
 }
 
+.cia-identity__content .section-title {
+  margin-bottom: var(--space-xl);
+  max-width: 22ch;
+}
+
 .cia-identity__intro {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  max-width: 48ch;
+  gap: var(--space-lg);
+  max-width: 52ch;
   margin-bottom: var(--space-2xl);
 }
 
 .cia-identity__intro p {
   font-size: var(--text-lg);
   color: var(--color-text-secondary);
-  line-height: 1.7;
+  line-height: 1.5;
   margin: 0;
+}
+
+.cia-identity__intro strong,
+.cia-identity__mission-text strong,
+.cia-identity__note strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.cia-identity__link {
+  color: var(--color-accent-light);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent-light) 45%, transparent);
+  text-underline-offset: 0.18em;
+  transition: color var(--duration-fast) var(--ease-out), text-decoration-color var(--duration-fast) var(--ease-out);
+}
+
+.cia-identity__link:hover {
+  color: var(--color-text);
+  text-decoration-color: currentColor;
+}
+
+.cia-identity__intro strong .cia-identity__link {
+  color: var(--color-accent-light);
 }
 
 .cia-identity__mission {
@@ -743,15 +772,15 @@
 .cia-identity__mission-text {
   font-size: var(--text-base);
   color: var(--color-text-secondary);
-  line-height: 1.65;
+  line-height: 1.5;
   margin: 0;
 }
 
 .cia-identity__note {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   color: var(--color-tech);
-  max-width: 48ch;
-  line-height: 1.6;
+  max-width: 52ch;
+  line-height: 1.5;
   margin: 0;
 }
 
@@ -1260,6 +1289,7 @@
 
 .process__media {
   margin: var(--space-xl) 0 var(--space-2xl);
+  aspect-ratio: 16 / 6;
 }
 
 .result__visual {

@@ -102,7 +102,9 @@
     geo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     geo.setAttribute('normal', new THREE.BufferAttribute(normArray, 3));
     const wireDetail = isMobile ? 2 : 3;
-    const wireGeo = new THREE.IcosahedronGeometry(1.15, wireDetail);
+    const fieldScale = 0.75;
+    const wireRadius = 1.15 * 0.85;
+    const wireGeo = new THREE.IcosahedronGeometry(wireRadius, wireDetail);
 
     const uniforms = {
       uTime: { value: 0 },
@@ -241,6 +243,7 @@
     });
 
     const fieldMesh = new THREE.Points(geo, fieldMaterial);
+    fieldMesh.scale.setScalar(fieldScale);
     root.add(fieldMesh);
 
     const wirePivot = new THREE.Group();

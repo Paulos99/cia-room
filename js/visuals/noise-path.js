@@ -58,6 +58,20 @@
       endX: 288,
       endY: 104,
     },
+    {
+      id: 'np-hole',
+      d: 'M120 158 L154 158 L154 172 L124 232',
+      label: 'акустическая дыра',
+      desc: 'Розетка, проходка, неплотный шов или незакрытый узел становятся коротким маршрутом для звука и могут испортить всю конструкцию.',
+      lx: 168,
+      ly: 204,
+      anchor: 'start',
+      reason: 4,
+      color: '#5AA0FF',
+      soft: true,
+      endX: 124,
+      endY: 232,
+    },
   ];
 
   function pathLabel(p) {
@@ -128,6 +142,8 @@
       <text x="276" y="246" class="viz-label viz-label--room" text-anchor="middle">санузел</text>
 
       <rect x="284" y="56" width="14" height="24" class="noise-path-vent-shaft" rx="1"/>
+      <rect x="147" y="166" width="14" height="12" class="viz-callout" rx="1"/>
+      <text x="154" y="162" class="viz-label viz-label--caption" text-anchor="middle">розетка</text>
 
       <g class="noise-path-source">
         <circle cx="120" cy="158" r="16" class="noise-path-source-ring"/>

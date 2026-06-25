@@ -44,7 +44,8 @@
       });
 
       lenis.on('scroll', ScrollTrigger.update);
-      ScrollTrigger.addEventListener('refresh', () => lenis.resize());
+
+      ScrollTrigger.defaults({ scroller: document.documentElement });
     }
 
     if (typeof gsap !== 'undefined') {
@@ -63,8 +64,23 @@
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => lenis.resize(), 150);
+      resizeTimer = setTimeout(() => {
+        const scroll = lenis.scroll;
+        lenis.resize();
+        lenis.scrollTo(scroll, { immediate: true });
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh();
+        }
+      }, 200);
     });
+
+    window.CIA_ON_SCROLL = (handler) => {
+      lenis.on('scroll', handler);
+    };
+
+    window.CIA_SCROLL_TO = (target, options = {}) => {
+      lenis.scrollTo(target, options);
+    };
 
     window.CIA_SMOOTH_SCROLL = { lenis };
     return lenis;

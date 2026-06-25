@@ -3,16 +3,6 @@
 
   document.documentElement.classList.add('js');
 
-  const CHAIN_COPY = [
-    'Фиксируем исходное состояние помещения профессиональным оборудованием.',
-    'Собираем модель объекта: конструкции, геометрия, вероятные пути передачи шума.',
-    'Разрабатываем проектное решение под задачу, бюджет и ограничения.',
-    'Подрядчик реализует конструкции по спецификации и требованиям монтажа.',
-    'При необходимости проводим контрольные измерения и сравниваем с исходным состоянием.',
-  ];
-
-  const SYSTEM_ZONES = ['walls', 'ceiling', 'floor', 'joints', 'engineering', 'acoustics'];
-
   function prefersReducedMotion() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
@@ -80,7 +70,7 @@
   }
 
   function initSectionReveals() {
-    const sectionIds = ['about-cia', 'why', 'services', 'system', 'process', 'result', 'objects', 'approach', 'faq', 'lead'];
+    const sectionIds = ['about-cia', 'why', 'system', 'objects', 'services', 'diagnose', 'process', 'result', 'approach', 'faq', 'lead'];
 
     sectionIds.forEach((id) => {
       if (id === 'about-cia') return;
@@ -119,13 +109,28 @@
       scrollTrigger: { trigger: '.why__grid', start: 'top 80%', once: true },
     });
 
-    gsap.from('.system__grid > *', {
+    gsap.from('.system__content', {
+      opacity: 0,
+      x: -24,
+      duration: 0.85,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.system__grid', start: 'top 80%', once: true },
+    });
+
+    gsap.from('.system__panel', {
+      opacity: 0,
+      x: 24,
+      duration: 0.85,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.system__grid', start: 'top 80%', once: true },
+    });
+
+    gsap.from('.diagnose__shell', {
       opacity: 0,
       y: 28,
       duration: 0.75,
-      stagger: 0.12,
       ease: 'power3.out',
-      scrollTrigger: { trigger: '#system', start: 'top 78%', once: true },
+      scrollTrigger: { trigger: '#diagnose', start: 'top 78%', once: true },
     });
 
     gsap.from('.process__media', {
@@ -156,17 +161,22 @@
       });
     });
 
-    gsap.utils.toArray('.principle').forEach((el, i) => {
-      gsap.from(el, {
-        opacity: 0,
-        y: 24,
-        scale: 0.97,
-        duration: 0.65,
-        delay: i * 0.1,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '#approach', start: 'top 75%', once: true },
+    const principles = gsap.utils.toArray('.principle');
+    if (principles.length && isMobileViewport()) {
+      gsap.set(principles, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' });
+    } else {
+      principles.forEach((el, i) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 24,
+          scale: 0.97,
+          duration: 0.65,
+          delay: i * 0.1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: '#approach', start: 'top 75%', once: true },
+        });
       });
-    });
+    }
 
     gsap.from('.principles__note', {
       opacity: 0,
@@ -180,6 +190,14 @@
   function initServicesMotion() {
     const section = document.getElementById('services');
     if (!section) return;
+
+    gsap.from('.services__compare-wrap', {
+      opacity: 0,
+      y: 20,
+      duration: 0.65,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.services__compare-wrap', start: 'top 88%', once: true },
+    });
 
     gsap.from('.services__tabs', {
       opacity: 0,
@@ -205,16 +223,7 @@
       ].filter(Boolean);
 
       if (isMobileViewport()) {
-        if (panel.classList.contains('is-active')) {
-          gsap.from(targets, {
-            opacity: 0,
-            y: 36,
-            duration: 0.85,
-            stagger: 0.14,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: section, start: 'top 84%', once: true },
-          });
-        }
+        gsap.set(targets, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' });
         return;
       }
 
@@ -229,56 +238,10 @@
     });
 
     window.CIA_REVEAL_SERVICE_PANEL = revealPanel;
-
-    gsap.from('#services-chain', {
-      opacity: 0,
-      y: 24,
-      duration: 0.7,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '#services-chain', start: 'top 88%', once: true },
-    });
   }
 
   function initScrubEffects() {
-    const system = document.getElementById('system');
-    if (system && window.CIARoomLayers && !isMobileViewport()) {
-      let lastZone = -1;
-      ScrollTrigger.create({
-        trigger: system,
-        start: 'top 55%',
-        end: 'bottom 45%',
-        scrub: 0.8,
-        onUpdate: (self) => {
-          const idx = Math.min(SYSTEM_ZONES.length - 1, Math.floor(self.progress * SYSTEM_ZONES.length));
-          if (idx !== lastZone) {
-            lastZone = idx;
-            window.CIARoomLayers.setZone(SYSTEM_ZONES[idx]);
-          }
-        },
-      });
-    }
-
-    const chain = document.getElementById('services-chain');
-    const chainSteps = document.querySelectorAll('.services__chain-step');
-    const chainDesc = document.getElementById('chain-desc');
-    if (chain && chainSteps.length) {
-      let lastStep = -1;
-      ScrollTrigger.create({
-        trigger: chain,
-        start: 'top 70%',
-        end: 'bottom 30%',
-        scrub: 0.6,
-        onUpdate: (self) => {
-          const idx = Math.min(chainSteps.length - 1, Math.floor(self.progress * chainSteps.length));
-          if (idx === lastStep) return;
-          lastStep = idx;
-          chainSteps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
-          if (chainDesc && CHAIN_COPY[idx]) {
-            chainDesc.textContent = CHAIN_COPY[idx];
-          }
-        },
-      });
-    }
+    if (!isDesktopParallax() || typeof gsap === 'undefined') return;
   }
 
   function initMediaParallax() {
@@ -306,15 +269,20 @@
   }
 
   function initObjectsFaqLead() {
-    gsap.from('.object-card', {
-      opacity: 0,
-      y: 36,
-      scale: 0.95,
-      duration: 0.75,
-      stagger: 0.08,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '#objects-grid', start: 'top 82%', once: true },
-    });
+    const cards = gsap.utils.toArray('.object-card');
+    if (cards.length && isMobileViewport()) {
+      gsap.set(cards, { opacity: 1, y: 0, scale: 1, clearProps: 'transform' });
+    } else if (cards.length) {
+      gsap.from(cards, {
+        opacity: 0,
+        y: 36,
+        scale: 0.95,
+        duration: 0.75,
+        stagger: 0.08,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '#objects-grid', start: 'top 82%', once: true },
+      });
+    }
 
     gsap.from('.accordion__item', {
       opacity: 0,
@@ -483,6 +451,9 @@
       '.section-title',
       '.why__content',
       '.why__diagram-panel',
+      '.system__content',
+      '.system__panel',
+      '.diagnose__shell',
       '.service-panel__media',
       '.service-panel__body',
       '.object-card',
@@ -496,11 +467,13 @@
       revealSelectors.forEach((selector) => {
         document.querySelectorAll(selector).forEach((el) => {
           const style = window.getComputedStyle(el);
-          if (style.opacity === '0' || Number(style.opacity) < 0.05) {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.96 && rect.bottom > 0) {
-              gsap.set(el, { clearProps: 'opacity,transform,scale,clipPath' });
-            }
+          const hidden = style.opacity === '0' || Number(style.opacity) < 0.05;
+          const shifted = style.transform && style.transform !== 'none' && !style.transform.startsWith('matrix(1, 0, 0, 1, 0, 0)');
+          if (!hidden && !shifted) return;
+
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.96 && rect.bottom > 0) {
+            gsap.set(el, { opacity: 1, y: 0, scale: 1, clearProps: 'opacity,transform,scale,clipPath' });
           }
         });
       });
@@ -521,14 +494,24 @@
 
   function initScrollRefresh() {
     let resizeTimer;
+    let loadTimer;
     const refresh = () => {
-      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+      if (typeof ScrollTrigger === 'undefined') return;
+      const lenis = window.CIA_SMOOTH_SCROLL?.lenis;
+      const scroll = lenis?.scroll;
+      ScrollTrigger.refresh();
+      if (lenis && typeof scroll === 'number') {
+        lenis.scrollTo(scroll, { immediate: true });
+      }
     };
 
-    window.addEventListener('load', refresh);
+    window.addEventListener('load', () => {
+      clearTimeout(loadTimer);
+      loadTimer = setTimeout(refresh, 400);
+    });
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(refresh, 200);
+      resizeTimer = setTimeout(refresh, 250);
     });
   }
 

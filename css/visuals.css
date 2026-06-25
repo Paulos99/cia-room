@@ -1,8 +1,7 @@
 /* SVG visualizations */
 .why__diagram,
-.system__diagram,
 .lead__visual,
-.object-card__schematic {
+.system__diagram {
   background: var(--color-surface);
   border: 1px solid var(--color-glass-border);
   border-radius: var(--radius-xl);

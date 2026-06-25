@@ -120,7 +120,7 @@
   }
 }
 
-.result .result__grid {
+.result .result__layout {
   position: relative;
   z-index: 2;
 }

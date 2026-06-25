@@ -4,7 +4,7 @@
   const ZONE_DATA = {
     walls: {
       title: 'Стены',
-      body: 'Материал, толщина, розетки и стыки — результат часто определяет самый слабый участок.',
+      body: 'Материал, толщина, розетки, проходки и стыки — сначала определяем свойства существующей стены, затем решаем, что в ней нужно менять.',
       svg: () => `
         <text x="16" y="22" class="viz-label viz-label--title">СТЕНА И ПРИМЫКАНИЯ · ВОЗДУШНЫЙ ШУМ</text>
         ${CIAViz.roomBlock(52, 52, 78, 148, 'помещение A')}
@@ -17,7 +17,7 @@
         ${CIAViz.roomBlock(178, 52, 78, 148, 'помещение B')}
         <rect x="142" y="118" width="24" height="18" class="viz-callout" rx="1"/>
         <text x="154" y="152" class="viz-label viz-label--active" text-anchor="middle">слабая точка</text>
-        <text x="154" y="166" class="viz-label viz-label--caption" text-anchor="middle">розетка / проходка</text>
+        <text x="154" y="166" class="viz-label viz-label--caption" text-anchor="middle">розетка / отверстие</text>
         <path d="M70 126 H130" class="viz-path" marker-end="url(#arrow)"/>
         <path d="M178 126 H248" class="viz-path viz-path--soft" marker-end="url(#arrowSoft)"/>
         <circle cx="70" cy="126" r="7" class="viz-node viz-node--soft"/>
@@ -101,7 +101,7 @@
     },
     engineering: {
       title: 'Инженерные системы',
-      body: 'Вентиляция, трубы и шахты проводят звук между комнатами — мимо стен.',
+      body: 'Вентиляция, трубы, шахты и оборудование проводят звук и вибрацию между помещениями — иногда бороться нужно с источником, а не с потолком.',
       svg: () => `
         <text x="16" y="22" class="viz-label viz-label--title">ИНЖЕНЕРНЫЕ КОММУНИКАЦИИ</text>
         ${CIAViz.roomBlock(48, 56, 84, 136, 'комната A')}

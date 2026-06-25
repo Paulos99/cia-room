@@ -12,10 +12,12 @@ html {
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
   max-width: 100%;
+  overflow-anchor: auto;
 }
 
 html.has-smooth-scroll {
   scroll-behavior: auto;
+  overflow-anchor: none;
 }
 
 html.lenis,

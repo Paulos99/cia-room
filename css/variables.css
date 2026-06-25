@@ -27,11 +27,17 @@
   --space-4xl: 6rem;
   --space-section: clamp(4rem, 10vw, 7rem);
 
-  /* Layout */
-  --container-max: 72rem;
+  /* Mobile layout */
+  --bp-mobile: 767px;
+  --space-section-mobile: clamp(2.25rem, 6vw, 3rem);
+  --space-section-tight: clamp(1.75rem, 5vw, 2.5rem);
+  --header-height-mobile: 3.5rem;
+  --section-rail-height: 2.75rem;
+  --container-max: 90rem;
   --container-narrow: 42rem;
   --header-height: 5rem;
   --header-height-scrolled: 3.75rem;
+  --header-occupied: calc(var(--space-md) + var(--header-height-scrolled) + var(--space-sm) * 2);
 
   /* Radius — bento */
   --radius-sm: 8px;

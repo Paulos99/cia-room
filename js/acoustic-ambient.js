@@ -58,7 +58,7 @@
       ],
     },
     {
-      section: '#system',
+      section: '#diagnose',
       items: [
         { type: 'floorplan', size: 'md', depth: 'mid', x: '6%', y: '22%', drift: { y: -9, duration: 7.5 }, parallax: { y: 70, x: 22, rotate: 4 } },
         { type: 'path', size: 'sm', depth: 'far', x: '92%', y: '48%', drift: { y: -7, duration: 8 }, parallax: { y: 45, x: -16, rotate: -2 }, hideMobile: true },
@@ -101,7 +101,7 @@
   const MARKER_ZONES = [
     { section: '#why', markers: [{ type: 'dash', depth: 2, x: 0.06, y: 0.82 }] },
     { section: '#services', markers: [{ type: 'tick', depth: 1, x: 0.1, y: 0.2 }] },
-    { section: '#system', markers: [{ type: 'ring', depth: 2, x: 0.92, y: 0.55 }] },
+    { section: '#diagnose', markers: [{ type: 'ring', depth: 2, x: 0.92, y: 0.55 }] },
   ];
 
   const DEPTH_LIFT = [0.18, 0.42, 0.68];
@@ -164,6 +164,7 @@
   }
 
   function mountSectionFloats() {
+    if (isMobile()) return;
     FLOAT_ZONES.forEach((zone) => {
       const section = document.querySelector(zone.section);
       if (!section) return;
@@ -182,7 +183,7 @@
   }
 
   function bindFloatParallax() {
-    if (!canParallax()) return;
+    if (!canParallax() || isMobile()) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -286,10 +287,6 @@
     mountSectionFloats();
     mountFixedMarkers();
     bindFloatParallax();
-
-    if (typeof ScrollTrigger !== 'undefined') {
-      window.addEventListener('load', () => ScrollTrigger.refresh());
-    }
   }
 
   if (document.readyState === 'loading') {

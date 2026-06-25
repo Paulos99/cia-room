@@ -62,9 +62,23 @@
     }
 
     let resizeTimer;
+    let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
+
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const widthDelta = Math.abs(width - lastWidth);
+        const heightDelta = Math.abs(height - lastHeight);
+
+        if (widthDelta < 1 && heightDelta < 1) return;
+        if (widthDelta < 1 && heightDelta < 96) return;
+
+        lastWidth = width;
+        lastHeight = height;
+
         const scroll = lenis.scroll;
         lenis.resize();
         lenis.scrollTo(scroll, { immediate: true });

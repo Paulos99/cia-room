@@ -34,7 +34,7 @@
       document.documentElement.style.colorScheme = theme;
     })();
   </script>
-  <link rel="stylesheet" href="css/main.css?v=mobile17">
+  <link rel="stylesheet" href="css/main.css?v=mobile18">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -103,9 +103,7 @@
           <span class="header__cta-text">Обсудить объект</span>
           <span class="btn__arrow" aria-hidden="true">→</span>
         </a>
-        <button class="header__burger" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Открыть меню">
-          <span></span><span></span><span></span>
-        </button>
+        <a href="#lead" class="btn btn--primary btn--sm header__lead" data-nav="lead" data-analytics="header_lead_mobile">Заявка</a>
       </div>
     </div>
     <div class="header__progress" aria-hidden="true">
@@ -113,36 +111,19 @@
     </div>
     <nav class="section-rail" id="section-rail" aria-label="Разделы страницы">
       <div class="section-rail__scroll container" id="section-rail-scroll">
-        <a href="#about-cia" class="section-rail__link" data-nav="about-cia">О нас</a>
+        <a href="#about-cia" class="section-rail__link" data-nav="about-cia">О компании</a>
         <a href="#why" class="section-rail__link" data-nav="why">Проблема</a>
+        <a href="#system" class="section-rail__link" data-nav="system">Передача шума</a>
         <a href="#objects" class="section-rail__link" data-nav="objects">Объекты</a>
         <a href="#services" class="section-rail__link" data-nav="services">Услуги</a>
-        <a href="#diagnose" class="section-rail__link" data-nav="diagnose">Тест</a>
-        <a href="#process" class="section-rail__link" data-nav="process">Процесс</a>
+        <a href="#diagnose" class="section-rail__link" data-nav="diagnose">Тест/подбор</a>
+        <a href="#approach" class="section-rail__link" data-nav="approach">Ответственность</a>
+        <a href="#process" class="section-rail__link" data-nav="process">Как работаем</a>
+        <a href="#result" class="section-rail__link" data-nav="result">Результат</a>
         <a href="#faq" class="section-rail__link" data-nav="faq">Вопросы</a>
         <a href="#lead" class="section-rail__link" data-nav="lead">Заявка</a>
       </div>
     </nav>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Мобильная навигация">
-      <p class="mobile-nav__eyebrow">Навигация по лендингу</p>
-      <ul class="mobile-nav__list">
-        <li><a href="#about-cia" class="mobile-nav__link" data-nav="about-cia"><span class="mobile-nav__idx">ЦИА</span> О компании</a></li>
-        <li><a href="#why" class="mobile-nav__link" data-nav="why"><span class="mobile-nav__idx">01</span> Почему шум неочевиден</a></li>
-        <li><a href="#system" class="mobile-nav__link" data-nav="system"><span class="mobile-nav__idx">02</span> Помещение как система</a></li>
-        <li><a href="#objects" class="mobile-nav__link" data-nav="objects"><span class="mobile-nav__idx">03</span> Объекты</a></li>
-        <li><a href="#services" class="mobile-nav__link" data-nav="services"><span class="mobile-nav__idx">04</span> Услуги</a></li>
-        <li><a href="#diagnose" class="mobile-nav__link" data-nav="diagnose"><span class="mobile-nav__idx">↳</span> Тест/подбор</a></li>
-        <li><a href="#approach" class="mobile-nav__link" data-nav="approach"><span class="mobile-nav__idx">05</span> Ответственность</a></li>
-        <li><a href="#process" class="mobile-nav__link" data-nav="process"><span class="mobile-nav__idx">06</span> Как работаем</a></li>
-        <li><a href="#result" class="mobile-nav__link" data-nav="result"><span class="mobile-nav__idx">07</span> Результат</a></li>
-        <li><a href="#faq" class="mobile-nav__link" data-nav="faq"><span class="mobile-nav__idx">08</span> Вопросы</a></li>
-        <li><a href="#lead" class="mobile-nav__link" data-nav="lead"><span class="mobile-nav__idx">09</span> Заявка</a></li>
-      </ul>
-      <div class="mobile-nav__footer">
-        <a href="#lead" class="btn btn--primary mobile-nav__cta">Обсудить объект <span class="btn__arrow" aria-hidden="true">→</span></a>
-      </div>
-    </nav>
-    <button type="button" class="mobile-nav-backdrop" id="mobile-nav-backdrop" aria-label="Закрыть меню" tabindex="-1"></button>
   </header>
 
   <main id="main" tabindex="-1">
@@ -1228,13 +1209,13 @@
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/vendor/lenis.min.js"></script>
-  <script src="js/smooth-scroll.js"></script>
+  <script src="js/smooth-scroll.js?v=scroll1"></script>
   <script src="js/analytics.js"></script>
-  <script src="js/main.js?v=mobile1"></script>
+  <script src="js/main.js?v=mobile2"></script>
   <script src="js/visuals/viz-common.js"></script>
   <script src="js/vendor/three.min.js"></script>
-  <script src="js/visuals/hero-visual.js?v=mobile4"></script>
-  <script src="js/visuals/noise-path.js"></script>
+  <script src="js/visuals/hero-visual.js?v=mobile5"></script>
+  <script src="js/visuals/noise-path.js?v=1"></script>
   <script src="js/visuals/room-layers.js"></script>
   <script src="js/visuals/object-types.js"></script>
   <script src="js/visuals/report-visual.js"></script>
@@ -1247,6 +1228,6 @@
   <script src="js/form.js"></script>
   <script src="js/mobile-ui.js?v=mobile10"></script>
   <script src="js/acoustic-ambient.js"></script>
-  <script src="js/animations.js?v=mobile9"></script>
+  <script src="js/animations.js?v=mobile10"></script>
 </body>
 </html>

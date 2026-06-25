@@ -168,9 +168,24 @@
   display: none;
 }
 
+.header__lead {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .header__cta {
     display: inline-flex;
+  }
+}
+
+@media (max-width: 767px) {
+  .header__lead {
+    display: inline-flex;
+    min-height: 44px;
+    padding: 0.625rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    white-space: nowrap;
   }
 }
 

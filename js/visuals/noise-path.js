@@ -183,6 +183,7 @@
     let activeIndex = -1;
     let autoTimer = null;
     let autoIndex = 0;
+    let sectionVisible = true;
 
     function highlightPath(index, fromUser) {
       if (index < 0 || index >= PATHS.length) return;
@@ -256,7 +257,7 @@
     }
 
     function startAutoCycle() {
-      if (r || autoTimer) return;
+      if (r || autoTimer || !sectionVisible) return;
       autoTimer = setInterval(() => {
         autoIndex = (autoIndex + 1) % PATHS.length;
         highlightPath(autoIndex, false);
@@ -274,7 +275,21 @@
     }
 
     highlightPath(0, false);
-    startAutoCycle();
+
+    const whySection = document.getElementById('why');
+    if (whySection && 'IntersectionObserver' in window) {
+      const cycleObserver = new IntersectionObserver(
+        (entries) => {
+          sectionVisible = entries.some((entry) => entry.isIntersecting);
+          if (sectionVisible) startAutoCycle();
+          else pauseAutoCycle();
+        },
+        { threshold: 0.12 },
+      );
+      cycleObserver.observe(whySection);
+    } else {
+      startAutoCycle();
+    }
   }
 
   if (document.readyState === 'loading') {

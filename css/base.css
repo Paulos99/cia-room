@@ -12,7 +12,8 @@ html {
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
   max-width: 100%;
-  overflow-anchor: auto;
+  overflow-anchor: none;
+  scrollbar-gutter: stable;
 }
 
 html.has-smooth-scroll {
@@ -51,6 +52,7 @@ body {
   background-color: var(--color-bg);
   overflow-x: clip;
   max-width: 100%;
+  overflow-anchor: none;
   overscroll-behavior-x: none;
   -webkit-font-smoothing: antialiased;
 }

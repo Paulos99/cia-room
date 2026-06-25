@@ -495,6 +495,25 @@
   function initScrollRefresh() {
     let resizeTimer;
     let loadTimer;
+    let lastWidth = window.innerWidth;
+    let lastHeight = window.innerHeight;
+
+    const shouldRefreshOnResize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const widthDelta = Math.abs(width - lastWidth);
+      const heightDelta = Math.abs(height - lastHeight);
+
+      if (widthDelta < 1 && heightDelta < 1) return false;
+
+      // Игнорируем смену высоты от скрытия/показа панели браузера на телефонах.
+      if (isMobileViewport() && widthDelta < 1 && heightDelta < 96) return false;
+
+      lastWidth = width;
+      lastHeight = height;
+      return true;
+    };
+
     const refresh = () => {
       if (typeof ScrollTrigger === 'undefined') return;
       const lenis = window.CIA_SMOOTH_SCROLL?.lenis;
@@ -511,7 +530,10 @@
     });
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(refresh, 250);
+      resizeTimer = setTimeout(() => {
+        if (!shouldRefreshOnResize()) return;
+        refresh();
+      }, 250);
     });
   }
 
@@ -539,7 +561,10 @@
     }
 
     gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.config({ ignoreMobileResize: true });
+    ScrollTrigger.config({
+      ignoreMobileResize: true,
+      autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load',
+    });
 
     initHeroMotion();
     initSectionReveals();

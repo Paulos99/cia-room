@@ -54,27 +54,19 @@
     min-height: 44px;
   }
 
-  .theme-toggle {
-    width: 2.75rem;
-    height: 2.75rem;
-    min-width: 44px;
-    min-height: 44px;
-    padding: 0.35rem;
+  :root {
+    --header-occupied: calc(var(--space-md) + var(--header-height-scrolled) + var(--space-sm) * 2 + var(--section-rail-height));
   }
 
-  /* Section rail — inside fixed header, visible when scrolled */
+  /* Section rail — primary mobile navigation */
   .section-rail {
-    display: none;
+    display: block;
     width: 100%;
     max-width: min(var(--container-max), 100% - 2 * var(--space-md));
     margin: 0 auto;
     padding: 0 0 var(--space-xs);
     pointer-events: auto;
     overflow: hidden;
-  }
-
-  .header.is-scrolled .section-rail {
-    display: block;
   }
 
   .section-rail__scroll {
@@ -101,8 +93,8 @@
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding: 0.4rem 0.75rem;
-    font-size: 0.75rem;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.6875rem;
     font-weight: 500;
     color: var(--color-text-secondary);
     border: 1px solid var(--color-line);
@@ -119,27 +111,6 @@
     color: var(--color-text);
     border-color: var(--color-accent-border);
     background: var(--color-accent-subtle);
-  }
-
-  .mobile-nav__link.is-active {
-    color: var(--color-text);
-    background: var(--color-accent-subtle);
-    border-color: var(--color-accent-border);
-  }
-
-  .mobile-nav-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: calc(var(--z-overlay) - 1);
-    background: rgba(0, 0, 0, 0.45);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  body.nav-open .mobile-nav-backdrop {
-    display: block;
   }
 
   /* Hero compact */
@@ -758,45 +729,188 @@
     display: none;
   }
 
-  .diagnose__shell {
-    padding: var(--space-md);
+  .services__diagnose {
+    margin-inline: calc(-1 * var(--space-md));
+    width: calc(100% + 2 * var(--space-md));
+    padding: var(--space-sm);
   }
 
-  .services__diagnose {
-    padding: var(--space-md);
+  .services__diagnose-title {
+    margin-bottom: 0;
+  }
+
+  .services__diagnose .diagnose__intro {
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+  }
+
+  .diagnose__shell {
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
   }
 
   .diagnose__readiness {
     order: -1;
-    width: calc(100% + 2 * var(--space-md));
-    margin-inline: calc(-1 * var(--space-md));
-    padding: var(--space-md) var(--space-lg);
+    width: 100%;
+    margin-inline: 0;
+    padding: var(--space-sm);
     box-sizing: border-box;
   }
 
   .diagnose__gauge {
-    width: min(100%, 11.5rem);
-    margin-inline: auto;
+    width: 7.5rem;
+    margin: 0 auto var(--space-sm);
   }
 
   .diagnose__gauge-title,
   .diagnose__gauge-note {
     max-width: none;
     text-align: center;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+
+  .diagnose__gauge-note {
+    margin-bottom: 0;
+  }
+
+  .diagnose__gauge-log {
+    display: none;
+  }
+
+  .diagnose__stage,
+  .diagnose__result-card,
+  .diagnose__noscript {
+    width: 100%;
+    margin-inline: 0;
+    padding: var(--space-sm);
+    min-height: 0;
+    box-sizing: border-box;
   }
 
   .diagnose__stage {
-    min-height: 16rem;
-    width: calc(100% + 2 * var(--space-md));
-    margin-inline: calc(-1 * var(--space-md));
-    box-sizing: border-box;
+    min-height: 0;
+  }
+
+  .diagnose__question {
+    max-width: none;
+    font-size: 1.05rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .diagnose__lead {
+    min-height: 0;
+    margin-bottom: var(--space-xs);
+  }
+
+  .diagnose__hint {
+    min-height: 0;
+    margin-top: var(--space-xs);
+  }
+
+  .diagnose__chips {
+    gap: var(--space-xs);
+  }
+
+  .diagnose__chip {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.875rem;
+  }
+
+  .diagnose__controls {
+    margin-top: var(--space-sm);
+    gap: var(--space-sm);
+  }
+
+  .diagnose__service-pick {
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm);
+    gap: var(--space-xs) var(--space-sm);
+  }
+
+  .diagnose__service-pick-title {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  .diagnose__service-pick-sub {
+    font-size: 0.8125rem;
+    line-height: 1.35;
+  }
+
+  .diagnose__summary,
+  .diagnose__narrative--unified,
+  .diagnose__narrative--result {
+    padding: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .diagnose__summary-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.2rem 0.65rem;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    margin-bottom: var(--space-xs);
+  }
+
+  .diagnose__summary-list li {
+    min-width: 0;
+  }
+
+  .diagnose__summary-list li + li {
+    margin-top: 0;
+  }
+
+  .diagnose__summary-meta {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+
+  .diagnose__narrative-text {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .diagnose__narrative-title {
+    margin-bottom: 0.35rem;
+  }
+
+  .diagnose__alternative {
+    margin-top: 0;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .diagnose__result-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  .diagnose__result-actions .btn--primary {
+    flex: 1 1 auto;
+    min-width: min(100%, 12rem);
+  }
+
+  .diagnose__restart {
+    flex: 0 0 auto;
+    min-height: 40px;
+    padding: 0 var(--space-sm);
+    font-size: 0.8125rem;
   }
 
   .diagnose__actions {
     position: sticky;
     bottom: 0;
-    margin-top: var(--space-md);
-    padding-top: var(--space-sm);
+    margin-top: var(--space-sm);
+    padding-top: var(--space-xs);
     background: linear-gradient(to top, var(--color-bg-secondary) 70%, transparent);
   }
 
@@ -960,7 +1074,6 @@
 
 @media (min-width: 768px) {
   .section-rail,
-  .mobile-nav-backdrop,
   .objects__carousel-head,
   .services__carousel-head,
   .principles__carousel-head,

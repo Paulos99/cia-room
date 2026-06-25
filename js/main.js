@@ -125,9 +125,17 @@
     const progressFill = document.getElementById('header-progress-fill');
     if (!header) return;
 
+    let headerScrolled = false;
+
     const onScroll = () => {
       const scrollY = getScrollY();
-      header.classList.toggle('is-scrolled', scrollY > 8);
+      if (!headerScrolled && scrollY > 20) {
+        headerScrolled = true;
+        header.classList.add('is-scrolled');
+      } else if (headerScrolled && scrollY < 6) {
+        headerScrolled = false;
+        header.classList.remove('is-scrolled');
+      }
 
       if (progressFill) {
         const maxScroll = Math.max(
@@ -140,81 +148,6 @@
     };
     onScroll();
     bindScroll(onScroll);
-  }
-
-  function initMobileMenu() {
-    const burger = document.querySelector('.header__burger');
-    const nav = document.getElementById('mobile-nav');
-    const backdrop = document.getElementById('mobile-nav-backdrop');
-    if (!burger || !nav) return;
-
-    const focusableSelector = 'a[href], button:not([disabled])';
-    let lastFocus = null;
-
-    const getFocusable = () =>
-      Array.from(nav.querySelectorAll(focusableSelector)).filter(
-        (el) => el.offsetParent !== null || nav.classList.contains('is-open')
-      );
-
-    const trapFocus = (e) => {
-      if (!nav.classList.contains('is-open') || e.key !== 'Tab') return;
-      const items = getFocusable();
-      if (!items.length) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-
-    const setOpen = (open) => {
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
-      nav.classList.toggle('is-open', open);
-      document.body.classList.toggle('nav-open', open);
-      if (backdrop) backdrop.tabIndex = open ? 0 : -1;
-
-      const lenis = window.CIA_SMOOTH_SCROLL?.lenis;
-      if (lenis) {
-        if (open) lenis.stop();
-        else lenis.start();
-      }
-
-      if (open) {
-        lastFocus = document.activeElement;
-        const items = getFocusable();
-        if (items[0]) items[0].focus();
-        document.addEventListener('keydown', trapFocus);
-      } else {
-        document.removeEventListener('keydown', trapFocus);
-        if (lastFocus && typeof lastFocus.focus === 'function') {
-          lastFocus.focus();
-        }
-      }
-    };
-
-    burger.addEventListener('click', () => {
-      const open = burger.getAttribute('aria-expanded') !== 'true';
-      setOpen(open);
-    });
-
-    if (backdrop) {
-      backdrop.addEventListener('click', () => setOpen(false));
-    }
-
-    nav.querySelectorAll('a[href^="#"]').forEach((link) => {
-      link.addEventListener('click', () => setOpen(false));
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
-        setOpen(false);
-      }
-    });
   }
 
   function scrollToHash(hash, replace) {
@@ -309,7 +242,6 @@
     document.body.classList.add('has-ambient');
     injectContacts();
     initHeaderScroll();
-    initMobileMenu();
     initAnchorNav();
     initNavSpy();
   }

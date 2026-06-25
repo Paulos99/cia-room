@@ -740,7 +740,7 @@
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   line-height: 1.55;
-  min-height: 2.8em;
+  min-height: 5.25rem;
   padding-left: var(--space-sm);
   border-left: 2px solid var(--color-line);
   transition: border-color var(--duration-normal) var(--ease-out);
@@ -790,18 +790,23 @@
   }
 
   .cia-identity__content .section-label { order: 1; }
-  .cia-identity__content .section-title { order: 2; }
-  .cia-identity__intro {
-    order: 3;
-    margin-bottom: 0;
-    max-width: none;
+  .cia-identity__content .section-title {
+    order: 2;
+    margin-bottom: var(--space-md);
   }
 
   .cia-identity__grid > .media-slot {
-    order: 4;
+    order: 3;
     width: 100%;
     max-width: none;
     aspect-ratio: 16 / 11;
+    margin-bottom: var(--space-md);
+  }
+
+  .cia-identity__intro {
+    order: 4;
+    margin-bottom: 0;
+    max-width: none;
   }
 
   .cia-identity__mission {
@@ -2386,7 +2391,7 @@
 
 @media (max-width: 767px) {
   .diagnose__shell {
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-sm);
   }
 
   .diagnose__readiness {
@@ -2404,22 +2409,22 @@
   }
 
   .diagnose__hint {
-    min-height: 3.25rem;
+    min-height: 0;
   }
 
   .diagnose__controls {
-    margin-top: var(--space-md);
+    margin-top: var(--space-sm);
     padding-top: 0;
   }
 
   .diagnose__gauge {
-    width: 8.5rem;
+    width: 7.5rem;
   }
 
   .diagnose__stage,
   .diagnose__result-card,
   .diagnose__noscript {
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-sm);
   }
 
   .diagnose__service-pick {

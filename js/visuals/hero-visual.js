@@ -487,10 +487,14 @@
 
     resize();
 
+    let resizeFrame = 0;
     const ro = typeof ResizeObserver !== 'undefined'
       ? new ResizeObserver(() => {
-          resize();
-          if (reduced) draw(performance.now());
+          cancelAnimationFrame(resizeFrame);
+          resizeFrame = requestAnimationFrame(() => {
+            resize();
+            if (reduced) draw(performance.now());
+          });
         })
       : null;
     if (ro) ro.observe(container);

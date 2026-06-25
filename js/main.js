@@ -304,30 +304,6 @@
     });
   }
 
-  function initMobileCta() {
-    const bar = document.getElementById('mobile-cta');
-    const hero = document.getElementById('hero');
-    const lead = document.getElementById('lead');
-    if (!bar || !hero) return;
-
-    let visible = false;
-
-    const update = () => {
-      const heroBottom = hero.getBoundingClientRect().bottom;
-      const leadVisible = lead && lead.getBoundingClientRect().top < window.innerHeight * 0.88;
-      const show = heroBottom < -32 && !leadVisible && !document.body.classList.contains('form-focus');
-
-      if (show === visible) return;
-      visible = show;
-      bar.classList.toggle('is-visible', show);
-      bar.classList.toggle('is-hidden', leadVisible);
-    };
-
-    update();
-    bindScroll(update);
-    window.addEventListener('resize', update);
-  }
-
   function boot() {
     document.documentElement.classList.add('js');
     document.body.classList.add('has-ambient');
@@ -336,7 +312,6 @@
     initMobileMenu();
     initAnchorNav();
     initNavSpy();
-    initMobileCta();
   }
 
   if (document.readyState === 'loading') {

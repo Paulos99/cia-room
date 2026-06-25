@@ -225,11 +225,15 @@
 
   .hero-field {
     background: transparent;
-    filter: drop-shadow(0 0 18px rgba(59, 140, 255, 0.28));
+    filter:
+      drop-shadow(0 0 12px rgba(59, 140, 255, 0.44))
+      drop-shadow(0 0 26px rgba(47, 125, 255, 0.26));
   }
 
   [data-theme='light'] .hero-field {
-    filter: drop-shadow(0 0 16px rgba(26, 95, 212, 0.22));
+    filter:
+      drop-shadow(0 0 12px rgba(26, 95, 212, 0.36))
+      drop-shadow(0 0 24px rgba(26, 95, 212, 0.18));
   }
 
   .hero__value-details,
@@ -950,12 +954,7 @@
   }
 
   #lead {
-    padding-bottom: calc(var(--mobile-cta-height) + var(--space-xl) + env(safe-area-inset-bottom, 0px));
-  }
-
-  body.form-focus .mobile-cta.is-visible {
-    transform: translateY(100%);
-    visibility: hidden;
+    padding-bottom: calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
   }
 }
 

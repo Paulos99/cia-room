@@ -12,6 +12,11 @@
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    const pointSizeMul = isMobile ? 31.2 : 24.0;
+    const pointSizeMax = isMobile ? 5.2 : 4.0;
+    const pointAlphaBase = isMobile ? 0.88 : 0.8;
+    const wireOpacityBase = isMobile ? 0.36 : 0.28;
+    const wireOpacityAnimBase = isMobile ? 0.28 : 0.22;
     const pointer = { x: 0.5, y: 0.5 };
     const smoothPointer = { x: 0.5, y: 0.5 };
     const cursorPull = { strength: 0, target: 0 };
@@ -191,7 +196,7 @@
 
           float crest = pow(smoothstep(0.0, 0.16, abs(disp)), 0.62);
           float pointScale = 0.9 + crest * 0.5 + vHeat * 0.4 + uEnergy * 0.2;
-          gl_PointSize = clamp(pointScale * uPixelRatio * (24.0 / -mvPosition.z), 1.0, 4.0);
+          gl_PointSize = clamp(pointScale * uPixelRatio * (${pointSizeMul} / -mvPosition.z), 1.0, ${pointSizeMax});
         }
       `,
       fragmentShader: `
@@ -232,7 +237,7 @@
           heat *= 0.94 + sin(uTime * 0.55 + vWorldPos.x * 3.0 + vWorldPos.y * 2.2) * 0.06;
 
           vec3 col = thermal(heat);
-          float alpha = 0.8 + heat * 0.2;
+          float alpha = ${pointAlphaBase} + heat * 0.2;
           float circle = smoothstep(0.5, 0.4, d);
 
           // Плавное исчезновение на краях сферы (френель)
@@ -250,7 +255,7 @@
     const wirePivot = new THREE.Group();
     const wireUniforms = {
       uColor: { value: new THREE.Color(0x9ec8ff) },
-      uOpacity: { value: 0.28 },
+      uOpacity: { value: wireOpacityBase },
     };
     const wireMat = new THREE.ShaderMaterial({
       uniforms: wireUniforms,
@@ -412,7 +417,7 @@
       }
 
       wireUniforms.uColor.value.copy(new THREE.Color(0x9ec8ff)).lerp(new THREE.Color(0xffaa66), chaos * 0.35 + irritation * 0.25);
-      wireUniforms.uOpacity.value = 0.22 + energy * 0.04 + chaos * 0.05 + irritation * 0.06;
+      wireUniforms.uOpacity.value = wireOpacityAnimBase + energy * 0.04 + chaos * 0.05 + irritation * 0.06;
 
       const lightEase = 1 - Math.pow(0.02, dt);
       const lightOrbit = elapsed * 0.35;

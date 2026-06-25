@@ -17,4 +17,8 @@ const CIA_CONFIG = {
   areaServedSchema: { '@type': 'Country', name: 'Россия' },
   leadWebhookUrl: '',
   yandexMetrikaId: '',
+  leadForm: {
+    mode: 'demo',
+    webhookUrl: '',
+  },
 };

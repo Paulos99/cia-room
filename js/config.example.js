@@ -8,12 +8,15 @@ const CIA_CONFIG = {
   phone: '+7 (999) 000-00-00',
   email: 'info@example.com',
   telegram: '@cia_rooms',
-  geography: 'Москва и Московская область',
+  geography: 'Россия',
   responseTime: 'в течение 1 рабочего дня',
   legalEntity: 'ООО «Пример»',
   legalDetails: 'ИНН 0000000000',
   address: 'г. Москва, ул. Примерная, д. 1',
   domain: 'https://example.com',
+  siteName: 'ЦИА — Помещения',
+  defaultOgImage: '/assets/og/og-image.jpg',
+  areaServedSchema: { '@type': 'Country', name: 'Россия' },
   yandexMetrikaId: '12345678',
 
   leadForm: {

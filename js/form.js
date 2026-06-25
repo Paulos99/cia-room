@@ -375,6 +375,15 @@
     return 'Задача отправлена. Мы свяжемся с вами' + suffix + '.';
   }
 
+  function getSuccessSubtitle(message) {
+    const raw = message || getDefaultSuccessMessage();
+    const stripped = raw.replace(/^(Задача отправлена|Заявка принята|Заявка отправлена)[.!]?\s*/i, '').trim();
+    if (stripped) return stripped;
+    const responseTime = (typeof CIA_CONFIG !== 'undefined' && CIA_CONFIG.responseTime) || '';
+    const suffix = responseTime && !/^\[/.test(responseTime) ? ' ' + responseTime : '';
+    return 'Мы свяжемся с вами' + suffix + ' для уточнения исходных данных.';
+  }
+
   function getDefaultErrorMessage(kind, serverMessage) {
     const formCfg = getLeadFormConfig();
     if (serverMessage) return serverMessage;
@@ -635,7 +644,7 @@
     }
 
     if (status) status.hidden = true;
-    if (msgEl) msgEl.textContent = message || getDefaultSuccessMessage();
+    if (msgEl) msgEl.textContent = getSuccessSubtitle(message);
 
     wrapper.classList.add('is-success');
     panel.hidden = false;
@@ -739,9 +748,8 @@
       if (formCfg.mode === 'demo') {
         await new Promise((r) => setTimeout(r, 600));
         sessionStorage.setItem(STORAGE_KEY, String(Date.now()));
-        setStatus('success', getDefaultSuccessMessage());
         track('form_success', { mode: 'demo', requestId: requestId, attachmentCount: attachmentFiles.length });
-        resetFormAfterSuccess(form);
+        handleFormSuccess(form, getDefaultSuccessMessage());
         return;
       }
 
@@ -777,14 +785,13 @@
 
       sessionStorage.setItem(STORAGE_KEY, String(Date.now()));
       const successMessage = data && data.message ? String(data.message) : getDefaultSuccessMessage();
-      setStatus('success', successMessage);
       track('form_success', {
         mode: 'live',
         requestId: requestId,
         leadId: data && data.leadId ? data.leadId : undefined,
         attachmentCount: attachmentFiles.length,
       });
-      resetFormAfterSuccess(form);
+      handleFormSuccess(form, successMessage);
     } catch (err) {
       console.error('[CIA lead form]', err);
       const kind = classifySubmitError(err);

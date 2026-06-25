@@ -1,0 +1,21 @@
+{
+  "section": "blog",
+  "slug": "",
+  "title": "Блог об акустике помещений — ЦИА",
+  "metaDescription": "Статьи о звукоизоляции, акустических замерах, шуме от соседей и проектировании помещений.",
+  "h1": "Блог",
+  "lead": "Инженерные объяснения без рекламных обещаний — для заказчиков и проектировщиков.",
+  "intro": "",
+  "breadcrumb": [
+    {"label": "Главная", "href": "/"},
+    {"label": "Блог", "href": "/blog/"}
+  ],
+  "cards": [
+    {"href": "/blog/shum-ot-sosedey-chto-delat/", "title": "Шум от соседей: с чего начать", "text": "Первые шаги и диагностика"},
+    {"href": "/blog/udarnyy-shum-s-potolka/", "title": "Ударный шум с потолка", "text": "Причины и замер"},
+    {"href": "/blog/chem-otlichaetsya-zamer-ot-proekta/", "title": "Замер vs проект", "text": "Сравнение форматов"},
+    {"href": "/blog/kogda-podklyuchat-akustika-pri-remonte/", "title": "Акустика при ремонте", "text": "Этапы подключения"},
+    {"href": "/blog/zvukoizolyaciya-vs-akustika/", "title": "Звукоизоляция vs акустика", "text": "В чём разница"}
+  ],
+  "related": [{"href": "/services/", "label": "Услуги"}]
+}

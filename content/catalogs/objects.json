@@ -1,0 +1,22 @@
+{
+  "section": "objects",
+  "slug": "",
+  "title": "Объекты — акустика помещений — ЦИА",
+  "metaDescription": "Акустика квартир, домов, офисов, студий, HoReCa и промышленных объектов.",
+  "h1": "Объекты",
+  "lead": "Тип помещения важен, но программа работ подбирается под задачу, требования и стадию объекта.",
+  "intro": "",
+  "breadcrumb": [
+    {"label": "Главная", "href": "/"},
+    {"label": "Объекты", "href": "/objects/"}
+  ],
+  "cards": [
+    {"href": "/objects/kvartira/", "title": "Квартира", "text": "Шум соседей, потолок, стены, ремонт"},
+    {"href": "/objects/chastnyy-dom/", "title": "Частный дом", "text": "Зонирование, кинотеатр, инженерия"},
+    {"href": "/objects/studiya-kinoteatr/", "title": "Студия и кинотеатр", "text": "Звукоизоляция и внутренняя акустика"},
+    {"href": "/objects/ofis/", "title": "Офис", "text": "Переговорные, open space, приватность"},
+    {"href": "/objects/horeca/", "title": "HoReCa", "text": "Рестораны, кафе, коммерческие залы"},
+    {"href": "/objects/promyshlennyy-obekt/", "title": "Промышленность", "text": "Оборудование, вибрация, локализация шума"}
+  ],
+  "related": [{"href": "/services/", "label": "Услуги"}]
+}

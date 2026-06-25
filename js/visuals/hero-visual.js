@@ -12,11 +12,111 @@
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    const pointSizeMul = isMobile ? 31.2 : 24.0;
-    const pointSizeMax = isMobile ? 5.2 : 4.0;
-    const pointAlphaBase = isMobile ? 0.88 : 0.8;
-    const wireOpacityBase = isMobile ? 0.36 : 0.28;
-    const wireOpacityAnimBase = isMobile ? 0.28 : 0.22;
+    const wireOpacityBase = isMobile ? 0.3 : 0.26;
+    const wireOpacityAnimBase = isMobile ? 0.26 : 0.22;
+
+    function makeFieldDotTexture() {
+      const size = 64;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+      gradient.addColorStop(0, 'rgba(90, 165, 255, 0.82)');
+      gradient.addColorStop(0.32, 'rgba(55, 130, 235, 0.62)');
+      gradient.addColorStop(0.68, 'rgba(35, 100, 210, 0.22)');
+      gradient.addColorStop(1, 'rgba(20, 80, 190, 0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+      return texture;
+    }
+
+    function thermalColor(heat, light, pos, time) {
+      const t = Math.max(0, Math.min(1, heat));
+      const pearlA = Math.sin(pos.x * 5.2 + pos.y * 3.8 + time * 0.55) * 0.5 + 0.5;
+      const pearlB = Math.sin(pos.z * 4.6 - pos.x * 3.4 + time * 0.42) * 0.5 + 0.5;
+
+      const coldDeep = light ? [0.1, 0.42, 0.96] : [0.04, 0.24, 0.78];
+      const coldMid = light ? [0.16, 0.56, 1.0] : [0.08, 0.4, 0.92];
+      const cool = light ? [0.24, 0.68, 1.0] : [0.14, 0.52, 0.96];
+      const cyan = [0.12, 0.76, 0.98];
+      const violet = [0.36, 0.42, 0.98];
+
+      let rgb;
+      if (t < 0.28) {
+        const k = t / 0.28;
+        rgb = coldDeep.map((v, i) => v + (coldMid[i] - v) * k);
+      } else if (t < 0.55) {
+        const k = (t - 0.28) / 0.27;
+        rgb = coldMid.map((v, i) => v + (cool[i] - v) * k);
+      } else {
+        rgb = cool.slice();
+      }
+
+      rgb = rgb.map((v, i) => v + (cyan[i] - v) * pearlA * 0.22);
+      rgb = rgb.map((v, i) => v + (violet[i] - v) * pearlB * 0.16);
+
+      const lum = rgb[0] * 0.299 + rgb[1] * 0.587 + rgb[2] * 0.114;
+      const sat = 1.34;
+      return rgb.map((v) => lum + (v - lum) * sat);
+    }
+
+    function waveField(p, t, energy, chaos, irritation, impulseVec, pullVec, pullStrength, ptr) {
+      const px = p.x;
+      const py = p.y;
+      const pz = p.z;
+      const ptrX = ptr.x * 2 - 1;
+      const ptrY = ptr.y * 2 - 1;
+      const controlZone = Math.exp(-Math.hypot(px - ptrX * 1.25, py - ptrY * 1.25) * 2.4) * pullStrength;
+      const effectiveChaos = (chaos + irritation * 0.72) * (1 - controlZone * 0.82);
+
+      const wave = (x, y, z, time, c) => {
+        const calm =
+          Math.sin(x * 1.9 + time * 0.62) * Math.cos(y * 1.8 - time * 0.52) * 0.12 +
+          Math.sin(Math.hypot(x, y) * 3.2 - time * 1.15) * 0.1 +
+          Math.sin(z * 2.3 + time * 0.48) * Math.cos(x * 2.0 - time * 0.41) * 0.075;
+        const wild =
+          Math.sin(x * 9.2 + time * 4.6) * Math.sin(y * 10.8 - time * 4.1) * 0.062 +
+          Math.sin(z * 11.6 + time * 5.4) * 0.046 +
+          Math.abs(Math.sin(x * 15.0 + time * 8.2)) * Math.abs(Math.sin(z * 14.0 - time * 7.4)) * 0.038 * c;
+        const blend = c * c * (3 - 2 * c);
+        return calm * (1 - blend) + wild * blend * (1 + c * 0.45);
+      };
+
+      let disp = wave(px, py, pz, t, effectiveChaos);
+      disp += wave(px * 1.35 + 0.3, py * 1.35 + 0.7, pz * 1.35 + 0.2, t * 0.9, effectiveChaos * 0.55) * 0.45;
+      disp += Math.abs(Math.sin(px * 12.0 + t * 5.5)) * Math.abs(Math.sin(pz * 11.0 - t * 4.8)) * (effectiveChaos * 0.055 + irritation * 0.09);
+      disp += Math.abs(Math.sin(px * 18.0 + t * 7.0)) * irritation * 0.042;
+
+      if (impulseVec.z > 0.01) {
+        const iDist = Math.hypot(px - impulseVec.x, py - impulseVec.y);
+        const ripple = Math.sin(iDist * 16.0 - impulseVec.z * 9.5);
+        disp += ripple * ripple * Math.exp(-iDist * 1.9) * impulseVec.z * 0.22;
+      }
+
+      if (pullStrength > 0.001) {
+        const pDist = Math.hypot(px - pullVec.x, py - pullVec.y);
+        disp += Math.exp(-pDist * 2.6) * pullStrength * 0.22;
+        disp *= 1 - controlZone * 0.18;
+      }
+
+      disp = Math.max(
+        -0.17 - effectiveChaos * 0.06 - irritation * 0.08,
+        Math.min(0.19 + effectiveChaos * 0.09 + irritation * 0.14, disp),
+      );
+
+      const heat = Math.max(
+        0,
+        Math.min(
+          1,
+          Math.abs(disp) * 4.2 + effectiveChaos * 0.62 + energy * 0.35 + irritation * 0.35 - controlZone * 0.42,
+        ),
+      );
+
+      return { disp, heat };
+    }
     const pointer = { x: 0.5, y: 0.5 };
     const smoothPointer = { x: 0.5, y: 0.5 };
     const cursorPull = { strength: 0, target: 0 };
@@ -70,11 +170,13 @@
       antialias: !isMobile,
       alpha: true,
       powerPreference: 'high-performance',
+      preserveDrawingBuffer: true,
     });
+    renderer.debug.checkShaderErrors = true;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2));
     renderer.setClearColor(0x000000, 0);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMapping = THREE.NoToneMapping;
+    renderer.sortObjects = true;
     renderer.domElement.className = 'hero-field';
     stage.append(renderer.domElement);
     container.append(stage, caption);
@@ -83,7 +185,7 @@
     root.scale.setScalar(0.56);
     scene.add(root);
 
-    const shellPoints = 3000;
+    const shellPoints = isMobile ? 3200 : 5500;
     const geo = new THREE.BufferGeometry();
     const posArray = new Float32Array(shellPoints * 3);
     const normArray = new Float32Array(shellPoints * 3);
@@ -107,6 +209,10 @@
 
     geo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
     geo.setAttribute('normal', new THREE.BufferAttribute(normArray, 3));
+    const basePos = new Float32Array(posArray);
+    const colorArray = new Float32Array(shellPoints * 3);
+    geo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
     const wireDetail = isMobile ? 2 : 3;
     const fieldScale = 0.75;
     const wireRadius = 1.15 * 0.85;
@@ -121,14 +227,33 @@
       uPull: { value: new THREE.Vector3(0, 0, 0) },
       uCalm: { value: 0.82 },
       uIrritation: { value: 0 },
+      uLight: { value: isLightTheme() ? 1 : 0 },
       uPixelRatio: { value: renderer.getPixelRatio() },
     };
 
-    const fieldMaterial = new THREE.ShaderMaterial({
+    const waveGlsl = `
+      float wave(vec3 p, float t, float chaos) {
+        float calm =
+          sin(p.x * 1.9 + t * 0.62) * cos(p.y * 1.8 - t * 0.52) * 0.12 +
+          sin(length(p.xy) * 3.2 - t * 1.15) * 0.1 +
+          sin(p.z * 2.3 + t * 0.48) * cos(p.x * 2.0 - t * 0.41) * 0.075;
+        float wild =
+          sin(p.x * 9.2 + t * 4.6) * sin(p.y * 10.8 - t * 4.1) * 0.062 +
+          sin(p.z * 11.6 + t * 5.4) * 0.046 +
+          abs(sin(p.x * 15.0 + t * 8.2)) * abs(sin(p.z * 14.0 - t * 7.4)) * 0.038 * chaos;
+        float blend = chaos * chaos * (3.0 - 2.0 * chaos);
+        return calm * (1.0 - blend) + wild * blend * (1.0 + chaos * 0.45);
+      }
+    `;
+
+    const coreGeo = new THREE.SphereGeometry(0.9, isMobile ? 40 : 56, isMobile ? 32 : 44);
+    const coreMat = new THREE.ShaderMaterial({
       uniforms,
       transparent: true,
       depthWrite: false,
-      depthTest: true,
+      depthTest: false,
+      toneMapped: false,
+      side: THREE.FrontSide,
       blending: THREE.NormalBlending,
       vertexShader: `
         uniform float uTime;
@@ -138,118 +263,110 @@
         uniform vec3 uImpulse;
         uniform vec3 uPull;
         uniform float uIrritation;
-        uniform float uPixelRatio;
-        varying vec3 vWorldPos;
-        varying vec3 vNormal;
-        varying float vDisp;
         varying float vHeat;
-
-        float wave(vec3 p, float t, float chaos) {
-          float calm =
-            sin(p.x * 1.9 + t * 0.62) * cos(p.y * 1.8 - t * 0.52) * 0.12 +
-            sin(length(p.xy) * 3.2 - t * 1.15) * 0.1 +
-            sin(p.z * 2.3 + t * 0.48) * cos(p.x * 2.0 - t * 0.41) * 0.075;
-          float wild =
-            sin(p.x * 9.2 + t * 4.6) * sin(p.y * 10.8 - t * 4.1) * 0.062 +
-            sin(p.z * 11.6 + t * 5.4) * 0.046 +
-            abs(sin(p.x * 15.0 + t * 8.2)) * abs(sin(p.z * 14.0 - t * 7.4)) * 0.038 * chaos;
-          float blend = chaos * chaos * (3.0 - 2.0 * chaos);
-          return calm * (1.0 - blend) + wild * blend * (1.0 + chaos * 0.45);
-        }
+        varying vec3 vNormalView;
+        varying vec3 vWorldPos;
+        ${waveGlsl}
 
         void main() {
-          vec3 pos = position;
+          vec3 dir = normalize(position);
           vec3 n = normalize(normal);
           vec2 ptr = uPointer * 2.0 - 1.0;
-          float controlZone = exp(-length(pos.xy - ptr * 1.25) * 2.4) * uPull.z;
+          float controlZone = exp(-length(dir.xy - ptr * 1.25) * 2.4) * uPull.z;
           float effectiveChaos = (uChaos + uIrritation * 0.72) * (1.0 - controlZone * 0.82);
 
-          float disp = wave(pos, uTime, effectiveChaos);
-          disp += wave(pos * 1.35 + vec3(0.3, 0.7, 0.2), uTime * 0.9, effectiveChaos * 0.55) * 0.45;
-          disp += abs(sin(pos.x * 12.0 + uTime * 5.5)) * abs(sin(pos.z * 11.0 - uTime * 4.8)) * (effectiveChaos * 0.055 + uIrritation * 0.09);
-          disp += abs(sin(pos.x * 18.0 + uTime * 7.0)) * uIrritation * 0.042;
+          float disp = wave(dir, uTime, effectiveChaos);
+          disp += wave(dir * 1.35 + vec3(0.3, 0.7, 0.2), uTime * 0.9, effectiveChaos * 0.55) * 0.45;
+          disp += abs(sin(dir.x * 12.0 + uTime * 5.5)) * abs(sin(dir.z * 11.0 - uTime * 4.8)) * (effectiveChaos * 0.055 + uIrritation * 0.09);
+          disp += abs(sin(dir.x * 18.0 + uTime * 7.0)) * uIrritation * 0.042;
 
           if (uImpulse.z > 0.01) {
-            float iDist = length(pos.xy - uImpulse.xy);
+            float iDist = length(dir.xy - uImpulse.xy);
             float ripple = sin(iDist * 16.0 - uImpulse.z * 9.5);
             disp += ripple * ripple * exp(-iDist * 1.9) * uImpulse.z * 0.22;
           }
 
           if (uPull.z > 0.001) {
-            float pDist = length(pos.xy - uPull.xy);
-            float grab = exp(-pDist * 2.6) * uPull.z;
-            disp += grab * 0.22;
+            float pDist = length(dir.xy - uPull.xy);
+            disp += exp(-pDist * 2.6) * uPull.z * 0.22;
             disp *= 1.0 - controlZone * 0.18;
           }
 
           disp = clamp(disp, -0.17 - effectiveChaos * 0.06 - uIrritation * 0.08, 0.19 + effectiveChaos * 0.09 + uIrritation * 0.14);
 
-          pos += n * disp;
-
-          vDisp = disp;
-          vHeat = clamp(abs(disp) * 4.2 + effectiveChaos * 0.62 + uEnergy * 0.22 + uIrritation * 0.35 - controlZone * 0.42, 0.0, 1.0);
+          vec3 pos = position + n * disp;
+          vHeat = clamp(abs(disp) * 4.2 + effectiveChaos * 0.62 + uEnergy * 0.35 + uIrritation * 0.35 - controlZone * 0.42, 0.0, 1.0);
           vWorldPos = (modelMatrix * vec4(pos, 1.0)).xyz;
-          vNormal = normalize(normalMatrix * n);
-
           vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+          vNormalView = normalize(normalMatrix * n);
           gl_Position = projectionMatrix * mvPosition;
-
-          float crest = pow(smoothstep(0.0, 0.16, abs(disp)), 0.62);
-          float pointScale = 0.9 + crest * 0.5 + vHeat * 0.4 + uEnergy * 0.2;
-          gl_PointSize = clamp(pointScale * uPixelRatio * (${pointSizeMul} / -mvPosition.z), 1.0, ${pointSizeMax});
         }
       `,
       fragmentShader: `
-        varying vec3 vWorldPos;
-        varying vec3 vNormal;
-        varying float vDisp;
         varying float vHeat;
-        uniform float uTime;
+        varying vec3 vNormalView;
+        varying vec3 vWorldPos;
         uniform float uEnergy;
-        uniform float uChaos;
-        uniform float uCalm;
-        uniform float uIrritation;
+        uniform float uLight;
+        uniform float uTime;
 
-        vec3 thermal(float t) {
-          vec3 coldDeep = vec3(0.03, 0.14, 0.42);
-          vec3 coldMid = vec3(0.10, 0.38, 0.92);
-          vec3 cool = vec3(0.42, 0.78, 1.0);
-          vec3 warm = vec3(0.98, 0.62, 0.14);
-          vec3 hot = vec3(0.92, 0.16, 0.10);
-
-          if (t < 0.28) return mix(coldDeep, coldMid, t / 0.28);
-          if (t < 0.55) return mix(coldMid, cool, (t - 0.28) / 0.27);
-          if (t < 0.78) return mix(cool, warm, (t - 0.55) / 0.23);
-          return mix(warm, hot, (t - 0.78) / 0.22);
+        vec3 saturate(vec3 c, float amount) {
+          float l = dot(c, vec3(0.299, 0.587, 0.114));
+          return mix(vec3(l), c, amount);
         }
 
         void main() {
-          vec3 viewDir = normalize(cameraPosition - vWorldPos);
-          float facing = dot(normalize(vNormal), viewDir);
-          if (facing < 0.0) discard;
+          vec3 n = normalize(vNormalView);
+          vec3 viewDir = normalize(-vNormalView);
+          float facing = abs(dot(n, viewDir));
+          float heat = max(vHeat, 0.1 + uEnergy * 0.18 + uLight * 0.03);
+          float fresnel = pow(1.0 - facing, 2.4);
 
-          vec2 uv = gl_PointCoord - 0.5;
-          float d = length(uv);
-          if (d > 0.5) discard;
+          float pearlA = sin(dot(n, vec3(0.72, 0.38, 0.92)) * 7.5 + uTime * 0.55 + vWorldPos.y * 4.5) * 0.5 + 0.5;
+          float pearlB = sin(dot(n, vec3(-0.42, 0.86, 0.28)) * 6.2 - uTime * 0.42 + vWorldPos.x * 5.2) * 0.5 + 0.5;
+          float pearlC = sin(length(vWorldPos.xy) * 8.0 + uTime * 0.35) * 0.5 + 0.5;
 
-          float crest = pow(smoothstep(0.0, 0.16, abs(vDisp)), 0.62);
-          float heat = clamp(vHeat + crest * 0.38 + uChaos * 0.24 + uIrritation * 0.32 - uCalm * 0.38, 0.0, 1.0);
-          heat *= 0.94 + sin(uTime * 0.55 + vWorldPos.x * 3.0 + vWorldPos.y * 2.2) * 0.06;
+          vec3 deep = mix(vec3(0.02, 0.18, 0.82), vec3(0.06, 0.34, 0.94), uLight);
+          vec3 mid = mix(vec3(0.08, 0.46, 0.98), vec3(0.14, 0.58, 1.0), uLight);
+          vec3 hot = mix(vec3(0.18, 0.62, 1.0), vec3(0.28, 0.74, 1.0), uLight);
+          vec3 cyan = vec3(0.12, 0.78, 0.96);
+          vec3 violet = vec3(0.34, 0.42, 0.98);
+          vec3 pearl = vec3(0.78, 0.9, 1.0);
 
-          vec3 col = thermal(heat);
-          float alpha = ${pointAlphaBase} + heat * 0.2;
-          float circle = smoothstep(0.5, 0.4, d);
+          vec3 col = mix(deep, mid, heat);
+          col = mix(col, hot, heat * heat * 0.55);
+          col = mix(col, cyan, pearlA * 0.28);
+          col = mix(col, violet, pearlB * 0.22);
+          col = mix(col, pearl, fresnel * 0.38 + pearlC * 0.12);
+          col = saturate(col, 1.42);
 
-          // Плавное исчезновение на краях сферы (френель)
-          float edgeFade = smoothstep(0.0, 0.15, facing);
-
-          gl_FragColor = vec4(col, alpha * circle * edgeFade);
+          float alpha = (0.04 + heat * 0.12 + uEnergy * 0.03 + fresnel * 0.04) * smoothstep(0.0, 0.25, facing);
+          gl_FragColor = vec4(col, alpha);
         }
       `,
     });
+    const coreScale = fieldScale * 0.85;
+    const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+    coreMesh.scale.setScalar(coreScale);
+    coreMesh.renderOrder = 0;
+    root.add(coreMesh);
+
+    const fieldMaterial = new THREE.PointsMaterial({
+      map: makeFieldDotTexture(),
+      vertexColors: true,
+      size: isMobile ? 0.046 : 0.04,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 0.42,
+      depthWrite: false,
+      depthTest: false,
+      toneMapped: false,
+      blending: THREE.NormalBlending,
+    });
 
     const fieldMesh = new THREE.Points(geo, fieldMaterial);
-    fieldMesh.scale.setScalar(fieldScale);
+    fieldMesh.scale.setScalar(coreScale);
+    fieldMesh.renderOrder = 1;
     root.add(fieldMesh);
 
     const wirePivot = new THREE.Group();
@@ -262,7 +379,8 @@
       wireframe: true,
       transparent: true,
       depthWrite: false,
-      depthTest: true,
+      depthTest: false,
+      toneMapped: false,
       side: THREE.FrontSide,
       vertexShader: `
         varying vec3 vWorldPos;
@@ -292,6 +410,7 @@
       `,
     });
     const wireMesh = new THREE.Mesh(wireGeo, wireMat);
+    wireMesh.renderOrder = 2;
     wirePivot.add(wireMesh);
     root.add(wirePivot);
 
@@ -336,6 +455,48 @@
     function strengthFromPress(ms) {
       const t = Math.min(Math.max(ms, 0), 1100) / 1100;
       return 0.16 + Math.pow(t, 0.9) * 0.84;
+    }
+
+    function updateFieldPoints(elapsed, energy, chaos) {
+      const posAttr = geo.getAttribute('position');
+      const colorAttr = geo.getAttribute('color');
+      const pullVec = {
+        x: (smoothPointer.x - 0.5) * 2.0,
+        y: (0.5 - smoothPointer.y) * 2.0,
+      };
+      const impulseVec = {
+        x: impulse.x,
+        y: impulse.y,
+        z: impulse.strength,
+      };
+      const light = isLightTheme();
+
+      for (let i = 0; i < shellPoints; i++) {
+        const bx = basePos[i * 3];
+        const by = basePos[i * 3 + 1];
+        const bz = basePos[i * 3 + 2];
+        const sample = waveField(
+          { x: bx, y: by, z: bz },
+          elapsed,
+          energy,
+          chaos,
+          irritation,
+          impulseVec,
+          pullVec,
+          pull.strength,
+          smoothPointer,
+        );
+        const heat = Math.max(sample.heat, 0.1 + energy * 0.18 + (light ? 0.02 : 0));
+        const disp = sample.disp;
+        posAttr.setXYZ(i, bx + bx * disp, by + by * disp, bz + bz * disp);
+        const rgb = thermalColor(heat, light, { x: bx, y: by, z: bz }, elapsed);
+        colorAttr.setXYZ(i, rgb[0], rgb[1], rgb[2]);
+      }
+
+      posAttr.needsUpdate = true;
+      colorAttr.needsUpdate = true;
+      fieldMaterial.size = (isMobile ? 0.046 : 0.04) + energy * 0.01 + chaos * 0.008;
+      fieldMaterial.opacity = Math.min(0.52, 0.34 + energy * 0.1 + chaos * 0.04);
     }
 
     function registerClickAgitation() {
@@ -397,6 +558,7 @@
       uniforms.uChaos.value = chaos;
       uniforms.uCalm.value = calm;
       uniforms.uIrritation.value = irritation;
+      uniforms.uLight.value = isLightTheme() ? 1 : 0;
       uniforms.uPointer.value.set(smoothPointer.x, smoothPointer.y);
       uniforms.uPull.value.set((smoothPointer.x - 0.5) * 2.0, (0.5 - smoothPointer.y) * 2.0, pull.strength);
 
@@ -429,11 +591,16 @@
       fillLight.intensity += (0.58 + chaos * 0.5 - fillLight.intensity) * lightEase;
 
       const glowWarm = chaos * 0.65;
-      glow.style.opacity = String(0.34 + energy * 0.14 + pull.strength * 0.08);
-      glow.style.background = `radial-gradient(circle, rgba(${Math.round(47 + glowWarm * 180)}, ${Math.round(125 - glowWarm * 55)}, ${Math.round(255 - glowWarm * 210)}, ${0.28 + chaos * 0.08}) 0%, rgba(59, 140, 255, 0.1) 50%, transparent 72%)`;
+      glow.style.opacity = String(0.16 + energy * 0.07 + pull.strength * 0.03);
+      glow.style.background = `radial-gradient(circle, rgba(${Math.round(47 + glowWarm * 180)}, ${Math.round(125 - glowWarm * 55)}, ${Math.round(255 - glowWarm * 210)}, ${0.12 + chaos * 0.03}) 0%, rgba(59, 140, 255, 0.04) 50%, transparent 72%)`;
 
       const captionWarm = Math.min(1, chaos * 0.85 + energy * 0.25);
       updateCaptionColor(captionWarm, calm);
+      try {
+        updateFieldPoints(elapsed, energy, chaos);
+      } catch (err) {
+        console.error('hero-visual field update failed', err);
+      }
 
       renderer.render(scene, camera);
 
@@ -523,6 +690,12 @@
       if (reduced) draw(performance.now());
     });
 
+    window.addEventListener('cia:theme-change', () => {
+      uniforms.uLight.value = isLightTheme() ? 1 : 0;
+      updateCaptionColor(0, field.calm);
+      if (reduced) draw(performance.now());
+    });
+
     document.addEventListener('visibilitychange', () => {
       if (reduced) return;
       if (document.hidden) {
@@ -531,10 +704,6 @@
         lastTime = performance.now();
         raf = requestAnimationFrame(draw);
       }
-    });
-
-    window.addEventListener('cia:theme-change', () => {
-      updateCaptionColor(0, field.calm);
     });
   }
 

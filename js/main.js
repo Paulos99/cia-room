@@ -76,16 +76,6 @@
       const key = el.getAttribute('data-contact');
       applyContact(el, key, CIA_CONFIG[key]);
     });
-
-    const ld = document.querySelector('script[type="application/ld+json"]');
-    if (ld && CIA_CONFIG.domain && !isPlaceholder(CIA_CONFIG.geography)) {
-      try {
-        const data = JSON.parse(ld.textContent);
-        data.url = CIA_CONFIG.domain.replace(/\/$/, '') + '/';
-        data.areaServed = CIA_CONFIG.geography;
-        ld.textContent = JSON.stringify(data, null, 2);
-      } catch (_) { /* ignore */ }
-    }
   }
 
   function getScrollY() {

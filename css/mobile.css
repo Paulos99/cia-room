@@ -196,15 +196,10 @@
 
   .hero-field {
     background: transparent;
-    filter:
-      drop-shadow(0 0 12px rgba(59, 140, 255, 0.44))
-      drop-shadow(0 0 26px rgba(47, 125, 255, 0.26));
   }
 
   [data-theme='light'] .hero-field {
-    filter:
-      drop-shadow(0 0 12px rgba(26, 95, 212, 0.36))
-      drop-shadow(0 0 24px rgba(26, 95, 212, 0.18));
+    background: transparent;
   }
 
   .hero__value-details,

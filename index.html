@@ -3,18 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Диагностика и проектирование акустического комфорта помещений — ЦИА</title>
-  <meta name="description" content="ЦИА исследует помещения, находит источники и пути передачи шума, проектирует акустические решения для квартир, спецпространств и промышленных объектов.">
-  <link rel="canonical" href="https://paulos99.github.io/cia-room/">
+  <title>Акустические замеры и проектирование помещений — ЦИА</title>
+  <meta name="description" content="ЦИА исследует помещение как акустическую систему: проводит измерения, выявляет источники и пути передачи шума, проектирует обоснованные решения и задаёт критерии проверки результата. Работаем по всей России.">
+  <link rel="canonical" href="/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Диагностика и проектирование акустического комфорта помещений — ЦИА">
-  <meta property="og:description" content="Дистанционная оценка, обследование, инженерное проектирование, спецпроекты и промышленная акустика. 30 лет инженерной практики.">
-  <meta property="og:url" content="https://paulos99.github.io/cia-room/">
-  <meta property="og:image" content="https://paulos99.github.io/cia-room/assets/og/og-image.svg">
+  <meta property="og:title" content="Акустические замеры и проектирование помещений — ЦИА">
+  <meta property="og:description" content="Измеряем фактическое состояние помещения, определяем критические пути передачи звука и разрабатываем проект решения с понятным прогнозом, ограничениями и критериями приёмки.">
+  <meta property="og:url" content="/">
+  <meta property="og:image" content="/assets/og/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="ЦИА — Помещения">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Диагностика и проектирование акустического комфорта помещений — ЦИА">
-  <meta name="twitter:description" content="Диагностика и проектирование акустики помещений: от дистанционной оценки до спецпроектов и промышленной акустики.">
+  <meta name="twitter:title" content="Акустические замеры и проектирование помещений — ЦИА">
+  <meta name="twitter:description" content="Инженерная диагностика и проектирование акустического комфорта: от фактических измерений объекта до проекта и подтверждения результата.">
+  <meta name="twitter:image" content="/assets/og/og-image.jpg">
   <meta name="robots" content="index, follow">
   <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -34,15 +38,87 @@
       document.documentElement.style.colorScheme = theme;
     })();
   </script>
-  <link rel="stylesheet" href="css/main.css?v=mobile18">
+  <link rel="stylesheet" href="css/main.css?v=mobile20">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "ЦИА — Помещения",
-    "description": "Диагностика и проектирование акустического комфорта помещений: дистанционная оценка, обследование, инженерное проектирование, специальные и промышленные акустические проекты",
-    "url": "https://paulos99.github.io/cia-room/",
-    "areaServed": "[ГОРОД / ГЕОГРАФИЯ РАБОТЫ]"
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "/#organization",
+        "name": "ЦИА — Помещения",
+        "alternateName": "Центр инновационной акустики",
+        "url": "/",
+        "description": "Инженерная диагностика и проектирование акустического комфорта помещений: измерения, анализ источников и путей передачи звука, разработка решений и контроль результата",
+        "knowsAbout": ["акустика помещений", "звукоизоляция", "акустические замеры", "шумоизоляция квартир", "промышленная акустика"],
+        "areaServed": { "@type": "Country", "name": "Россия" }
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "/#professional-service",
+        "name": "ЦИА — Помещения",
+        "provider": { "@id": "/#organization" },
+        "url": "/",
+        "description": "Акустические замеры, обследование помещений и инженерное проектирование звукоизоляции с подтверждением результата измерениями",
+        "areaServed": { "@type": "Country", "name": "Россия" },
+        "serviceType": "Акустическое проектирование помещений"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "/#website",
+        "name": "ЦИА — Помещения",
+        "url": "/",
+        "inLanguage": "ru-RU",
+        "publisher": { "@id": "/#organization" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "/" }
+        ]
+      },
+      {
+        "@type": "Service",
+        "name": "Дистанционная инженерная оценка",
+        "url": "/services/distancionnaya-otsenka/",
+        "provider": { "@id": "/#organization" },
+        "areaServed": { "@type": "Country", "name": "Россия" },
+        "description": "Первичный инженерный разбор по плану, фото и техническим данным без выезда на объект"
+      },
+      {
+        "@type": "Service",
+        "name": "Акустический замер и обследование помещения",
+        "url": "/services/akusticheskiy-zamer/",
+        "provider": { "@id": "/#organization" },
+        "areaServed": { "@type": "Country", "name": "Россия" },
+        "description": "Выезд на объект, замеры, карта источников и путей передачи шума, рекомендации по обработке"
+      },
+      {
+        "@type": "Service",
+        "name": "Инженерное проектирование акустики",
+        "url": "/services/proektirovanie/",
+        "provider": { "@id": "/#organization" },
+        "areaServed": { "@type": "Country", "name": "Россия" },
+        "description": "Проект звукоизоляции с узлами, спецификацией, прогнозом и контрольными замерами после монтажа"
+      },
+      {
+        "@type": "Service",
+        "name": "Специальные акустические проекты",
+        "url": "/services/spetsproekty/",
+        "provider": { "@id": "/#organization" },
+        "areaServed": { "@type": "Country", "name": "Россия" },
+        "description": "Студии, кинотеатры, домашние медиапространства: звукоизоляция и внутренняя акустика"
+      },
+      {
+        "@type": "Service",
+        "name": "Промышленная акустика",
+        "url": "/services/promyshlennaya-akustika/",
+        "provider": { "@id": "/#organization" },
+        "areaServed": { "@type": "Country", "name": "Россия" },
+        "description": "Локализация шума и вибрации на промышленных и технических объектах"
+      }
+    ]
   }
   </script>
 </head>
@@ -135,7 +211,7 @@
           <p class="hero__label">ЦИА / ПОМЕЩЕНИЯ</p>
           <h1 class="hero__title" id="hero-title">Диагностика и проектирование акустического комфорта помещений</h1>
           <p class="hero__tagline">Замеры — проект — проверка результата</p>
-          <p class="hero__lead">Центр инновационной акустики исследует реальные помещения, определяет источники и пути передачи шума, проектирует решение под задачу и подтверждает результат измерениями.</p>
+          <p class="hero__lead">Центр инновационной акустики проводит <strong>акустический замер</strong>, определяет источники и пути передачи шума, разрабатывает <strong>проект звукоизоляции</strong> под задачу и подтверждает результат измерениями. Работаем по всей России: дистанционно и с выездом на объект.</p>
           <div class="hero__value-details hero-info-card">
             <p class="hero-info-card__title">Формат работы</p>
             <p class="hero__value">Помогаем понять, что именно нужно менять в конструкции, где достаточно рекомендаций, а где нужен проект с материалами, узлами и критериями приёмки.</p>
@@ -220,6 +296,20 @@
       </div>
     </section>
 
+    <!-- GEOGRAPHY -->
+    <section class="section geography-strip" id="geography" aria-labelledby="geography-title">
+      <div class="container geography-strip__inner">
+        <div>
+          <p class="section-label">ГЕОГРАФИЯ</p>
+          <h2 class="section-title geography-strip__title" id="geography-title">Работаем по всей России</h2>
+          <p class="section-intro geography-strip__text">Дистанционная инженерная оценка доступна для объектов в любом регионе. Выезд специалиста для акустического замера и обследования — по согласованию. Формат работы подбираем под задачу, стадию объекта и требуемую точность решения.</p>
+        </div>
+        <p class="geography-strip__cta">
+          <a href="geography/" class="btn btn--secondary">Форматы работы по регионам <span class="btn__arrow" aria-hidden="true">→</span></a>
+        </p>
+      </div>
+    </section>
+
     <!-- WHY -->
     <section class="section why" id="why" aria-labelledby="why-title">
       <div class="container">
@@ -285,66 +375,66 @@
         <div class="objects__grid" id="objects-grid">
           <article class="object-card" tabindex="0" data-object="apartment" data-analytics-object="apartment">
             <figure class="object-card__media">
-              <img src="assets/images/objects-apartment.jpg" alt="" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
+              <img src="assets/images/objects-apartment.jpg" alt="Акустика квартиры: звукоизоляция, устранение шума от соседей и ударного шума" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
               <p class="object-card__index">01</p>
-              <h3 class="object-card__title">Квартира</h3>
+              <h3 class="object-card__title"><a href="objects/kvartira/" class="object-card__title-link">Квартира</a></h3>
               <p class="object-card__text">Воздушный и ударный шум, акустические дыры, потолок, стены, пол и решения до чистовой отделки.</p>
               <p class="object-card__format">Типичные форматы: <a href="#services" class="object-card__format-link">01–03</a></p>
             </div>
           </article>
           <article class="object-card" tabindex="0" data-object="house" data-analytics-object="house">
             <figure class="object-card__media">
-              <img src="assets/images/objects-house.jpg" alt="" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
+              <img src="assets/images/objects-house.jpg" alt="Акустическое проектирование частного дома: зонирование и звукоизоляция" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
               <p class="object-card__index">02</p>
-              <h3 class="object-card__title">Частный дом</h3>
+              <h3 class="object-card__title"><a href="objects/chastnyy-dom/" class="object-card__title-link">Частный дом</a></h3>
               <p class="object-card__text">Разделение тихих и активных зон, шум оборудования, межэтажные связи и сценарии эксплуатации дома.</p>
               <p class="object-card__format">Типичный формат: <a href="#services" class="object-card__format-link">04 — спецпроект</a></p>
             </div>
           </article>
           <article class="object-card" tabindex="0" data-object="studio" data-analytics-object="studio">
             <figure class="object-card__media">
-              <img src="assets/images/objects-studio.jpg" alt="" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
+              <img src="assets/images/objects-studio.jpg" alt="Акустика студии и домашнего кинотеатра: звукоизоляция и внутренняя акустика" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
               <p class="object-card__index">03</p>
-              <h3 class="object-card__title">Студия, кинотеатр и медиапространство</h3>
+              <h3 class="object-card__title"><a href="objects/studiya-kinoteatr/" class="object-card__title-link">Студия, кинотеатр и медиапространство</a></h3>
               <p class="object-card__text">Специальные проекты, где звукоизоляция, внутренняя акустика и сценарий использования проектируются вместе.</p>
               <p class="object-card__format">Типичный формат: <a href="#services" class="object-card__format-link">04 — спецпроект</a></p>
             </div>
           </article>
           <article class="object-card" tabindex="0" data-object="office" data-analytics-object="office">
             <figure class="object-card__media">
-              <img src="assets/images/objects-office.jpg" alt="" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
+              <img src="assets/images/objects-office.jpg" alt="Акустика офиса и переговорной: приватность речи и снижение фонового шума" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
               <p class="object-card__index">04</p>
-              <h3 class="object-card__title">Офис и переговорная</h3>
+              <h3 class="object-card__title"><a href="objects/ofis/" class="object-card__title-link">Офис и переговорная</a></h3>
               <p class="object-card__text">Приватность речи, контроль фонового шума, перегородки, потолки и обходные пути в офисной среде.</p>
               <p class="object-card__format">Типичные форматы: <a href="#services" class="object-card__format-link">01–03</a></p>
             </div>
           </article>
           <article class="object-card" tabindex="0" data-object="horeca" data-analytics-object="horeca">
             <figure class="object-card__media">
-              <img src="assets/images/objects-horeca.jpg" alt="" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
+              <img src="assets/images/objects-horeca.jpg" alt="Акустика ресторана и HoReCa: шум кухни, зала и защита соседних помещений" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
               <p class="object-card__index">05</p>
-              <h3 class="object-card__title">HoReCa и коммерческие пространства</h3>
+              <h3 class="object-card__title"><a href="objects/horeca/" class="object-card__title-link">HoReCa и коммерческие пространства</a></h3>
               <p class="object-card__text">Шум кухни, оборудования и посетителей, защита соседних помещений и управление гулкостью зала.</p>
               <p class="object-card__format">Типичный формат: <a href="#services" class="object-card__format-link">04 — спецпроект</a></p>
             </div>
           </article>
           <article class="object-card" tabindex="0" data-object="industrial" data-analytics-object="industrial">
             <figure class="object-card__media">
-              <img src="assets/images/objects-industrial.jpg" alt="" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
+              <img src="assets/images/objects-industrial.jpg" alt="Промышленная акустика: локализация шума оборудования и вибрации" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
               <p class="object-card__index">06</p>
-              <h3 class="object-card__title">Промышленный и технический объект</h3>
+              <h3 class="object-card__title"><a href="objects/promyshlennyy-obekt/" class="object-card__title-link">Промышленный и технический объект</a></h3>
               <p class="object-card__text">Бойлерные, генераторы, станки, оборудование, трубопроводы, вибрация, кожухи и виброопоры.</p>
               <p class="object-card__format">Типичный формат: <a href="#services" class="object-card__format-link">05 — промышленность</a></p>
             </div>
@@ -1156,6 +1246,21 @@
                 </div>
                 <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
               </form>
+              <div id="form-success" class="form-success" role="status" aria-live="polite" tabindex="-1" hidden>
+                <div class="form-success__glow" aria-hidden="true"></div>
+                <div class="form-success__visual" aria-hidden="true">
+                  <svg class="form-success__svg" viewBox="0 0 96 96" width="96" height="96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="form-success__ring form-success__ring--outer" cx="48" cy="48" r="42" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6" opacity="0.35"/>
+                    <circle class="form-success__ring form-success__ring--track" cx="48" cy="48" r="34" stroke="currentColor" stroke-width="2" opacity="0.15"/>
+                    <circle class="form-success__ring form-success__ring--progress" cx="48" cy="48" r="34" stroke="currentColor" stroke-width="2" stroke-linecap="round" transform="rotate(-90 48 48)"/>
+                    <path class="form-success__check" d="M34 48.5 L44 58.5 L63 38.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <p class="form-success__label">Заявка принята</p>
+                <h3 class="form-success__title">Задача отправлена</h3>
+                <p class="form-success__message" id="form-success-message"></p>
+                <button type="button" class="btn btn--secondary form-success__reset" id="form-success-reset">Отправить ещё одну заявку</button>
+              </div>
             </div>
             <div class="lead__contacts" id="lead-contacts">
               <p class="lead__contacts-title">Дополнительные контакты</p>
@@ -1182,7 +1287,10 @@
         <div>
           <p class="footer__title">Навигация</p>
           <nav class="footer__links" aria-label="Ссылки в подвале">
-            <a href="#services" class="footer__link">Услуги</a>
+            <a href="services/" class="footer__link">Услуги</a>
+            <a href="objects/" class="footer__link">Объекты</a>
+            <a href="geography/" class="footer__link">География</a>
+            <a href="blog/" class="footer__link">Блог</a>
             <a href="#process" class="footer__link">Процесс</a>
             <a href="#faq" class="footer__link">FAQ</a>
             <a href="privacy.html" class="footer__link">Политика конфиденциальности</a>
@@ -1205,6 +1313,7 @@
   </footer>
 
   <script src="js/config.js"></script>
+  <script src="js/seo.js"></script>
   <script src="js/theme.js"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>
@@ -1214,7 +1323,7 @@
   <script src="js/main.js?v=mobile2"></script>
   <script src="js/visuals/viz-common.js"></script>
   <script src="js/vendor/three.min.js"></script>
-  <script src="js/visuals/hero-visual.js?v=mobile5"></script>
+  <script src="js/visuals/hero-visual.js?v=mobile14"></script>
   <script src="js/visuals/noise-path.js?v=1"></script>
   <script src="js/visuals/room-layers.js"></script>
   <script src="js/visuals/object-types.js"></script>

@@ -3,6 +3,9 @@
 
   const RATE_LIMIT_MS = 30000;
   const STORAGE_KEY = 'cia_lead_last_submit';
+  const FORM_VERSION = '1.0';
+  const SUBMIT_BTN_LABEL = 'Отправить задачу';
+  const SUBMIT_BTN_BUSY_LABEL = 'Отправляем…';
   const FILE_CONFIG = {
     maxFiles: 10,
     maxFileSize: 25 * 1024 * 1024,
@@ -273,10 +276,63 @@
     });
   }
 
-  function buildSubmitRequest(payload, webhook) {
+  function getLeadFormConfig() {
+    const cfg = typeof CIA_CONFIG !== 'undefined' ? CIA_CONFIG : {};
+    const leadForm = cfg.leadForm || {};
+    const legacyUrl = cfg.leadWebhookUrl || '';
+    const webhookUrl = leadForm.webhookUrl || legacyUrl || '';
+    const mode = leadForm.mode || (webhookUrl ? 'live' : 'demo');
+    return {
+      mode,
+      webhookUrl,
+      webhookHeaders: leadForm.webhookHeaders && typeof leadForm.webhookHeaders === 'object'
+        ? leadForm.webhookHeaders
+        : {},
+      timeoutMs: Number(leadForm.timeoutMs) > 0 ? Number(leadForm.timeoutMs) : 120000,
+      successMessage: leadForm.successMessage || '',
+      errorMessage: leadForm.errorMessage || '',
+    };
+  }
+
+  function createRequestId() {
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+      return crypto.randomUUID();
+    }
+    return 'req-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  }
+
+  function normalizePhoneDigits(value) {
+    let digits = String(value || '').replace(/\D/g, '');
+    if (digits.length === 11 && digits.startsWith('8')) {
+      digits = '7' + digits.slice(1);
+    }
+    if (digits.length === 10) {
+      digits = '7' + digits;
+    }
+    return digits;
+  }
+
+  function formatPhoneDisplay(value) {
+    const digits = normalizePhoneDigits(value);
+    if (digits.length !== 11 || !digits.startsWith('7')) return value;
+    return '+7 (' + digits.slice(1, 4) + ') ' + digits.slice(4, 7) + '-' + digits.slice(7, 9) + '-' + digits.slice(9, 11);
+  }
+
+  function normalizePhoneForPayload(value) {
+    const digits = normalizePhoneDigits(value);
+    if (digits.length === 11 && digits.startsWith('7')) {
+      return '+' + digits;
+    }
+    return String(value || '').trim();
+  }
+
+  function buildSubmitRequest(payload) {
+    const baseHeaders = { Accept: 'application/json' };
+    const customHeaders = getLeadFormConfig().webhookHeaders;
+
     if (!attachmentFiles.length) {
       return {
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers: Object.assign({}, baseHeaders, { 'Content-Type': 'application/json' }, customHeaders),
         body: JSON.stringify(payload),
       };
     }
@@ -286,7 +342,74 @@
     attachmentFiles.forEach((file) => {
       formData.append('attachments', file, file.name);
     });
-    return { headers: { Accept: 'application/json' }, body: formData };
+    return {
+      headers: Object.assign({}, baseHeaders, customHeaders),
+      body: formData,
+    };
+  }
+
+  async function parseSubmitResponse(res) {
+    const contentType = res.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) return null;
+    try {
+      return await res.json();
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function classifySubmitError(err) {
+    if (err && err.name === 'AbortError') return 'timeout';
+    const message = String(err && err.message ? err.message : err);
+    if (message === 'Failed to fetch' || message.includes('NetworkError')) return 'network';
+    if (/^HTTP 4/.test(message)) return 'client';
+    if (/^HTTP 5/.test(message)) return 'server';
+    return 'unknown';
+  }
+
+  function getDefaultSuccessMessage() {
+    const formCfg = getLeadFormConfig();
+    if (formCfg.successMessage) return formCfg.successMessage;
+    const responseTime = (typeof CIA_CONFIG !== 'undefined' && CIA_CONFIG.responseTime) || '';
+    const suffix = responseTime && !/^\[/.test(responseTime) ? ' ' + responseTime : '';
+    return 'Задача отправлена. Мы свяжемся с вами' + suffix + '.';
+  }
+
+  function getDefaultErrorMessage(kind, serverMessage) {
+    const formCfg = getLeadFormConfig();
+    if (serverMessage) return serverMessage;
+    if (formCfg.errorMessage) return formCfg.errorMessage;
+    if (kind === 'timeout') {
+      return 'Превышено время ожидания. Проверьте соединение и попробуйте снова или воспользуйтесь контактами ниже.';
+    }
+    if (kind === 'network') {
+      return 'Не удалось связаться с сервером. Проверьте интернет или воспользуйтесь контактами ниже.';
+    }
+    if (kind === 'config') {
+      return 'Форма временно недоступна. Пожалуйста, свяжитесь с нами по телефону или email.';
+    }
+    return 'Не удалось отправить форму. Попробуйте позже или воспользуйтесь контактами ниже.';
+  }
+
+  function setSubmitButtonBusy(isBusy) {
+    const submitBtn = document.getElementById('form-submit');
+    if (!submitBtn) return;
+    submitBtn.disabled = isBusy;
+    if (isBusy) {
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.textContent = SUBMIT_BTN_BUSY_LABEL;
+    } else {
+      submitBtn.removeAttribute('aria-busy');
+      submitBtn.textContent = SUBMIT_BTN_LABEL;
+    }
+  }
+
+  function resetFormAfterSuccess(form) {
+    form.reset();
+    clearAttachments();
+    hidePrefillNotice();
+    window.__CIA_DIAGNOSE_PREFILL = null;
+    setStep(1);
   }
 
   function track(name, params) {
@@ -500,16 +623,55 @@
     status.textContent = message;
   }
 
-  function collectPayload() {
+  function showSuccessScreen(message) {
+    const wrapper = document.querySelector('.lead-form-wrapper');
+    const panel = document.getElementById('form-success');
+    const msgEl = document.getElementById('form-success-message');
+    const status = document.getElementById('form-status');
+
+    if (!wrapper || !panel) {
+      setStatus('success', message || getDefaultSuccessMessage());
+      return;
+    }
+
+    if (status) status.hidden = true;
+    if (msgEl) msgEl.textContent = message || getDefaultSuccessMessage();
+
+    wrapper.classList.add('is-success');
+    panel.hidden = false;
+    panel.classList.remove('is-visible');
+    void panel.offsetWidth;
+    panel.classList.add('is-visible');
+    panel.focus({ preventScroll: true });
+  }
+
+  function hideSuccessScreen() {
+    const wrapper = document.querySelector('.lead-form-wrapper');
+    const panel = document.getElementById('form-success');
+    if (wrapper) wrapper.classList.remove('is-success');
+    if (panel) {
+      panel.hidden = true;
+      panel.classList.remove('is-visible');
+    }
+  }
+
+  function handleFormSuccess(form, message) {
+    resetFormAfterSuccess(form);
+    showSuccessScreen(message);
+  }
+
+  function collectPayload(requestId) {
     const get = (id) => {
       const el = document.getElementById(id);
       return el ? el.value.trim() : '';
     };
 
     return {
+      formVersion: FORM_VERSION,
+      requestId: requestId,
       source: 'cia-rooms-landing',
       name: get('name'),
-      phone: get('phone'),
+      phone: normalizePhoneForPayload(get('phone')),
       emailOrTelegram: get('emailOrTelegram'),
       preferredContact: get('preferredContact') || 'phone',
       serviceType: get('serviceType'),
@@ -526,6 +688,8 @@
       diagnosePrefill: window.__CIA_DIAGNOSE_PREFILL || null,
       utm: getUtm(),
       pageUrl: window.location.href,
+      referrer: document.referrer || '',
+      userAgent: navigator.userAgent || '',
       submittedAt: new Date().toISOString(),
     };
   }
@@ -533,12 +697,7 @@
   async function submitForm(form) {
     const honeypot = document.getElementById('website');
     if (honeypot && honeypot.value.trim()) {
-      setStatus('success', 'Задача отправлена. Мы свяжемся с вами для уточнения исходных данных.');
-      form.reset();
-      clearAttachments();
-      hidePrefillNotice();
-      window.__CIA_DIAGNOSE_PREFILL = null;
-      setStep(1);
+      handleFormSuccess(form, 'Мы свяжемся с вами для уточнения исходных данных.');
       return;
     }
 
@@ -554,67 +713,90 @@
       return;
     }
 
-    const payload = collectPayload();
-    const webhook = (typeof CIA_CONFIG !== 'undefined' && CIA_CONFIG.leadWebhookUrl) || '';
+    const formCfg = getLeadFormConfig();
+    const requestId = createRequestId();
+    const payload = collectPayload(requestId);
 
     track('form_submit', {
+      requestId: requestId,
       objectType: payload.objectType,
       serviceType: payload.serviceType,
       attachmentCount: payload.attachmentCount,
+      mode: formCfg.mode,
     });
 
-    const submitBtn = document.getElementById('form-submit');
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.setAttribute('aria-busy', 'true');
+    if (formCfg.mode === 'live' && !formCfg.webhookUrl) {
+      console.error('[CIA lead form] live mode enabled but webhookUrl is empty');
+      setStatus('error', getDefaultErrorMessage('config'));
+      track('form_error', { kind: 'config', requestId: requestId });
+      return;
     }
+
+    setSubmitButtonBusy(true);
     setStatus('info', attachmentFiles.length ? 'Отправляем задачу и файлы…' : 'Отправляем задачу…');
 
     try {
-      if (!webhook) {
+      if (formCfg.mode === 'demo') {
         await new Promise((r) => setTimeout(r, 600));
         sessionStorage.setItem(STORAGE_KEY, String(Date.now()));
-        const filesNote = attachmentFiles.length
-          ? ' Файлов приложено: ' + attachmentFiles.length + '.'
-          : '';
-        setStatus('success', 'Задача принята (демо-режим: укажите leadWebhookUrl в js/config.js).' + filesNote + ' Мы свяжемся с вами для уточнения исходных данных.');
-        track('form_success', { mode: 'demo', attachmentCount: attachmentFiles.length });
-        form.reset();
-        clearAttachments();
-        hidePrefillNotice();
-        window.__CIA_DIAGNOSE_PREFILL = null;
-        setStep(1);
+        setStatus('success', getDefaultSuccessMessage());
+        track('form_success', { mode: 'demo', requestId: requestId, attachmentCount: attachmentFiles.length });
+        resetFormAfterSuccess(form);
         return;
       }
 
-      const request = buildSubmitRequest(payload, webhook);
-      const res = await fetch(webhook, {
+      const request = buildSubmitRequest(payload);
+      const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      const timeoutId = controller
+        ? setTimeout(() => controller.abort(), formCfg.timeoutMs)
+        : null;
+
+      const res = await fetch(formCfg.webhookUrl, {
         method: 'POST',
         headers: request.headers,
         body: request.body,
+        signal: controller ? controller.signal : undefined,
       });
 
-      if (!res.ok) throw new Error('HTTP ' + res.status);
+      if (timeoutId) clearTimeout(timeoutId);
+
+      const data = await parseSubmitResponse(res);
+
+      if (!res.ok) {
+        const serverMessage = data && data.message ? String(data.message) : '';
+        const err = new Error('HTTP ' + res.status + (serverMessage ? ': ' + serverMessage : ''));
+        err.serverMessage = serverMessage;
+        throw err;
+      }
+
+      if (data && data.ok === false) {
+        const err = new Error(data.message || 'Server rejected submission');
+        err.serverMessage = data.message || '';
+        throw err;
+      }
 
       sessionStorage.setItem(STORAGE_KEY, String(Date.now()));
-      const responseTime = (typeof CIA_CONFIG !== 'undefined' && CIA_CONFIG.responseTime) || '';
-      const suffix = responseTime && !/^\[/.test(responseTime) ? ' ' + responseTime : '';
-      setStatus('success', 'Задача отправлена. Мы свяжемся с вами' + suffix + '.');
-      track('form_success', { mode: 'webhook', attachmentCount: attachmentFiles.length });
-      form.reset();
-      clearAttachments();
-      hidePrefillNotice();
-      window.__CIA_DIAGNOSE_PREFILL = null;
-      setStep(1);
+      const successMessage = data && data.message ? String(data.message) : getDefaultSuccessMessage();
+      setStatus('success', successMessage);
+      track('form_success', {
+        mode: 'live',
+        requestId: requestId,
+        leadId: data && data.leadId ? data.leadId : undefined,
+        attachmentCount: attachmentFiles.length,
+      });
+      resetFormAfterSuccess(form);
     } catch (err) {
-      console.error(err);
-      setStatus('error', 'Не удалось отправить форму. Попробуйте позже или воспользуйтесь контактами ниже.');
-      track('form_error', { message: String(err && err.message ? err.message : err) });
+      console.error('[CIA lead form]', err);
+      const kind = classifySubmitError(err);
+      const serverMessage = err && err.serverMessage ? String(err.serverMessage) : '';
+      setStatus('error', getDefaultErrorMessage(kind, serverMessage));
+      track('form_error', {
+        kind: kind,
+        requestId: requestId,
+        message: String(err && err.message ? err.message : err),
+      });
     } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.removeAttribute('aria-busy');
-      }
+      setSubmitButtonBusy(false);
     }
   }
 
@@ -680,6 +862,7 @@
           showError('phone', 'Укажите корректный телефон');
           return false;
         }
+        el.value = formatPhoneDisplay(el.value);
         showError('phone', '');
         return true;
       },
@@ -700,7 +883,12 @@
     ['serviceType', 'objectType', 'city', 'projectStage', 'task', 'name', 'phone'].forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
-      el.addEventListener('blur', () => validateField(id));
+      el.addEventListener('blur', () => {
+        if (id === 'phone' && el.value.trim()) {
+          el.value = formatPhoneDisplay(el.value);
+        }
+        validateField(id);
+      });
     });
 
     const consent = document.getElementById('consent');
@@ -721,6 +909,14 @@
 
     if (backBtn) {
       backBtn.addEventListener('click', () => setStep(1));
+    }
+
+    const successResetBtn = document.getElementById('form-success-reset');
+    if (successResetBtn) {
+      successResetBtn.addEventListener('click', () => {
+        hideSuccessScreen();
+        setStep(1);
+      });
     }
 
     form.addEventListener('submit', (e) => {

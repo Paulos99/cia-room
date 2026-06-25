@@ -13,13 +13,31 @@ python -m http.server 8080
 
 ## Конфигурация
 
-Заполните `js/config.js` перед продакшеном:
+Заполните `js/config.js` перед продакшеном (эталон — `js/config.example.js`):
 
 - `phone`, `email`, `telegram`, `geography`, `responseTime`
 - `legalEntity`, `legalDetails`, `address`
 - `domain` — публичный URL сайта
-- `leadWebhookUrl` — HTTPS endpoint для POST JSON заявок
 - `yandexMetrikaId` — номер счётчика Яндекс.Метрики
+- `leadForm` — настройки формы заявок (см. ниже)
+
+## Форма заявок
+
+Форма отправляет заявки на внешний HTTPS endpoint. Пока `leadForm.mode: 'demo'` — имитация успешной отправки.
+
+**Для команды маркетинга** — пошаговая инструкция: [`docs/LEAD_FORM_INTEGRATION.md`](docs/LEAD_FORM_INTEGRATION.md)
+
+Минимальное подключение в `js/config.js`:
+
+```js
+leadForm: {
+  mode: 'live',
+  webhookUrl: 'https://ваш-сервер.example.com/api/leads',
+  webhookHeaders: { 'X-API-Key': 'секрет' }, // при необходимости
+},
+```
+
+Эталонный сервер-приёмник для тестов: [`server/lead-webhook/`](server/lead-webhook/)
 
 ## GitHub Pages
 
@@ -38,12 +56,10 @@ python -m http.server 8080
 - `js/config.js` — контакты и интеграции
 - `js/main.js`, `form.js`, `faq.js`, `analytics.js`, `animations.js`
 - `js/visuals/` — SVG-сцены
+- `docs/LEAD_FORM_INTEGRATION.md` — API формы заявок
+- `server/lead-webhook/` — эталонный приёмник заявок
 - `privacy.html`, `consent.html` — юридические шаблоны (TODO)
 - `robots.txt`, `sitemap.xml`
-
-## Форма заявок
-
-POST JSON на `leadWebhookUrl` (см. `js/form.js`). Без URL включён демо-режим успешной отправки.
 
 ## Лицензия
 

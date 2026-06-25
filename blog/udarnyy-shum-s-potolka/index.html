@@ -68,16 +68,170 @@
       <nav class="seo-page__breadcrumb" aria-label="Хлебные крошки"><a href="../../">Главная</a> / <a href="../../blog/">Блог</a> / <span aria-current="page">Ударный шум с потолка</span></nav>
       <h1 class="section-title">Ударный шум с потолка: причины и диагностика</h1>
       <p class="seo-page__lead">Ударный шум передаётся через жёсткие связи конструкций. Потолок усиливают не всегда — иногда критичны стены, пол соседей сверху или инженерные узлы.</p>
+      <nav class="seo-cluster-nav" aria-label="Навигация: Блог"><p class="seo-cluster-nav__label">Блог</p><ul class="seo-cluster-nav__list"><li><a class="seo-cluster-nav__link" href="../../blog/shum-ot-sosedey-chto-delat/">Шум от соседей: с чего начать</a></li><li><span class="seo-cluster-nav__link is-current" aria-current="page">Ударный шум с потолка</span></li><li><a class="seo-cluster-nav__link" href="../../blog/chem-otlichaetsya-zamer-ot-proekta/">Замер vs проект</a></li><li><a class="seo-cluster-nav__link" href="../../blog/kogda-podklyuchat-akustika-pri-remonte/">Акустика при ремонте</a></li><li><a class="seo-cluster-nav__link" href="../../blog/zvukoizolyaciya-vs-akustika/">Звукоизоляция vs акустика</a></li></ul></nav>
       
       <div class="seo-page__content"><h2>Что такое ударный шум</h2>
 <p>Это вибрация конструкции от ударов и шагов, которая излучается в воздух соседнего помещения. Она плохо гасится лёгкими материалами без правильной конструкции пола и потолка.</p>
 <h2>Когда нужен замер</h2>
 <p>Если шум слышен регулярно и мешает сну или работе — акустическое обследование покажет, какая конструкция доминирует и что менять в первую очередь.</p></div>
       
-      <div class="seo-page__cta">
-        <p><strong>Опишите объект</strong> — подскажем, нужна ли дистанционная оценка, выезд, проект или промышленное решение.</p>
-        <a href="../../#lead" class="btn btn--primary">Отправить заявку <span class="btn__arrow" aria-hidden="true">→</span></a>
+      <section class="seo-diagnose diagnose diagnose--embedded" id="diagnose" aria-labelledby="diagnose-title">
+  <p class="services__diagnose-label">Проблемомер</p>
+  <h2 class="section-title" id="diagnose-title" style="font-size: var(--text-xl);">Проверьте свой случай</h2>
+  <p class="diagnose__intro">Ответьте на короткие вопросы — получите рекомендацию формата работы ЦИА и подготовите заявку.</p>
+  <div class="diagnose__shell" id="diagnose-app" data-current-node="q1_signal">
+    <div class="diagnose__topline">
+      <p class="diagnose__counter" id="diagnose-counter">Вопрос 1 из 10</p>
+    </div>
+    <div class="diagnose__progress-track" aria-hidden="true">
+      <div class="diagnose__progress-bar" id="diagnose-progress-bar"></div>
+    </div>
+    <div class="diagnose__layout">
+      <div class="diagnose__main">
+        <div class="diagnose__flow">
+          <div class="diagnose__stage" aria-live="polite">
+            <p class="diagnose__step-label" id="diagnose-step-label">Симптом</p>
+            <h4 class="diagnose__question" id="diagnose-question">Что беспокоит сильнее всего?</h4>
+            <p class="diagnose__lead" id="diagnose-lead" hidden></p>
+            <div class="diagnose__chips" id="diagnose-options" role="group" aria-labelledby="diagnose-question"></div>
+            <p class="diagnose__hint" id="diagnose-hint"></p>
+            <div class="diagnose__controls">
+              <button type="button" class="btn btn--ghost diagnose__back" id="diagnose-back" disabled>Назад</button>
+              <button type="button" class="btn btn--primary diagnose__next" id="diagnose-next" disabled>Далее <span class="btn__arrow" aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </div>
+        <div class="diagnose__result" id="diagnose-result" hidden aria-live="polite"></div>
       </div>
+      <aside class="diagnose__readiness" id="diagnose-readiness" aria-live="polite">
+        <div class="diagnose__gauge" role="img" aria-labelledby="diagnose-gauge-value diagnose-gauge-note">
+          <svg class="diagnose__gauge-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="diagnose__gauge-track" cx="60" cy="60" r="52"></circle>
+            <circle class="diagnose__gauge-fill" id="diagnose-gauge-fill" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <p class="diagnose__gauge-value" id="diagnose-gauge-value">0%</p>
+        </div>
+        <p class="diagnose__gauge-title">Точность подбора</p>
+        <p class="diagnose__gauge-note" id="diagnose-gauge-note">Ответьте на вопросы — покажем, насколько однозначна рекомендация.</p>
+        <ul class="diagnose__gauge-log" id="diagnose-gauge-log"></ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+      <section class="section lead seo-lead" id="lead" aria-labelledby="lead-title">
+  <h2 class="section-title" id="lead-title" style="font-size: var(--text-xl);">Оставить заявку</h2>
+  <p class="lead__intro">Опишите помещение и задачу — подскажем формат работы ЦИА. Если вы прошли Проблемомер, поля заполнятся автоматически.</p>
+  <div class="lead-form-wrapper">
+    <form id="lead-form" novalidate>
+      <div class="form-steps" aria-hidden="true">
+        <div class="form-progress" role="progressbar" id="form-progress" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1" aria-label="Прогресс заполнения формы">
+          <div class="form-progress__fill" id="form-progress-fill"></div>
+        </div>
+        <div class="form-steps__labels">
+          <span class="form-step-indicator is-active" data-step-indicator="1">Шаг 1 / Задача</span>
+          <span class="form-step-indicator" data-step-indicator="2">Шаг 2 / Контакт</span>
+        </div>
+      </div>
+      <div id="form-step-1">
+        <div class="form-group">
+          <label class="form-label form-label--required" for="serviceType">Формат услуги</label>
+          <select class="form-select" id="serviceType" name="serviceType" required>
+            <option value="">Выберите формат</option>
+            <option value="remote">01 — Дистанционная оценка</option>
+            <option value="measurement">02 — Акустический замер</option>
+            <option value="design">03 — Проектирование</option>
+            <option value="special">04 — Спецпроекты</option>
+            <option value="industrial">05 — Промышленная акустика</option>
+            <option value="unsure">Пока не определился</option>
+          </select>
+          <p class="form-error" id="error-serviceType" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="objectType">Тип объекта</label>
+          <select class="form-select" id="objectType" name="objectType" required>
+            <option value="">Выберите тип</option>
+            <option value="apartment">Квартира</option>
+            <option value="house">Частный дом</option>
+            <option value="studio">Студия / медиапространство</option>
+            <option value="office">Офис / переговорная</option>
+            <option value="horeca">HoReCa</option>
+            <option value="industrial">Промышленный объект</option>
+            <option value="other">Другое</option>
+          </select>
+          <p class="form-error" id="error-objectType" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="city">Город</label>
+          <input class="form-input" type="text" id="city" name="city" required autocomplete="address-level2">
+          <p class="form-error" id="error-city" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="area">Площадь</label>
+          <input class="form-input" type="text" id="area" name="area" placeholder="например, 65 м²">
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="projectStage">Стадия</label>
+          <select class="form-select" id="projectStage" name="projectStage" required>
+            <option value="">Выберите стадию</option>
+            <option value="design-project">Дизайн-проект</option>
+            <option value="before">До ремонта</option>
+            <option value="during">Ремонт идёт</option>
+            <option value="ready">Объект готов</option>
+          </select>
+          <p class="form-error" id="error-projectStage" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="task">Задача и ожидаемый результат</label>
+          <textarea class="form-textarea" id="task" name="task" required rows="4"></textarea>
+          <p class="form-error" id="error-task" role="alert" hidden></p>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn--primary" id="form-next">Далее <span class="btn__arrow" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div id="form-step-2" hidden>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="name">Имя</label>
+          <input class="form-input" type="text" id="name" name="name" required autocomplete="name">
+          <p class="form-error" id="error-name" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="phone">Телефон</label>
+          <input class="form-input" type="tel" id="phone" name="phone" required autocomplete="tel">
+          <p class="form-error" id="error-phone" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="emailOrTelegram">Email или Telegram</label>
+          <input class="form-input" type="text" id="emailOrTelegram" name="emailOrTelegram">
+        </div>
+        <div class="form-group">
+          <label class="form-checkbox">
+            <input type="checkbox" id="consent" name="consent" required>
+            <span>Согласен на обработку данных (<a href="../../privacy.html" class="link-underline">политика</a>)</span>
+          </label>
+          <p class="form-error" id="error-consent" role="alert" hidden></p>
+        </div>
+        <div class="form-honeypot" aria-hidden="true">
+          <label for="website">Сайт</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn--secondary" id="form-back">Назад</button>
+          <button type="submit" class="btn btn--primary" id="form-submit">Отправить</button>
+        </div>
+      </div>
+      <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+    </form>
+    <div id="form-success" class="form-success" role="status" aria-live="polite" hidden>
+      <p class="form-success__title">Задача отправлена</p>
+      <p class="form-success__message" id="form-success-message"></p>
+      <button type="button" class="btn btn--secondary" id="form-success-reset">Отправить ещё</button>
+    </div>
+  </div>
+</section>
+
+      <nav class="seo-cluster-pager" aria-label="Переход между страницами раздела"><div class="seo-cluster-pager__inner"><a class="seo-cluster-nav__step seo-cluster-nav__step--prev" href="../../blog/shum-ot-sosedey-chto-delat/"><span class="seo-cluster-nav__step-label">← Предыдущая</span><span class="seo-cluster-nav__step-title">Шум от соседей: с чего начать</span></a><a class="seo-cluster-nav__hub" href="../../blog/">К каталогу</a><a class="seo-cluster-nav__step seo-cluster-nav__step--next" href="../../blog/chem-otlichaetsya-zamer-ot-proekta/"><span class="seo-cluster-nav__step-label">Следующая →</span><span class="seo-cluster-nav__step-title">Замер vs проект</span></a></div></nav>
       <div class="seo-page__related"><p class="seo-page__related-title">Связанные материалы</p><div class="seo-page__related-links"><a href="../../services/akusticheskiy-zamer/">Акустический замер</a><a href="../../blog/shum-ot-sosedey-chto-delat/">Шум от соседей</a></div></div>
     </div>
   </main>
@@ -123,5 +277,9 @@
   <script src="../../js/analytics.js"></script>
   <script src="../../js/main.js?v=seo1"></script>
   <script src="../../js/faq.js"></script>
+  <script src="../../js/diagnose-storage.js"></script>
+  <script>window.__CIA_DIAGNOSE_CONTEXT = {"pageType": "blog", "pageSlug": "blog/udarnyy-shum-s-potolka", "sourceLabel": "Страница: Ударный шум с потолка: причины и диагностика"};</script>
+  <script src="../../js/diagnose.js"></script>
+  <script src="../../js/form.js"></script>
 </body>
 </html>

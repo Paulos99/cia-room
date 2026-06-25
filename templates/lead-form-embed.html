@@ -1,0 +1,111 @@
+<section class="section lead seo-lead" id="lead" aria-labelledby="lead-title">
+  <h2 class="section-title" id="lead-title" style="font-size: var(--text-xl);">Оставить заявку</h2>
+  <p class="lead__intro">Опишите помещение и задачу — подскажем формат работы ЦИА. Если вы прошли Проблемомер, поля заполнятся автоматически.</p>
+  <div class="lead-form-wrapper">
+    <form id="lead-form" novalidate>
+      <div class="form-steps" aria-hidden="true">
+        <div class="form-progress" role="progressbar" id="form-progress" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1" aria-label="Прогресс заполнения формы">
+          <div class="form-progress__fill" id="form-progress-fill"></div>
+        </div>
+        <div class="form-steps__labels">
+          <span class="form-step-indicator is-active" data-step-indicator="1">Шаг 1 / Задача</span>
+          <span class="form-step-indicator" data-step-indicator="2">Шаг 2 / Контакт</span>
+        </div>
+      </div>
+      <div id="form-step-1">
+        <div class="form-group">
+          <label class="form-label form-label--required" for="serviceType">Формат услуги</label>
+          <select class="form-select" id="serviceType" name="serviceType" required>
+            <option value="">Выберите формат</option>
+            <option value="remote">01 — Дистанционная оценка</option>
+            <option value="measurement">02 — Акустический замер</option>
+            <option value="design">03 — Проектирование</option>
+            <option value="special">04 — Спецпроекты</option>
+            <option value="industrial">05 — Промышленная акустика</option>
+            <option value="unsure">Пока не определился</option>
+          </select>
+          <p class="form-error" id="error-serviceType" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="objectType">Тип объекта</label>
+          <select class="form-select" id="objectType" name="objectType" required>
+            <option value="">Выберите тип</option>
+            <option value="apartment">Квартира</option>
+            <option value="house">Частный дом</option>
+            <option value="studio">Студия / медиапространство</option>
+            <option value="office">Офис / переговорная</option>
+            <option value="horeca">HoReCa</option>
+            <option value="industrial">Промышленный объект</option>
+            <option value="other">Другое</option>
+          </select>
+          <p class="form-error" id="error-objectType" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="city">Город</label>
+          <input class="form-input" type="text" id="city" name="city" required autocomplete="address-level2">
+          <p class="form-error" id="error-city" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="area">Площадь</label>
+          <input class="form-input" type="text" id="area" name="area" placeholder="например, 65 м²">
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="projectStage">Стадия</label>
+          <select class="form-select" id="projectStage" name="projectStage" required>
+            <option value="">Выберите стадию</option>
+            <option value="design-project">Дизайн-проект</option>
+            <option value="before">До ремонта</option>
+            <option value="during">Ремонт идёт</option>
+            <option value="ready">Объект готов</option>
+          </select>
+          <p class="form-error" id="error-projectStage" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="task">Задача и ожидаемый результат</label>
+          <textarea class="form-textarea" id="task" name="task" required rows="4"></textarea>
+          <p class="form-error" id="error-task" role="alert" hidden></p>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn--primary" id="form-next">Далее <span class="btn__arrow" aria-hidden="true">→</span></button>
+        </div>
+      </div>
+      <div id="form-step-2" hidden>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="name">Имя</label>
+          <input class="form-input" type="text" id="name" name="name" required autocomplete="name">
+          <p class="form-error" id="error-name" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="phone">Телефон</label>
+          <input class="form-input" type="tel" id="phone" name="phone" required autocomplete="tel">
+          <p class="form-error" id="error-phone" role="alert" hidden></p>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="emailOrTelegram">Email или Telegram</label>
+          <input class="form-input" type="text" id="emailOrTelegram" name="emailOrTelegram">
+        </div>
+        <div class="form-group">
+          <label class="form-checkbox">
+            <input type="checkbox" id="consent" name="consent" required>
+            <span>Согласен на обработку данных (<a href="{{BASE}}privacy.html" class="link-underline">политика</a>)</span>
+          </label>
+          <p class="form-error" id="error-consent" role="alert" hidden></p>
+        </div>
+        <div class="form-honeypot" aria-hidden="true">
+          <label for="website">Сайт</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn--secondary" id="form-back">Назад</button>
+          <button type="submit" class="btn btn--primary" id="form-submit">Отправить</button>
+        </div>
+      </div>
+      <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+    </form>
+    <div id="form-success" class="form-success" role="status" aria-live="polite" hidden>
+      <p class="form-success__title">Задача отправлена</p>
+      <p class="form-success__message" id="form-success-message"></p>
+      <button type="button" class="btn btn--secondary" id="form-success-reset">Отправить ещё</button>
+    </div>
+  </div>
+</section>

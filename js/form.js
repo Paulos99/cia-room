@@ -534,6 +534,7 @@
     setFieldValue('serviceType', prefill.serviceType);
     setFieldValue('objectType', prefill.objectType);
     setFieldValue('projectStage', prefill.projectStage);
+    setFieldValue('city', prefill.city);
     setFieldValue('task', prefill.task);
     showPrefillNotice();
     track('diagnose_lead_prefill', {
@@ -558,6 +559,13 @@
     const params = new URLSearchParams(window.location.search);
     const fromUrl = params.get('service');
     if (fromUrl) setServiceType(fromUrl);
+
+    if (window.CIA_DIAGNOSE_STORAGE) {
+      const stored = window.CIA_DIAGNOSE_STORAGE.loadPrefill();
+      if (stored && window.CIA_APPLY_LEAD_PREFILL) {
+        window.CIA_APPLY_LEAD_PREFILL(stored);
+      }
+    }
 
     document.querySelectorAll('[data-lead-service]').forEach((link) => {
       link.addEventListener('click', () => {

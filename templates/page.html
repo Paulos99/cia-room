@@ -68,13 +68,13 @@
       <nav class="seo-page__breadcrumb" aria-label="Хлебные крошки">{{BREADCRUMB}}</nav>
       <h1 class="section-title">{{H1}}</h1>
       <p class="seo-page__lead">{{LEAD}}</p>
+      {{CLUSTER_NAV}}
       {{IMAGE_BLOCK}}
       <div class="seo-page__content">{{BODY}}</div>
       {{FAQ_BLOCK}}
-      <div class="seo-page__cta">
-        <p><strong>Опишите объект</strong> — подскажем, нужна ли дистанционная оценка, выезд, проект или промышленное решение.</p>
-        <a href="{{BASE}}#lead" class="btn btn--primary">Отправить заявку <span class="btn__arrow" aria-hidden="true">→</span></a>
-      </div>
+      {{DIAGNOSE_BLOCK}}
+      {{LEAD_BLOCK}}
+      {{CLUSTER_PAGER}}
       {{RELATED_BLOCK}}
     </div>
   </main>
@@ -120,5 +120,9 @@
   <script src="{{BASE}}js/analytics.js"></script>
   <script src="{{BASE}}js/main.js?v=seo1"></script>
   <script src="{{BASE}}js/faq.js"></script>
+  <script src="{{BASE}}js/diagnose-storage.js"></script>
+  <script>{{DIAGNOSE_CONTEXT_SCRIPT}}</script>
+  <script src="{{BASE}}js/diagnose.js"></script>
+  <script src="{{BASE}}js/form.js"></script>
 </body>
 </html>

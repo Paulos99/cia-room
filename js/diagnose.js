@@ -478,6 +478,10 @@
   const app = document.getElementById('diagnose-app');
   if (!app) return;
 
+  const pageContext = window.__CIA_DIAGNOSE_CONTEXT || {};
+  const pageKey = pageContext.pageSlug || (window.location.pathname || 'main');
+  const storage = window.CIA_DIAGNOSE_STORAGE;
+
   const els = {
     counter: document.getElementById('diagnose-counter'),
     progressBar: document.getElementById('diagnose-progress-bar'),
@@ -515,10 +519,28 @@
   };
 
   function emptyScores() {
-    return SERVICE_ORDER.reduce((acc, key) => {
+    const scores = SERVICE_ORDER.reduce((acc, key) => {
       acc[key] = 0;
       return acc;
     }, {});
+    if (pageContext.defaultService && scores[pageContext.defaultService] !== undefined) {
+      scores[pageContext.defaultService] += 3;
+    }
+    return scores;
+  }
+
+  function persistState() {
+    if (!storage) return;
+    storage.saveState({
+      pageKey,
+      currentNode: state.currentNode,
+      path: state.path,
+      tags: state.tags,
+      scores: state.scores,
+      selectedId: state.selectedId,
+      finished: state.finished,
+      lastOutcome: state.lastOutcome,
+    });
   }
 
   function buildContext() {
@@ -1210,12 +1232,19 @@
 
     if (goalLabel) taskParts.push('', `Нужный результат: ${goalLabel}.`);
     if (startLabel) taskParts.push(`Формат старта: ${startLabel}.`);
+    if (pageContext.sourceLabel) {
+      taskParts.unshift('', `Источник: ${pageContext.sourceLabel}.`);
+    }
+    if (pageContext.city) {
+      taskParts.unshift(`Город объекта: ${pageContext.city}.`);
+    }
 
     return {
       source: 'diagnose',
       serviceType: outcome.service,
-      objectType: objectEntry ? OBJECT_MAP[objectEntry.optionId] || '' : '',
+      objectType: objectEntry ? OBJECT_MAP[objectEntry.optionId] || '' : (pageContext.defaultObject || ''),
       projectStage: stageEntry ? STAGE_MAP[stageEntry.optionId] || '' : '',
+      city: pageContext.city || '',
       task: taskParts.join('\n'),
       outcome: {
         title: outcome.title,
@@ -1239,6 +1268,7 @@
     const resolved = outcome || state.lastOutcome || resolveOutcome();
     const prefill = buildLeadPrefill(resolved);
     window.__CIA_DIAGNOSE_PREFILL = prefill;
+    if (storage) storage.savePrefill(prefill);
 
     if (window.CIA_APPLY_LEAD_PREFILL) {
       window.CIA_APPLY_LEAD_PREFILL(prefill);
@@ -1250,6 +1280,8 @@
       if (objectType && prefill.objectType) objectType.value = prefill.objectType;
       if (projectStage && prefill.projectStage) projectStage.value = prefill.projectStage;
       if (task && prefill.task) task.value = prefill.task;
+      const cityField = document.getElementById('city');
+      if (cityField && prefill.city) cityField.value = prefill.city;
     }
 
     const lead = document.getElementById('lead');
@@ -1396,9 +1428,8 @@
     renderProgress();
     renderReadiness();
     requestAnimationFrame(() => scrollToElement(els.result, 'nearest'));
+    persistState();
   }
-
-  function selectOption(value) {
     const node = NODES[state.currentNode];
     if (!node) return;
     const option = node.options.find((o) => o.id === value);
@@ -1430,11 +1461,13 @@
     if (next === 'result') {
       applyInferredStart(buildContext());
       renderResult();
+      persistState();
       return;
     }
 
     state.currentNode = next;
     renderStep();
+    persistState();
   }
 
   function rebuildFromPath() {
@@ -1461,6 +1494,7 @@
     state.finished = false;
     els.result.hidden = true;
     renderStep();
+    persistState();
   }
 
   function restart() {
@@ -1473,6 +1507,7 @@
     state.finished = false;
     els.result.hidden = true;
     renderStep();
+    if (storage) storage.clear();
   }
 
   window.CIA_DIAGNOSE_SELECT = selectOption;
@@ -1510,5 +1545,21 @@
   });
 
   state.scores = emptyScores();
-  renderStep();
+  const saved = storage ? storage.loadState(pageKey) : null;
+  if (saved && saved.path && saved.path.length && !saved.finished) {
+    state.currentNode = saved.currentNode || START_NODE;
+    state.path = saved.path;
+    state.tags = saved.tags || [];
+    state.scores = saved.scores || emptyScores();
+    state.selectedId = saved.selectedId || null;
+    state.finished = Boolean(saved.finished);
+    if (state.finished && saved.lastOutcome) {
+      state.lastOutcome = saved.lastOutcome;
+      renderResult();
+    } else {
+      renderStep();
+    }
+  } else {
+    renderStep();
+  }
 })();

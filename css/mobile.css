@@ -165,7 +165,7 @@
   }
 
   .hero__actions {
-    order: 5;
+    order: 6;
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-sm);
@@ -204,18 +204,23 @@
   }
 
   .hero__visual {
-    order: 6;
-    max-width: min(220px, 70vw);
-    height: min(220px, 70vw);
-    margin-top: var(--space-md);
+    order: 5;
+    max-width: min(286px, 82vw);
+    height: min(286px, 82vw);
+    margin-top: var(--space-sm);
     padding-bottom: 2rem;
     background: transparent;
     overflow: visible;
   }
 
   .hero-visual__stage {
-    -webkit-mask-image: radial-gradient(ellipse 82% 78% at 50% 42%, #000 48%, transparent 92%);
-    mask-image: radial-gradient(ellipse 82% 78% at 50% 42%, #000 48%, transparent 92%);
+    transform: translateY(-8px);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .hero-visual__glow {
+    inset: -52%;
   }
 
   .hero-field {
@@ -231,88 +236,72 @@
   .hero__method-details {
     order: 7;
     margin-top: var(--space-md);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-    overflow: hidden;
+    padding: var(--space-md);
+    border: 1px solid var(--color-accent-border);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(135deg, var(--color-accent-subtle), transparent 64%),
+      var(--color-surface);
+    box-shadow: 0 14px 34px rgba(15, 35, 75, 0.08);
+    overflow: visible;
   }
 
   .hero__method-details {
     order: 8;
   }
 
-  .hero__value-details summary,
-  .hero__method-details summary {
+  .hero-info-card__title,
+  .cia-info-card__title {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
-    padding: var(--space-md);
-    min-height: 44px;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    cursor: pointer;
-    list-style: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: background-color var(--duration-fast) var(--ease-out);
-  }
-
-  .hero__value-details summary:active,
-  .hero__method-details summary:active,
-  .cia-identity__more summary:active {
-    background: var(--color-accent-subtle);
-  }
-
-  .hero__value-details summary::after,
-  .hero__method-details summary::after,
-  .cia-identity__more summary::after {
-    content: '+';
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 50%;
-    border: 1px solid var(--color-accent-border);
-    background: var(--color-accent-subtle);
+    gap: 0.625rem;
+    margin: 0 0 var(--space-sm);
     font-family: var(--font-mono);
-    font-size: 1.125rem;
+    font-size: 0.6875rem;
     font-weight: 600;
-    line-height: 1;
+    line-height: 1.35;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--color-accent);
-    transition:
-      transform var(--duration-fast) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out),
-      color var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out);
   }
 
-  .hero__value-details[open] > summary::after,
-  .hero__method-details[open] > summary::after,
-  .cia-identity__more[open] > summary::after {
-    content: '−';
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: #fff;
-  }
-
-  .hero__value-details summary::-webkit-details-marker,
-  .hero__method-details summary::-webkit-details-marker {
-    display: none;
+  .hero-info-card__title::before,
+  .cia-info-card__title::before {
+    content: '';
+    width: 1.25rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-accent), transparent);
   }
 
   .hero__value-details .hero__value,
   .hero__method-details .hero__method {
-    padding: 0 var(--space-md) var(--space-md);
+    padding: 0;
     margin: 0;
+  }
+
+  .hero__value-details .hero__value {
+    color: var(--color-text-secondary);
+    border-left: 0;
+    max-width: none;
+  }
+
+  .hero__value-details .hero__value::before {
+    display: none;
   }
 
   .hero__method-details .hero__method {
     list-style: none;
     display: grid;
-    gap: var(--space-sm);
+    gap: 0;
+    border-top-color: var(--color-accent-border);
+  }
+
+  .hero__method-details .hero__method-item {
+    padding-inline: 0;
+  }
+
+  .hero__method-details .hero__method-item:last-child {
+    border-bottom: 0;
   }
 
   .hero__foot {
@@ -341,44 +330,33 @@
   /* CIA identity collapse */
   .cia-identity__more {
     margin-top: var(--space-md);
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-  }
-
-  .cia-identity__more summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-md);
     padding: var(--space-md);
-    min-height: 44px;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    cursor: pointer;
-    list-style: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: background-color var(--duration-fast) var(--ease-out);
-  }
-
-  .cia-identity__more summary::-webkit-details-marker {
-    display: none;
+    border: 1px solid var(--color-accent-border);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(135deg, var(--color-accent-subtle), transparent 62%),
+      var(--color-surface);
+    box-shadow: 0 14px 34px rgba(15, 35, 75, 0.08);
   }
 
   .cia-identity__more-body {
-    padding: 0 var(--space-md) var(--space-md);
+    padding: 0;
     display: grid;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .cia-identity__more-body p {
+    display: block;
     font-size: var(--text-sm);
     line-height: 1.55;
   }
 
   .cia-identity__intro p:not(:first-child) {
     display: none;
+  }
+
+  .cia-identity__intro .cia-identity__more-body p {
+    display: block;
   }
 
   .cia-identity__note {
@@ -999,10 +977,12 @@
     border: none;
     background: none;
     margin-top: var(--space-md);
+    padding: 0;
+    box-shadow: none;
     overflow: visible;
   }
 
-  .hero__value-details summary {
+  .hero__value-details .hero-info-card__title {
     display: none;
   }
 

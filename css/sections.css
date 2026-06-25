@@ -109,12 +109,12 @@
   }
   .hero__tagline { order: 3; }
   .hero__lead { order: 4; max-width: none; }
-  .hero__actions { order: 5; }
+  .hero__actions { order: 6; }
   .hero__visual {
-    order: 6;
-    max-width: min(220px, 70vw);
-    height: min(220px, 70vw);
-    margin-top: var(--space-md);
+    order: 5;
+    max-width: min(286px, 82vw);
+    height: min(286px, 82vw);
+    margin-top: var(--space-sm);
     margin-bottom: var(--space-md);
     padding-bottom: 2rem;
   }
@@ -125,7 +125,9 @@
   .hero__trust { order: 10; }
 
   .hero-visual__stage {
-    transform: translateY(-16px);
+    transform: translateY(-8px);
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 

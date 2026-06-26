@@ -125,6 +125,12 @@
   --color-hero-glow-2: radial-gradient(circle at 50% 45%, rgba(47, 125, 255, 0.18), transparent 60%);
   --color-hero-caption: rgba(110, 179, 255, 0.92);
 
+  /* Hero visual layout (ПК) — меняются панелью ?hero-tuner=1 */
+  --hero-stage-offset-y: -10px;
+  --hero-stage-offset-y-desktop: -150px;
+  --hero-caption-bottom-desktop: 7rem;
+  --hero-visual-margin-bottom-desktop: var(--space-md);
+
   --ambient-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(47, 125, 255, 0.09), transparent 55%),
     linear-gradient(180deg, #030610 0%, #050a14 45%, #030610 100%);
   --ambient-grid-line: rgba(120, 180, 255, 0.04);

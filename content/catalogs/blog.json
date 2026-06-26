@@ -11,11 +11,58 @@
     {"label": "Блог", "href": "/blog/"}
   ],
   "cards": [
-    {"href": "/blog/shum-ot-sosedey-chto-delat/", "title": "Шум от соседей: с чего начать", "text": "Первые шаги и диагностика"},
-    {"href": "/blog/udarnyy-shum-s-potolka/", "title": "Ударный шум с потолка", "text": "Причины и замер"},
-    {"href": "/blog/chem-otlichaetsya-zamer-ot-proekta/", "title": "Замер vs проект", "text": "Сравнение форматов"},
-    {"href": "/blog/kogda-podklyuchat-akustika-pri-remonte/", "title": "Акустика при ремонте", "text": "Этапы подключения"},
-    {"href": "/blog/zvukoizolyaciya-vs-akustika/", "title": "Звукоизоляция vs акустика", "text": "В чём разница"}
+    {
+      "href": "/blog/shum-ot-sosedey-chto-delat/",
+      "title": "Шум от соседей: с чего начать",
+      "text": "Сначала понять путь звука — не покупать материалы вслепую"
+    },
+    {
+      "href": "/blog/udarnyy-shum-s-potolka/",
+      "title": "Ударный шум с потолка",
+      "text": "Топот через плиту — не всегда только через перекрытие"
+    },
+    {
+      "href": "/blog/chem-otlichaetsya-zamer-ot-proekta/",
+      "title": "Замер vs проект",
+      "text": "Замер фиксирует факт, проект — что строить и как проверить"
+    },
+    {
+      "href": "/blog/kogda-podklyuchat-akustika-pri-remonte/",
+      "title": "Акустика при ремонте",
+      "text": "Звукоизоляция — часть черновой, не слой «потом»"
+    },
+    {
+      "href": "/blog/zvukoizolyaciya-vs-akustika/",
+      "title": "Звукоизоляция vs акустика",
+      "text": "Соседи — ограждения, гул в комнате — внутренняя акустика"
+    },
+    {
+      "href": "/blog/pochemu-gudit-komnata-eho/",
+      "title": "Почему гудит комната",
+      "text": "Звон в пустой комнате — не то же самое, что шум соседей"
+    },
+    {
+      "href": "/blog/akusticheskie-mostiki-i-shcheli/",
+      "title": "Акустические мостики",
+      "text": "Щель у пола или розетка сводят на нет толстую стену"
+    },
+    {
+      "href": "/blog/shum-ventilyacii-i-trub/",
+      "title": "Шум вентиляции и труб",
+      "text": "Гул из шахты — не всегда виноваты соседи"
+    },
+    {
+      "href": "/blog/akustika-domashnego-kinoteatra/",
+      "title": "Домашний кинотеатр",
+      "text": "Три задачи: соседи, тишина сцены и звук внутри"
+    },
+    {
+      "href": "/blog/studiya-podkast-akustika-start/",
+      "title": "Студия подкаста",
+      "text": "Тишина снаружи и сухой голос внутри — разные работы"
+    }
   ],
-  "related": [{"href": "/services/", "label": "Услуги"}]
+  "related": [
+    {"href": "/services/", "label": "Услуги"}
+  ]
 }

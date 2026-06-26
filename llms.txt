@@ -19,7 +19,22 @@
 
 ## География
 
-Работаем по всей России: дистанционная оценка — для любого региона; выезд на объект — по согласованию. Подробнее: [/geography/](/geography/).
+Инженерный офис: Иваново, ул. Смирнова, 74 — [/geography/ivanovo/](/geography/ivanovo/).
+
+Работаем по всей России: дистанционная оценка — для любого региона; выезд на объект — по согласованию. Каталог: [/geography/](/geography/).
+
+## Блог
+
+- [Шум от соседей](/blog/shum-ot-sosedey-chto-delat/)
+- [Ударный шум с потолка](/blog/udarnyy-shum-s-potolka/)
+- [Замер vs проект](/blog/chem-otlichaetsya-zamer-ot-proekta/)
+- [Акустика при ремонте](/blog/kogda-podklyuchat-akustika-pri-remonte/)
+- [Звукоизоляция vs акустика](/blog/zvukoizolyaciya-vs-akustika/)
+- [Почему гудит комната](/blog/pochemu-gudit-komnata-eho/)
+- [Акустические мостики](/blog/akusticheskie-mostiki-i-shcheli/)
+- [Шум вентиляции](/blog/shum-ventilyacii-i-trub/)
+- [Домашний кинотеатр](/blog/akustika-domashnego-kinoteatra/)
+- [Студия подкаста](/blog/studiya-podkast-akustika-start/)
 
 ## Заявка
 

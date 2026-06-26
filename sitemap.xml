@@ -11,6 +11,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://paulos99.github.io/cia-room/blog/akusticheskie-mostiki-i-shcheli/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paulos99.github.io/cia-room/blog/akustika-domashnego-kinoteatra/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://paulos99.github.io/cia-room/blog/chem-otlichaetsya-zamer-ot-proekta/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -21,7 +31,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://paulos99.github.io/cia-room/blog/pochemu-gudit-komnata-eho/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://paulos99.github.io/cia-room/blog/shum-ot-sosedey-chto-delat/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paulos99.github.io/cia-room/blog/shum-ventilyacii-i-trub/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paulos99.github.io/cia-room/blog/studiya-podkast-akustika-start/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -42,6 +67,11 @@
   </url>
   <url>
     <loc>https://paulos99.github.io/cia-room/geography/ekaterinburg/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://paulos99.github.io/cia-room/geography/ivanovo/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

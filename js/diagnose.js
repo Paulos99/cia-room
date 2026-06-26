@@ -1430,6 +1430,8 @@
     requestAnimationFrame(() => scrollToElement(els.result, 'nearest'));
     persistState();
   }
+
+  function selectOption(value) {
     const node = NODES[state.currentNode];
     if (!node) return;
     const option = node.options.find((o) => o.id === value);

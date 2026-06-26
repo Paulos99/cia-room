@@ -50,12 +50,13 @@
   .hero__visual {
     grid-column: 2;
     grid-row: 1;
-    align-self: start;
+    align-self: end;
     justify-self: start;
     position: relative;
     z-index: 2;
     top: auto;
     margin-top: 0;
+    margin-bottom: var(--space-sm);
   }
 
   .hero__method {
@@ -125,7 +126,7 @@
   .hero__trust { order: 10; }
 
   .hero-visual__stage {
-    transform: translateY(-8px);
+    transform: translateY(4px);
     -webkit-mask-image: none;
     mask-image: none;
   }
@@ -468,7 +469,7 @@
 .hero-visual__stage {
   position: absolute;
   inset: 0;
-  transform: translateY(-28px);
+  transform: translateY(0);
   pointer-events: none;
   z-index: 1;
 }
@@ -534,15 +535,16 @@
   opacity: 0.3;
 }
 
+@media (min-width: 1024px) {
   .hero-visual__stage {
-    transform: translateY(-24px);
+    transform: translateY(12px);
   }
 
   .hero-visual__caption {
     font-size: 1.375rem;
     letter-spacing: 0.14em;
     line-height: 1.35;
-    bottom: 1.5rem;
+    bottom: 0.75rem;
     max-width: none;
     white-space: nowrap;
     text-wrap: nowrap;

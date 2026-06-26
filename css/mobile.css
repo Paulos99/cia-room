@@ -185,7 +185,7 @@
   }
 
   .hero-visual__stage {
-    transform: translateY(4px);
+    transform: translateY(-6px);
     -webkit-mask-image: none;
     mask-image: none;
   }

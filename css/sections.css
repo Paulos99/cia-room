@@ -3298,3 +3298,292 @@
 .grid-bg {
   display: none;
 }
+
+/* ——— TZ refresh: benefits, hero test note, landing services, diagnose, result, cases, form ——— */
+
+.hero__test-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: flex-start;
+}
+
+.hero__test-note {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  max-width: 22rem;
+  line-height: 1.45;
+}
+
+.benefits__grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .benefits__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+.benefit-card {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-faint);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.benefit-card__title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin: 0;
+}
+
+.benefit-card__text {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+.benefit-card__examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.benefit-card__examples li {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-tech);
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.objects__carousel-head--mobile-only {
+  display: none;
+}
+
+.objects__grid--static {
+  /* desktop: static grid from .objects__grid rules */
+}
+
+.object-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  z-index: 2;
+  position: relative;
+}
+
+.object-card__tag {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+.services--landing .service-panel__scope--hidden,
+.services--landing .service-panel__scope,
+.services--landing .service-panel__scope-note,
+.services--landing .service-panel__toggle,
+.services--landing .service-panel__details,
+.services--landing .service-panel__model {
+  display: none !important;
+}
+
+.services--landing .service-panel__list--compact {
+  margin: var(--space-md) 0;
+  padding-left: 1.1rem;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.services--landing .service-panel__list--compact li {
+  margin-bottom: var(--space-xs);
+}
+
+.services--landing .service-panel__more {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-accent-light);
+}
+
+.services--landing .service-panel__body {
+  padding: var(--space-lg);
+}
+
+@media (min-width: 1024px) {
+  .services--landing .service-panel__body {
+    padding: var(--space-xl);
+  }
+}
+
+.diagnose-section {
+  background: linear-gradient(180deg, var(--color-surface-faint) 0%, transparent 100%);
+  border-block: 1px solid var(--color-line);
+}
+
+.diagnose--standalone .diagnose__shell {
+  max-width: none;
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-glass);
+}
+
+.result__group {
+  margin-bottom: var(--space-lg);
+}
+
+.result__group:last-child {
+  margin-bottom: 0;
+}
+
+.result__group-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  margin: 0 0 var(--space-sm);
+}
+
+.result__content .result__list {
+  margin: 0;
+}
+
+.report-demo {
+  position: absolute;
+  inset: auto var(--space-md) var(--space-md);
+  left: var(--space-md);
+  right: var(--space-md);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.report-demo__item {
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-md);
+  background: rgba(10, 12, 16, 0.82);
+  backdrop-filter: blur(12px);
+  font-size: var(--text-sm);
+}
+
+.report-demo__item summary {
+  cursor: pointer;
+  padding: var(--space-sm) var(--space-md);
+  font-weight: 500;
+  list-style: none;
+}
+
+.report-demo__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.report-demo__item p {
+  margin: 0;
+  padding: 0 var(--space-md) var(--space-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+}
+
+.cases__grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+@media (min-width: 768px) {
+  .cases__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.case-card {
+  padding: var(--space-lg);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-faint);
+}
+
+.case-card__object {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-tech);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-sm);
+}
+
+.case-card__title {
+  font-size: var(--text-lg);
+  margin: 0 0 var(--space-md);
+}
+
+.case-card__task,
+.case-card__format,
+.case-card__result {
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.case-card__row {
+  display: grid;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  font-size: var(--text-sm);
+}
+
+.case-card__row dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-tech);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.case-card__row dd {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.form-attachments-toggle {
+  margin-top: var(--space-md);
+  width: 100%;
+  justify-content: center;
+}
+
+.form-attachments-panel {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-line);
+}
+
+.form-attachments-panel[hidden] {
+  display: none !important;
+}
+
+.principles__grid--static {
+  /* static grid; mobile carousel via mobile.css */
+}
+

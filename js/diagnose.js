@@ -10,14 +10,14 @@
       title: 'Дистанционная инженерная оценка',
       resultPromise: 'инженерную гипотезу, разбор по вашим данным и рекомендацию следующего шага',
       helpClose: 'Поможем собрать недостающие сведения и понять, нужен ли выезд или проект — без лишних затрат на старте.',
-      cta: 'Отправить данные объекта',
+      cta: 'Оставить данные для оценки',
     },
     measurement: {
       num: '02',
       title: 'Акустический замер и обследование помещения',
       resultPromise: 'выезд эксперта, карту источников и путей передачи, рекомендации по зонам',
       helpClose: 'Поможем разобраться на объекте и подскажем следующий шаг по результатам обследования.',
-      cta: 'Обсудить обследование',
+      cta: 'Оставить заявку на замер',
       alternativeNote: 'без подробного плана мероприятий и подбора материалов',
     },
     design: {
@@ -25,21 +25,28 @@
       title: 'Инженерное акустическое проектирование',
       resultPromise: 'обследование, проект узлов и материалов, прогноз результата и контрольный замер после монтажа',
       helpClose: 'Проведём через проектный цикл — от диагностики до подтверждения результата на объекте.',
-      cta: 'Обсудить проект объекта',
+      cta: 'Оставить заявку на проектирование',
     },
     special: {
       num: '04',
       title: 'Разработка специальных проектов',
       resultPromise: 'ТЗ под сценарий, проект акустики помещения и контроль результата замером',
       helpClose: 'Поможем спроектировать решение под ваш объект и сценарий — и подтвердить результат замером.',
-      cta: 'Обсудить спецпроект',
+      cta: 'Оставить заявку на спецпроект',
     },
     industrial: {
       num: '05',
       title: 'Промышленное акустическое проектирование',
-      resultPromise: 'обследование источника, проект локализации шума и вибрации, контрольные замеры',
-      helpClose: 'Разберёмся с промышленным источником системно — от диагностики до подтверждения снижения шума.',
-      cta: 'Обсудить промышленный объект',
+      resultPromise: 'обследование источника, проектные решения, контрольные замеры',
+      helpClose: 'Разберёмся с промышленным источником системно — от диагностики до подтверждения результата.',
+      cta: 'Оставить заявку по промышленной задаче',
+    },
+    unsure: {
+      num: '—',
+      title: 'Нужна первичная консультация',
+      resultPromise: 'разбор задачи и рекомендацию по формату работы',
+      helpClose: 'Опишите задачу — подскажем, каких данных не хватает для точного подбора формата.',
+      cta: 'Оставить заявку на разбор проблемы',
     },
   };
 
@@ -50,11 +57,8 @@
     'q2_where',
     'q3_object',
     'q4_stage',
-    'q5_source',
-    'q6_access',
     'q7_data',
     'q8_goal',
-    'q9_attempts',
   ];
 
   const NODES = {
@@ -125,10 +129,10 @@
       label: 'Стадия ремонта',
       question: 'На каком этапе у вас ремонт?',
       options: [
-        { id: 'idea', label: 'Только планирую', detail: 'Ремонт ещё не начинали', next: 'q5_source', tags: ['stage-idea'], scores: { remote: 2, design: 1 }, hint: 'Сейчас проще всё спланировать заранее.' },
-        { id: 'before', label: 'Перед ремонтом', detail: 'Стены и перекрытия ещё можно менять', next: 'q5_source', tags: ['stage-before'], scores: { design: 3 }, hint: 'Удобное время заложить решение в проект.' },
-        { id: 'during', label: 'Ремонт уже идёт', detail: 'Работы в процессе, нужно решить сейчас', next: 'q5_source', tags: ['stage-during'], scores: { measurement: 2, design: 2 }, hint: 'Важно не закрепить ошибку в конструкциях.' },
-        { id: 'ready', label: 'Уже живём / работаем', detail: 'Ремонт сделан, проблема при использовании', next: 'q5_source', tags: ['stage-ready'], scores: { measurement: 3 }, hint: 'Нужно проверить причину на месте.' },
+        { id: 'idea', label: 'Только планирую', detail: 'Ремонт ещё не начинали', next: 'q7_data', tags: ['stage-idea'], scores: { remote: 2, design: 1 }, hint: 'Сейчас проще всё спланировать заранее.' },
+        { id: 'before', label: 'Перед ремонтом', detail: 'Стены и перекрытия ещё можно менять', next: 'q7_data', tags: ['stage-before'], scores: { design: 3 }, hint: 'Удобное время заложить решение в проект.' },
+        { id: 'during', label: 'Ремонт уже идёт', detail: 'Работы в процессе, нужно решить сейчас', next: 'q7_data', tags: ['stage-during'], scores: { measurement: 2, design: 2 }, hint: 'Важно не закрепить ошибку в конструкциях.' },
+        { id: 'ready', label: 'Уже живём / работаем', detail: 'Ремонт сделан, проблема при использовании', next: 'q7_data', tags: ['stage-ready'], scores: { measurement: 3 }, hint: 'Нужно проверить причину на месте.' },
       ],
     },
     q5_source: {
@@ -167,10 +171,10 @@
       label: 'Цель',
       question: 'Что вы хотите получить от ЦИА?',
       options: [
-        { id: 'understand', label: 'Сначала понять причину', detail: 'Разобраться, откуда шум и как он передаётся', next: 'q9_attempts', tags: ['goal-understand'], scores: { remote: 1, measurement: 3 }, hint: 'Диагностика без лишних работ.' },
-        { id: 'treatment', label: 'Получить рекомендации эксперта', detail: 'Что усилить и в каких зонах — без полного проекта', next: 'q9_attempts', tags: ['goal-treatment'], scores: { measurement: 4 }, hint: 'Выезд или разбор по данным с конкретными советами.' },
-        { id: 'project', label: 'Получить готовый акустический проект', detail: 'Решение с материалами для передачи строителям', next: 'q9_attempts', tags: ['goal-project'], scores: { design: 4, special: 2 }, hint: 'Узлы, материалы и прогноз результата.' },
-        { id: 'measurement', label: 'Сделать замеры акустики на объекте', detail: 'Выезд специалиста, замеры и карта источников шума', next: 'q9_attempts', tags: ['goal-measurement'], scores: { measurement: 5 }, hint: 'Замеры на месте — без проектных работ на старте.' },
+        { id: 'understand', label: 'Сначала понять причину', detail: 'Разобраться, откуда шум и как он передаётся', next: 'result', tags: ['goal-understand'], scores: { remote: 1, measurement: 3 }, hint: 'Диагностика без лишних работ.' },
+        { id: 'treatment', label: 'Получить рекомендации эксперта', detail: 'Что усилить и в каких зонах — без полного проекта', next: 'result', tags: ['goal-treatment'], scores: { measurement: 4 }, hint: 'Выезд или разбор по данным с конкретными советами.' },
+        { id: 'project', label: 'Получить готовый акустический проект', detail: 'Решение с материалами для передачи строителям', next: 'result', tags: ['goal-project'], scores: { design: 4, special: 2 }, hint: 'Узлы, материалы и прогноз результата.' },
+        { id: 'measurement', label: 'Сделать замеры акустики на объекте', detail: 'Выезд специалиста, замеры и карта источников шума', next: 'result', tags: ['goal-measurement'], scores: { measurement: 5 }, hint: 'Замеры на месте — без проектных работ на старте.' },
       ],
     },
     q9_attempts: {
@@ -1118,7 +1122,29 @@
       if (outcome.match(ctx)) return outcome;
     }
     const scores = scoreFromPath();
-    const top = SERVICE_ORDER.map((s) => ({ service: s, score: scores[s] })).sort((a, b) => b.score - a.score)[0];
+    const sorted = SERVICE_ORDER.map((s) => ({ service: s, score: scores[s] })).sort((a, b) => b.score - a.score);
+    const top = sorted[0];
+    if (!top || top.score <= 0) {
+      return {
+        service: 'unsure',
+        title: 'Нужна первичная консультация',
+        explain: 'По ответам пока недостаточно данных для однозначного формата — инженер уточнит задачу после заявки.',
+        includes: 'Разбор описания и рекомендация по следующему шагу.',
+        excludes: null,
+        alternative: null,
+      };
+    }
+    const margin = top.score - (sorted[1]?.score || 0);
+    if (margin < 2) {
+      return {
+        service: 'unsure',
+        title: 'Нужна первичная консультация',
+        explain: 'Несколько форматов подходят примерно одинаково — уточним задачу после заявки.',
+        includes: 'Разбор описания и рекомендация по формату работы.',
+        excludes: null,
+        alternative: top.service,
+      };
+    }
     const meta = SERVICE_META[top.service];
     return {
       service: top.service,
@@ -1419,7 +1445,7 @@
 
         ${altMeta ? `<p class="diagnose__alternative">${escapeHtml(buildAlternativeLine(outcome.alternative, altMeta))}</p>` : ''}
         <div class="diagnose__result-actions">
-          <a href="#lead" class="btn btn--primary" data-diagnose-lead="${outcome.service}" onclick="event.preventDefault(); window.CIA_DIAGNOSE_APPLY_LEAD && window.CIA_DIAGNOSE_APPLY_LEAD()">Оставить заявку <span class="btn__arrow" aria-hidden="true">→</span></a>
+          <a href="#lead" class="btn btn--primary" data-diagnose-lead="${outcome.service}" onclick="event.preventDefault(); window.CIA_DIAGNOSE_APPLY_LEAD && window.CIA_DIAGNOSE_APPLY_LEAD()">${escapeHtml(meta.cta || 'Оставить заявку на разбор проблемы')} <span class="btn__arrow" aria-hidden="true">→</span></a>
           <button type="button" class="diagnose__restart" data-diagnose-restart onclick="window.CIA_DIAGNOSE_RESTART && window.CIA_DIAGNOSE_RESTART()">Пройти заново</button>
         </div>
       </div>

@@ -372,7 +372,7 @@
     if (formCfg.successMessage) return formCfg.successMessage;
     const responseTime = (typeof CIA_CONFIG !== 'undefined' && CIA_CONFIG.responseTime) || '';
     const suffix = responseTime && !/^\[/.test(responseTime) ? ' ' + responseTime : '';
-    return 'Задача отправлена. Мы свяжемся с вами' + suffix + '.';
+    return 'Заявка принята. Мы изучим описание и подскажем подходящий формат работы.';
   }
 
   function getSuccessSubtitle(message) {
@@ -609,20 +609,33 @@
     return ok;
   }
 
+  function validateContact(value) {
+    const trimmed = (value || '').trim();
+    if (!trimmed) return false;
+    if (trimmed.startsWith('@')) return trimmed.length > 2;
+    if (trimmed.includes('@')) return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed);
+    return validatePhone(trimmed);
+  }
+
   function validateStep2() {
     clearErrors(['name', 'phone', 'consent']);
     let ok = true;
     const name = document.getElementById('name');
     const phone = document.getElementById('phone');
+    const emailOrTelegram = document.getElementById('emailOrTelegram');
     const consent = document.getElementById('consent');
 
     if (!name || !name.value.trim()) {
       showError('name', 'Укажите имя');
       ok = false;
     }
-    if (!phone || !validatePhone(phone.value)) {
-      showError('phone', 'Укажите корректный телефон');
+    const phoneOk = phone && validatePhone(phone.value);
+    const altOk = emailOrTelegram && validateContact(emailOrTelegram.value);
+    if (!phoneOk && !altOk) {
+      showError('phone', 'Укажите телефон или Telegram/email');
       ok = false;
+    } else {
+      showError('phone', '');
     }
     if (!consent || !consent.checked) {
       showError('consent', 'Необходимо согласие на обработку данных');
@@ -873,11 +886,18 @@
       },
       phone: () => {
         const el = document.getElementById('phone');
-        if (!el || !validatePhone(el.value)) {
+        const alt = document.getElementById('emailOrTelegram');
+        if (el && el.value.trim() && !validatePhone(el.value)) {
           showError('phone', 'Укажите корректный телефон');
           return false;
         }
-        el.value = formatPhoneDisplay(el.value);
+        if (el && el.value.trim()) {
+          el.value = formatPhoneDisplay(el.value);
+        }
+        if ((!el || !el.value.trim()) && alt && !validateContact(alt.value)) {
+          showError('phone', 'Укажите телефон или Telegram/email');
+          return false;
+        }
         showError('phone', '');
         return true;
       },
@@ -894,6 +914,16 @@
 
     initLeadServicePrefill();
     initAttachments();
+
+    const attachmentsToggle = document.getElementById('attachments-toggle');
+    const attachmentsPanel = document.getElementById('attachments-panel');
+    if (attachmentsToggle && attachmentsPanel) {
+      attachmentsToggle.addEventListener('click', () => {
+        const expanded = attachmentsToggle.getAttribute('aria-expanded') === 'true';
+        attachmentsToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        attachmentsPanel.hidden = expanded;
+      });
+    }
 
     ['serviceType', 'objectType', 'city', 'projectStage', 'task', 'name', 'phone'].forEach((id) => {
       const el = document.getElementById(id);

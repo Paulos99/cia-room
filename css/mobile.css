@@ -329,6 +329,44 @@
     display: block;
   }
 
+  .hero__test-note {
+    font-size: 0.75rem;
+    max-width: none;
+  }
+
+  .benefits__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefit-card {
+    padding: var(--space-md);
+  }
+
+  .services--landing .service-panel {
+    min-height: auto;
+  }
+
+  .services--landing .service-panel__body {
+    padding: var(--space-md);
+  }
+
+  .diagnose-section .diagnose__readiness {
+    margin-top: var(--space-lg);
+  }
+
+  .report-demo {
+    position: static;
+    margin-top: var(--space-md);
+  }
+
+  .form-attachments-toggle {
+    min-height: 44px;
+  }
+
+  .case-card {
+    padding: var(--space-md);
+  }
+
   .cia-identity__note {
     display: none;
   }
@@ -338,6 +376,14 @@
   }
 
   /* Objects carousel */
+  .objects__carousel-head--mobile-only {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
   .objects__carousel-head {
     display: flex;
     align-items: center;

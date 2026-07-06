@@ -140,10 +140,11 @@
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-sm);
+    margin-top: var(--space-sm);
   }
 
-  .hero__actions .btn--primary {
-    order: 1;
+  .hero__test-wrap {
+    align-items: stretch;
   }
 
   .hero__btn-test-link {

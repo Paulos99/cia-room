@@ -3,8 +3,8 @@
  * При смене домена обновите только `domain` и перегенерируйте sitemap (npm run build / python scripts/build-pages.py).
  */
 const CIA_CONFIG = {
-  phone: '[ТЕЛЕФОН]',
-  email: '[EMAIL]',
+  phone: '+7 (980) 680-75-77',
+  email: 'CIA-ROOM@yandex.ru',
   telegram: '[TELEGRAM]',
   geography: 'Россия (офис — Иваново)',
   officeCity: 'Иваново',

@@ -51,11 +51,17 @@
     if (typeof gsap !== 'undefined') {
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
+        if (typeof window.CIA_AFTER_SCROLL_FRAME === 'function') {
+          window.CIA_AFTER_SCROLL_FRAME(lenis.scroll);
+        }
       });
       gsap.ticker.lagSmoothing(0);
     } else {
       const raf = (time) => {
         lenis.raf(time);
+        if (typeof window.CIA_AFTER_SCROLL_FRAME === 'function') {
+          window.CIA_AFTER_SCROLL_FRAME(lenis.scroll);
+        }
         requestAnimationFrame(raf);
       };
       requestAnimationFrame(raf);

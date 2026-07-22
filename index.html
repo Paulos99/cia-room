@@ -38,7 +38,7 @@
       document.documentElement.style.colorScheme = theme;
     })();
   </script>
-  <link rel="stylesheet" href="css/main.css?v=tz28">
+  <link rel="stylesheet" href="css/main.css?v=tz29">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -160,12 +160,8 @@
 </head>
 <body>
   <div class="site-ambient" id="site-ambient" aria-hidden="true">
-    <div class="site-ambient__grid"></div>
-    <div class="site-ambient__orb site-ambient__orb--1"></div>
-    <div class="site-ambient__orb site-ambient__orb--2"></div>
-    <div class="site-ambient__orb site-ambient__orb--3"></div>
-    <div class="site-ambient__veil"></div>
-    <div class="acoustic-ambient" id="acoustic-ambient" aria-hidden="true"></div>
+    <div class="site-ambient__dots" id="site-ambient-dots"></div>
+    <div class="site-ambient__depth" aria-hidden="true"></div>
   </div>
 
   <header class="header" id="header">
@@ -249,7 +245,6 @@
   <main id="main" tabindex="-1">
     <!-- HERO -->
     <section class="hero section" id="hero" aria-labelledby="hero-title">
-      <div class="grid-bg" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
           <p class="hero__label">ЦИА / ПОМЕЩЕНИЯ</p>
@@ -338,7 +333,6 @@
 
     <!-- CIA IDENTITY -->
     <section class="section cia-identity" id="about-cia" aria-labelledby="cia-title">
-      <div class="cia-identity__ambient" aria-hidden="true" id="cia-ambient"></div>
       <div class="container cia-identity__grid">
         <div class="cia-identity__content">
           <p class="section-label">02 / КТО МЫ</p>
@@ -364,23 +358,31 @@
         <div class="why__grid">
           <div class="why__content">
             <p class="section-label">03 / ПРОБЛЕМА</p>
-            <h2 class="section-title" id="why-title">Акустическая проблема не всегда там, где её слышно</h2>
+            <h2 class="section-title" id="why-title">Одна жалоба может иметь несколько физических причин</h2>
             <div class="why__body">
-              <p>Шум, гулкость, вибрация или плохая разборчивость речи могут быть связаны не с одной стеной или потолком, а с конструкцией помещения, инженерными системами, отражениями, примыканиями, оборудованием и сценарием использования.</p>
-              <p>Поэтому ЦИА начинает не с выбора материала, а с анализа задачи и объекта.</p>
+              <p>Шум со стороны стены или потолка часто идёт другим путём. Решение без обследования увеличивает смету, но не даёт эффекта.</p>
               <ul class="why__list">
-                <li>звук может приходить через перекрытия, стыки, вентиляцию и проходки;</li>
-                <li>гулкость может быть связана с геометрией, отделкой и отражениями;</li>
-                <li>вибрация может идти от оборудования, трубопроводов или конструкций;</li>
-                <li>решение зависит от того, как помещение используется.</li>
+                <li><strong>Слышимость ≠ путь передачи</strong> — источник и маршрут звука могут быть в разных местах.</li>
+                <li><strong>Типовая схема не учитывает объект</strong> — важны связи конструкций, примыкания и качество строительства.</li>
+                <li><strong>Ошибка проявляется после монтажа</strong> — толще и тяжелее не значит эффективнее, а исправление требует демонтажа.</li>
               </ul>
+              <p>Поэтому ЦИА начинает не с выбора материала, а с анализа задачи и объекта.</p>
             </div>
           </div>
-          <div class="why__diagram-panel">
-            <div class="why__diagram" id="noise-path-diagram" role="group" aria-label="Интерактивная схема маршрутов передачи шума в квартире"></div>
-            <div class="why__path-tabs" id="why-path-tabs" role="tablist" aria-label="Маршруты передачи шума"></div>
-            <p class="why__path-detail" id="why-path-detail" aria-live="polite"></p>
-          </div>
+          <figure class="why__visual">
+            <div class="why__visual-media media-slot" data-image="assets/images/why-noise-routes.jpg">
+              <img
+                src="assets/images/why-noise-routes.jpg"
+                alt="Разрез квартиры: шум проходит через перекрытие, стену, вентиляцию и розетку"
+                width="1600"
+                height="1200"
+                loading="lazy"
+                class="media-slot__img"
+                decoding="async"
+              >
+            </div>
+            <figcaption class="why__visual-caption">То, откуда слышно, не всегда совпадает с тем, через что звук реально проходит.</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -391,11 +393,12 @@
         <div class="system__grid">
           <div class="system__content">
             <p class="section-label">04 / ПОМЕЩЕНИЕ КАК СИСТЕМА</p>
-            <h2 class="section-title" id="system-title">Помещение звучит как система</h2>
-            <p class="section-intro system__intro">На результат влияют конструкции, отделка, инженерные системы, источники шума и сценарий использования.</p>
+            <h2 class="section-title" id="system-title">Тишина зависит не от одной стены, а от всего помещения</h2>
+            <p class="section-intro system__intro">Разбираем объект по зонам — каждая из них может стать слабым звеном или обходным путём.</p>
             <div class="system__text">
               <h3 class="system__text-title" id="system-text-title">Стены</h3>
-              <p class="system__text-body" id="system-text-body">Материал, толщина и проходки определяют, как звук проходит через стену.</p>
+              <p class="system__text-body" id="system-text-body">Оцениваем состав и толщину стены, её связь со смежными конструкциями, розетки, проходки и примыкания. Фактический результат может определяться самым слабым участком.</p>
+              <p class="system__conclusion">ЦИА исследует источник, прямые и обходные пути, конструкции, инженерные связи и точку восприятия. Только после этого определяется достаточное решение.</p>
             </div>
           </div>
           <div class="system__panel">
@@ -1416,13 +1419,12 @@
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/vendor/lenis.min.js"></script>
-  <script src="js/smooth-scroll.js?v=scroll1"></script>
+  <script src="js/smooth-scroll.js?v=scroll2"></script>
   <script src="js/analytics.js"></script>
   <script src="js/main.js?v=mobile2"></script>
   <script src="js/visuals/viz-common.js"></script>
   <script src="js/vendor/three.min.js"></script>
   <script src="js/visuals/hero-visual.js?v=mobile14"></script>
-  <script src="js/visuals/noise-path.js?v=1"></script>
   <script src="js/visuals/room-layers.js"></script>
   <script src="js/visuals/object-types.js"></script>
   <script src="js/visuals/report-visual.js"></script>
@@ -1435,7 +1437,6 @@
   <script src="js/faq.js"></script>
   <script src="js/form.js"></script>
   <script src="js/mobile-ui.js?v=mobile10"></script>
-  <script src="js/acoustic-ambient.js"></script>
-  <script src="js/animations.js?v=mobile10"></script>
+  <script src="js/animations.js?v=dots-parallax3"></script>
 </body>
 </html>

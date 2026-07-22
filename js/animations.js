@@ -101,7 +101,7 @@
       scrollTrigger: { trigger: '.why__grid', start: 'top 80%', once: true },
     });
 
-    gsap.from('.why__diagram-panel', {
+    gsap.from('.why__visual', {
       opacity: 0,
       x: 24,
       duration: 0.85,
@@ -250,6 +250,7 @@
     gsap.utils.toArray('.media-slot__img').forEach((img) => {
       const slot = img.closest('.media-slot');
       if (!slot) return;
+      if (slot.closest('.service-panel')) return;
 
       gsap.fromTo(
         img,
@@ -450,7 +451,7 @@
       '.section-label',
       '.section-title',
       '.why__content',
-      '.why__diagram-panel',
+      '.why__visual',
       '.system__content',
       '.system__panel',
       '.diagnose__shell',
@@ -537,7 +538,71 @@
     });
   }
 
+  function initAmbientDotsParallax() {
+    const dots = document.getElementById('site-ambient-dots');
+    if (!dots || prefersReducedMotion()) return;
+
+    const SPEED = 0.35;
+    let spacing = 26;
+    let lastOffset = null;
+
+    const readSpacing = () => {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue('--ambient-grid-cell').trim()
+        || getComputedStyle(document.documentElement).getPropertyValue('--ambient-dot-spacing').trim();
+      const n = parseFloat(raw);
+      spacing = Number.isFinite(n) && n > 0 ? n : 24;
+    };
+
+    const wrap = (value, period) => ((value % period) + period) % period;
+
+    const getScrollY = () => {
+      const lenis = window.CIA_SMOOTH_SCROLL && window.CIA_SMOOTH_SCROLL.lenis;
+      if (lenis && typeof lenis.scroll === 'number') return lenis.scroll;
+      return window.scrollY || window.pageYOffset || 0;
+    };
+
+    const paint = (y) => {
+      // Periodic wrap: infinite coverage + tiny GPU transform
+      const offset = -wrap(y * SPEED, spacing);
+      if (offset === lastOffset) return;
+      lastOffset = offset;
+      dots.style.transform = 'translate3d(0,' + offset + 'px,0)';
+    };
+
+    readSpacing();
+    paint(getScrollY());
+
+    // Prefer exact same frame as Lenis (called right after lenis.raf)
+    window.CIA_AFTER_SCROLL_FRAME = (scrollY) => {
+      paint(typeof scrollY === 'number' ? scrollY : getScrollY());
+    };
+
+    // Mobile / no Lenis: sample scroll each ticker/raf frame
+    if (!(window.CIA_SMOOTH_SCROLL && window.CIA_SMOOTH_SCROLL.lenis)) {
+      if (typeof gsap !== 'undefined') {
+        gsap.ticker.add(() => paint(getScrollY()));
+      } else {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(() => {
+            ticking = false;
+            paint(getScrollY());
+          });
+        }, { passive: true });
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      readSpacing();
+      lastOffset = null;
+      paint(getScrollY());
+    }, { passive: true });
+  }
+
   function boot() {
+    initAmbientDotsParallax();
     initProcessPulse();
 
     if (!canAnimate()) {

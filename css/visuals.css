@@ -1,5 +1,4 @@
 /* SVG visualizations */
-.why__diagram,
 .lead__visual,
 .system__diagram {
   background: var(--color-surface);
@@ -157,79 +156,6 @@
 .viz-pulse {
   fill: var(--color-accent);
   opacity: 0.9;
-}
-
-/* Noise path diagram */
-.noise-path-label-bg {
-  fill: var(--viz-fill-tooltip);
-  stroke: var(--viz-stroke-soft);
-  stroke-width: 0.75;
-  vector-effect: non-scaling-stroke;
-}
-
-.noise-path-group.is-active .noise-path-label-bg {
-  stroke: var(--color-accent-border-strong);
-}
-
-.noise-path-group.is-active .noise-path-label {
-  fill: var(--color-accent-light);
-}
-
-.noise-path-source-ring {
-  fill: var(--color-accent-muted);
-  stroke: var(--color-accent);
-  stroke-width: 1.5;
-  vector-effect: non-scaling-stroke;
-}
-
-.noise-path-source-dot {
-  fill: var(--color-accent);
-}
-
-.noise-path-endpoint-ring {
-  fill: var(--color-accent-subtle);
-  stroke: var(--color-accent-border-strong);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-.noise-path-endpoint-ring--soft {
-  fill: var(--color-accent-subtle);
-  stroke: var(--color-accent-border);
-}
-
-.noise-path-endpoint {
-  fill: var(--color-accent);
-}
-
-.noise-path-endpoint--soft {
-  fill: var(--color-accent-pale);
-}
-
-.noise-path-vent-shaft {
-  fill: var(--color-accent-muted);
-  stroke: var(--color-accent-border);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-.noise-path-group .viz-path,
-.noise-path-label-wrap,
-.noise-path-endpoint,
-.noise-path-endpoint-ring {
-  transition: opacity 0.22s ease, stroke-width 0.22s ease;
-}
-
-.noise-path-hit {
-  fill: none;
-  stroke: transparent;
-  stroke-width: 18;
-  pointer-events: stroke;
-  cursor: pointer;
-}
-
-.noise-path-group {
-  cursor: pointer;
 }
 
 @media (prefers-reduced-motion: reduce) {

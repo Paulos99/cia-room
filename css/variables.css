@@ -132,8 +132,14 @@
   --hero-visual-margin-bottom-desktop: var(--space-md);
 
   --ambient-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(47, 125, 255, 0.09), transparent 55%),
-    linear-gradient(180deg, #030610 0%, #050a14 45%, #030610 100%);
-  --ambient-grid-line: rgba(120, 180, 255, 0.04);
+    linear-gradient(180deg, #02040c 0%, #030610 38%, #050a14 100%);
+  --ambient-grid-line: rgba(120, 180, 255, 0.07);
+  --ambient-grid-cell: 24px;
+  --ambient-grid-vignette: radial-gradient(ellipse 95% 85% at 50% 45%, transparent 28%, rgba(3, 6, 16, 0.55) 100%);
+  --ambient-dot-spacing: var(--ambient-grid-cell);
+  --ambient-depth-well: radial-gradient(ellipse 68% 52% at 50% 38%, rgba(47, 125, 255, 0.06) 0%, transparent 62%);
+  --ambient-depth-floor: radial-gradient(ellipse 130% 70% at 50% 108%, rgba(0, 0, 0, 0.42) 0%, transparent 58%);
+  --ambient-depth-edge: radial-gradient(ellipse 105% 90% at 50% 50%, transparent 42%, rgba(2, 4, 10, 0.72) 100%);
   --ambient-orb-1: radial-gradient(circle, rgba(47, 125, 255, 0.22) 0%, transparent 70%);
   --ambient-orb-2: radial-gradient(circle, rgba(0, 180, 255, 0.14) 0%, transparent 70%);
   --ambient-orb-3: radial-gradient(circle, rgba(47, 125, 255, 0.1) 0%, transparent 68%);
@@ -167,6 +173,16 @@
     0 0 0 1px rgba(59, 140, 255, 0.12) inset,
     0 8px 40px rgba(0, 0, 0, 0.5),
     0 0 48px rgba(47, 125, 255, 0.08);
+  --shadow-float:
+    0 1px 2px rgba(0, 0, 0, 0.28),
+    0 10px 28px rgba(0, 0, 0, 0.34),
+    0 28px 56px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.07) inset;
+  --shadow-float-hover:
+    0 2px 6px rgba(0, 0, 0, 0.32),
+    0 16px 40px rgba(0, 0, 0, 0.38),
+    0 36px 72px rgba(0, 0, 0, 0.26),
+    0 0 0 1px rgba(255, 255, 255, 0.09) inset;
   --shadow-cta: 0 4px 24px var(--color-accent-glow);
   --shadow-btn-primary-hover: 0 6px 32px rgba(59, 140, 255, 0.45);
   --shadow-progress: 0 0 12px rgba(59, 140, 255, 0.55);
@@ -236,8 +252,14 @@
   --color-hero-caption: #0d4db8;
 
   --ambient-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(26, 95, 212, 0.07), transparent 55%),
-    linear-gradient(180deg, #f5f8fd 0%, #eef3fa 45%, #f0f4fa 100%);
-  --ambient-grid-line: rgba(26, 95, 212, 0.06);
+    linear-gradient(180deg, #e8eef7 0%, #eef3fa 45%, #f0f4fa 100%);
+  --ambient-grid-line: rgba(26, 95, 212, 0.09);
+  --ambient-grid-cell: 24px;
+  --ambient-grid-vignette: radial-gradient(ellipse 95% 85% at 50% 45%, transparent 32%, rgba(200, 212, 232, 0.65) 100%);
+  --ambient-dot-spacing: var(--ambient-grid-cell);
+  --ambient-depth-well: radial-gradient(ellipse 68% 52% at 50% 38%, rgba(26, 95, 212, 0.05) 0%, transparent 62%);
+  --ambient-depth-floor: radial-gradient(ellipse 130% 70% at 50% 108%, rgba(10, 20, 40, 0.08) 0%, transparent 58%);
+  --ambient-depth-edge: radial-gradient(ellipse 105% 90% at 50% 50%, transparent 44%, rgba(210, 220, 236, 0.75) 100%);
   --ambient-orb-1: radial-gradient(circle, rgba(26, 95, 212, 0.14) 0%, transparent 70%);
   --ambient-orb-2: radial-gradient(circle, rgba(0, 140, 220, 0.1) 0%, transparent 70%);
   --ambient-orb-3: radial-gradient(circle, rgba(26, 95, 212, 0.08) 0%, transparent 68%);
@@ -271,6 +293,16 @@
     0 0 0 1px rgba(26, 95, 212, 0.1) inset,
     0 8px 32px rgba(10, 20, 40, 0.1),
     0 0 40px rgba(26, 95, 212, 0.06);
+  --shadow-float:
+    0 1px 2px rgba(10, 20, 40, 0.06),
+    0 10px 28px rgba(10, 20, 40, 0.1),
+    0 28px 56px rgba(10, 20, 40, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.92) inset;
+  --shadow-float-hover:
+    0 2px 6px rgba(10, 20, 40, 0.08),
+    0 16px 40px rgba(10, 20, 40, 0.12),
+    0 36px 72px rgba(10, 20, 40, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.95) inset;
   --shadow-cta: 0 4px 20px var(--color-accent-glow);
   --shadow-btn-primary-hover: 0 6px 28px rgba(26, 95, 212, 0.32);
   --shadow-progress: 0 0 10px rgba(26, 95, 212, 0.4);

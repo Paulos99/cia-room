@@ -1,9 +1,9 @@
 @import url('variables.css');
 @import url('theme.css');
-@import url('base.css?v=hero-why-v1');
+@import url('base.css?v=hero-why-v2');
 @import url('ambient.css');
 @import url('components.css');
 @import url('header.css');
-@import url('sections.css?v=hero-why-v1');
+@import url('sections.css?v=hero-why-v2');
 @import url('visuals.css');
-@import url('mobile.css?v=hero-why-v1');
+@import url('mobile.css?v=hero-why-v2');

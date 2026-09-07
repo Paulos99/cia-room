@@ -181,7 +181,7 @@
     max-width: min(340px, 88vw);
     height: min(340px, 88vw);
     margin-top: var(--space-sm);
-    padding-bottom: 2rem;
+    padding-bottom: 0;
     background: transparent;
     overflow: visible;
   }

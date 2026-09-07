@@ -12,8 +12,8 @@
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    const wireOpacityBase = isMobile ? 0.3 : 0.26;
-    const wireOpacityAnimBase = isMobile ? 0.26 : 0.22;
+    const wireOpacityBase = isMobile ? 0.42 : 0.4;
+    const wireOpacityAnimBase = isMobile ? 0.38 : 0.34;
 
     function makeFieldDotTexture() {
       const size = 64;
@@ -164,7 +164,7 @@
     const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 50);
     camera.position.set(0, 0, 4.05);
 
-    const bleed = 1.95;
+    const bleed = 1.35;
 
     const renderer = new THREE.WebGLRenderer({
       antialias: !isMobile,
@@ -182,10 +182,10 @@
     container.append(stage, caption);
 
     const root = new THREE.Group();
-    root.scale.setScalar(0.56);
+    root.scale.setScalar(isMobile ? 0.68 : 0.72);
     scene.add(root);
 
-    const shellPoints = isMobile ? 3200 : 5500;
+    const shellPoints = isMobile ? 4200 : 7200;
     const geo = new THREE.BufferGeometry();
     const posArray = new Float32Array(shellPoints * 3);
     const normArray = new Float32Array(shellPoints * 3);
@@ -213,7 +213,7 @@
     const colorArray = new Float32Array(shellPoints * 3);
     geo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
 
-    const wireDetail = isMobile ? 2 : 3;
+    const wireDetail = isMobile ? 3 : 4;
     const fieldScale = 0.75;
     const wireRadius = 1.15 * 0.85;
     const wireGeo = new THREE.IcosahedronGeometry(wireRadius, wireDetail);
@@ -340,7 +340,7 @@
           col = mix(col, pearl, fresnel * 0.38 + pearlC * 0.12);
           col = saturate(col, 1.42);
 
-          float alpha = (0.04 + heat * 0.12 + uEnergy * 0.03 + fresnel * 0.04) * smoothstep(0.0, 0.25, facing);
+          float alpha = (0.07 + heat * 0.16 + uEnergy * 0.04 + fresnel * 0.06) * smoothstep(0.0, 0.2, facing);
           gl_FragColor = vec4(col, alpha);
         }
       `,
@@ -354,10 +354,10 @@
     const fieldMaterial = new THREE.PointsMaterial({
       map: makeFieldDotTexture(),
       vertexColors: true,
-      size: isMobile ? 0.046 : 0.04,
+      size: isMobile ? 0.04 : 0.034,
       sizeAttenuation: true,
       transparent: true,
-      opacity: 0.42,
+      opacity: 0.55,
       depthWrite: false,
       depthTest: false,
       toneMapped: false,
@@ -401,11 +401,11 @@
 
         void main() {
           vec3 viewDir = normalize(cameraPosition - vWorldPos);
-          float facing = dot(normalize(vNormal), viewDir);
-          if (facing < 0.0) discard;
-
-          float edgeFade = smoothstep(0.0, 0.15, facing);
-          gl_FragColor = vec4(uColor, uOpacity * edgeFade);
+          float ndotv = dot(normalize(vNormal), viewDir);
+          float facing = abs(ndotv);
+          float edgeFade = smoothstep(0.0, 0.2, facing);
+          float rear = ndotv < 0.0 ? 0.38 : 1.0;
+          gl_FragColor = vec4(uColor, uOpacity * edgeFade * rear);
         }
       `,
     });
@@ -559,6 +559,7 @@
       uniforms.uCalm.value = calm;
       uniforms.uIrritation.value = irritation;
       uniforms.uLight.value = isLightTheme() ? 1 : 0;
+      wireUniforms.uColor.value.set(isLightTheme() ? 0x1a5fd4 : 0xb4d4ff);
       uniforms.uPointer.value.set(smoothPointer.x, smoothPointer.y);
       uniforms.uPull.value.set((smoothPointer.x - 0.5) * 2.0, (0.5 - smoothPointer.y) * 2.0, pull.strength);
 
@@ -692,6 +693,7 @@
 
     window.addEventListener('cia:theme-change', () => {
       uniforms.uLight.value = isLightTheme() ? 1 : 0;
+      wireUniforms.uColor.value.set(isLightTheme() ? 0x1a5fd4 : 0xb4d4ff);
       updateCaptionColor(0, field.calm);
       if (reduced) draw(performance.now());
     });

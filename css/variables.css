@@ -123,12 +123,12 @@
   --color-accent-shadow-strong: rgba(47, 125, 255, 0.5);
   --color-hero-glow-1: radial-gradient(circle, rgba(47, 125, 255, 0.22) 0%, transparent 68%);
   --color-hero-glow-2: radial-gradient(circle at 50% 45%, rgba(47, 125, 255, 0.18), transparent 60%);
-  --color-hero-caption: rgba(110, 179, 255, 0.92);
+  --color-hero-caption: rgba(150, 200, 255, 0.78);
 
   /* Hero visual layout (ПК) — меняются панелью ?hero-tuner=1 */
-  --hero-stage-offset-y: -10px;
-  --hero-stage-offset-y-desktop: -150px;
-  --hero-caption-bottom-desktop: 7rem;
+  --hero-stage-offset-y: -4px;
+  --hero-stage-offset-y-desktop: -36px;
+  --hero-caption-bottom-desktop: 1.25rem;
   --hero-visual-margin-bottom-desktop: var(--space-md);
 
   --ambient-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(47, 125, 255, 0.09), transparent 55%),
@@ -249,7 +249,7 @@
   --color-accent-shadow-strong: rgba(26, 95, 212, 0.35);
   --color-hero-glow-1: radial-gradient(circle, rgba(26, 95, 212, 0.12) 0%, transparent 68%);
   --color-hero-glow-2: radial-gradient(circle at 50% 45%, rgba(26, 95, 212, 0.1), transparent 60%);
-  --color-hero-caption: #0d4db8;
+  --color-hero-caption: #1a5fd4;
 
   --ambient-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(26, 95, 212, 0.07), transparent 55%),
     linear-gradient(180deg, #e8eef7 0%, #eef3fa 45%, #f0f4fa 100%);

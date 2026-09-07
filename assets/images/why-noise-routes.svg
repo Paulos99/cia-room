@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Пути передачи шума в конструкциях</title>
+  <desc id="desc">Разрез двух помещений: прямой путь через перекрытие и стену и обходной через розетку, шахту и вентрешётку</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#9eb8e0" stroke-width="1" opacity="0.35"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 Z" fill="#1a5fd4"/>
+    </marker>
+    <marker id="arrowFlank" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 Z" fill="#0d4db8"/>
+    </marker>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1a5fd4" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <!-- page bg: site blueprint -->
+  <rect width="1600" height="1200" fill="#e8f0fa"/>
+  <rect width="1600" height="1200" fill="url(#grid)"/>
+
+  <!-- building group -->
+  <g transform="translate(180,140)" filter="url(#soft)">
+    <!-- floor/ceiling slabs with hollow cores -->
+    <g fill="#f7f9fc" stroke="#5a6f8c" stroke-width="3">
+      <!-- ceiling slab -->
+      <path d="M40 120 L780 40 L1180 160 L440 240 Z"/>
+      <!-- floor slab -->
+      <path d="M40 520 L780 440 L1180 560 L440 640 Z"/>
+      <!-- left outer wall -->
+      <path d="M40 120 L40 520 L200 580 L200 180 Z" fill="#eef3f9"/>
+      <!-- partition -->
+      <path d="M420 160 L420 540 L520 580 L520 200 Z" fill="#e8eef6"/>
+      <!-- right wall / shaft wall -->
+      <path d="M900 90 L900 500 L1000 540 L1000 130 Z" fill="#e8eef6"/>
+      <!-- shaft outer -->
+      <path d="M1000 130 L1180 160 L1180 560 L1000 540 Z" fill="#dfe8f4"/>
+    </g>
+
+    <!-- hollow cores hint -->
+    <g fill="none" stroke="#8aa0bc" stroke-width="2" opacity="0.7">
+      <ellipse cx="220" cy="165" rx="28" ry="14"/>
+      <ellipse cx="300" cy="155" rx="28" ry="14"/>
+      <ellipse cx="380" cy="145" rx="28" ry="14"/>
+      <ellipse cx="560" cy="125" rx="28" ry="14"/>
+      <ellipse cx="640" cy="115" rx="28" ry="14"/>
+      <ellipse cx="220" cy="565" rx="28" ry="14"/>
+      <ellipse cx="300" cy="555" rx="28" ry="14"/>
+      <ellipse cx="560" cy="525" rx="28" ry="14"/>
+      <ellipse cx="640" cy="515" rx="28" ry="14"/>
+    </g>
+
+    <!-- window -->
+    <rect x="70" y="280" width="70" height="110" rx="4" fill="#cfe0f8" stroke="#5a6f8c" stroke-width="2.5"/>
+
+    <!-- doorway cut -->
+    <path d="M440 300 L500 325 L500 470 L440 445 Z" fill="#d5e0ee" stroke="#5a6f8c" stroke-width="2"/>
+
+    <!-- outlet -->
+    <rect x="930" y="340" width="28" height="36" rx="3" fill="#f7f9fc" stroke="#1a5fd4" stroke-width="3"/>
+    <circle cx="939" cy="352" r="3" fill="#1a5fd4"/>
+    <circle cx="949" cy="352" r="3" fill="#1a5fd4"/>
+    <circle cx="944" cy="364" r="2.5" fill="#1a5fd4"/>
+
+    <!-- roof vent -->
+    <g transform="translate(1040,40)">
+      <rect x="0" y="40" width="90" height="50" rx="4" fill="#eef3f9" stroke="#5a6f8c" stroke-width="2.5"/>
+      <path d="M10 40 L45 8 L80 40" fill="#dfe8f4" stroke="#5a6f8c" stroke-width="2.5"/>
+      <line x1="20" y1="55" x2="70" y2="55" stroke="#1a5fd4" stroke-width="3"/>
+      <line x1="20" y1="68" x2="70" y2="68" stroke="#1a5fd4" stroke-width="3"/>
+    </g>
+
+    <!-- ducts in shaft -->
+    <g stroke="#7a90aa" stroke-width="3" fill="none" opacity="0.8">
+      <rect x="1040" y="200" width="40" height="280" rx="6"/>
+      <rect x="1100" y="220" width="36" height="260" rx="6"/>
+    </g>
+
+    <!-- DIRECT paths: softer secondary -->
+    <g stroke="#3d7fe0" stroke-width="5" fill="none" opacity="0.55" marker-start="url(#arrow)" marker-end="url(#arrow)">
+      <!-- vertical through slab -->
+      <line x1="280" y1="220" x2="280" y2="480"/>
+      <!-- horizontal through partition -->
+      <line x1="360" y1="360" x2="620" y2="330"/>
+    </g>
+
+    <!-- FLANKING path: primary emphasis -->
+    <path d="M944 358 C 980 350, 1010 320, 1060 280 C 1100 248, 1120 200, 1130 140 C 1135 110, 1100 95, 1085 88"
+          fill="none" stroke="#0d4db8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"
+          marker-end="url(#arrowFlank)" opacity="0.95"/>
+    <!-- dashed echo for energy -->
+    <path d="M944 358 C 980 350, 1010 320, 1060 280 C 1100 248, 1120 200, 1130 140 C 1135 110, 1100 95, 1085 88"
+          fill="none" stroke="#5aa0ff" stroke-width="3" stroke-dasharray="10 10" opacity="0.7"/>
+
+    <!-- labels -->
+    <g font-family="IBM Plex Mono, ui-monospace, monospace" font-size="22" fill="#1a5fd4" letter-spacing="0.04em">
+      <text x="200" y="360" opacity="0.75">ПРЯМОЙ</text>
+      <text x="200" y="388" opacity="0.75" font-size="18">через конструкции</text>
+      <text x="980" y="420" font-weight="600">ОБХОДНОЙ</text>
+      <text x="980" y="448" font-size="18">розетка → шахта → вент</text>
+    </g>
+  </g>
+
+  <!-- legend card bottom-left, not a full frame around the drawing -->
+  <g transform="translate(80,980)">
+    <rect width="520" height="140" rx="16" fill="#ffffff" fill-opacity="0.72" stroke="#9eb8e0" stroke-width="1.5"/>
+    <g font-family="Inter, system-ui, sans-serif" fill="#243044">
+      <text x="28" y="48" font-size="22" font-weight="600">Пути передачи шума</text>
+      <line x1="28" y1="72" x2="90" y2="72" stroke="#3d7fe0" stroke-width="5" opacity="0.55"/>
+      <text x="105" y="78" font-size="18" fill="#4a5d78">прямой (стена / перекрытие)</text>
+      <line x1="28" y1="108" x2="90" y2="108" stroke="#0d4db8" stroke-width="7"/>
+      <text x="105" y="114" font-size="18" fill="#4a5d78">обходной / flanking</text>
+    </g>
+  </g>
+</svg>

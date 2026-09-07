@@ -123,12 +123,12 @@
   --color-accent-shadow-strong: rgba(47, 125, 255, 0.5);
   --color-hero-glow-1: radial-gradient(circle, rgba(47, 125, 255, 0.22) 0%, transparent 68%);
   --color-hero-glow-2: radial-gradient(circle at 50% 45%, rgba(47, 125, 255, 0.18), transparent 60%);
-  --color-hero-caption: rgba(150, 200, 255, 0.78);
+  --color-hero-caption: rgba(180, 215, 255, 0.95);
 
   /* Hero visual layout (ПК) — меняются панелью ?hero-tuner=1 */
-  --hero-stage-offset-y: -4px;
-  --hero-stage-offset-y-desktop: -36px;
-  --hero-caption-bottom-desktop: 1.25rem;
+  --hero-stage-offset-y: 0;
+  --hero-stage-offset-y-desktop: 0;
+  --hero-caption-bottom-desktop: 0;
   --hero-visual-margin-bottom-desktop: var(--space-md);
 
   --ambient-bg: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(47, 125, 255, 0.09), transparent 55%),

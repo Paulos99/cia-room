@@ -34,7 +34,7 @@
       document.documentElement.style.colorScheme = theme;
     })();
   </script>
-  <link rel="stylesheet" href="{{BASE}}css/main.css?v=ten-pages-1">
+  <link rel="stylesheet" href="{{BASE}}css/main.css?v=object-modal-1">
   <script type="application/ld+json">{{SCHEMA_JSON}}</script>
 </head>
 <body>

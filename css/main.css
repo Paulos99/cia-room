@@ -15,3 +15,16 @@
 .article-entry summary:focus-visible, .article-faq summary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
 .article-faq { margin-block: 1rem; }
 .article-faq summary { cursor: pointer; font-weight: 600; }
+
+/* In-flow service images: never use the absolute hero background class here. */
+.service-preview { position: relative; width: 100%; max-width: 960px; margin: 0 auto var(--space-xl); border-radius: var(--radius-lg); overflow: hidden; }
+.service-preview img { display: block; width: 100%; height: auto; max-height: 380px; object-fit: contain; }
+.object-modal { width: min(920px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--color-line); border-radius: var(--radius-lg); background: var(--color-bg); color: var(--color-text); overflow-y: auto; overscroll-behavior: contain; }
+.object-modal::backdrop { background: rgba(0, 0, 0, .65); backdrop-filter: blur(5px); }
+.object-modal__toolbar { position: sticky; top: 0; z-index: 2; display: flex; justify-content: flex-end; padding: 12px 20px; background: var(--color-bg); border-bottom: 1px solid var(--color-line); }
+.object-modal__close { padding: 8px 12px; border: 1px solid var(--color-line); border-radius: 8px; background: var(--color-surface); color: inherit; cursor: pointer; font: inherit; }
+.object-modal__body { padding: clamp(20px, 4vw, 40px); }
+.object-modal__body > h2 { font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.2; margin-bottom: 1rem; }
+.object-modal-open { overflow: hidden; }
+.object-card[aria-haspopup='dialog'] { cursor: pointer; }
+@media (max-width: 639px) { .service-preview img { max-height: 240px; } .object-modal { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); } }

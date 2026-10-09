@@ -38,7 +38,7 @@
       document.documentElement.style.colorScheme = theme;
     })();
   </script>
-  <link rel="stylesheet" href="css/main.css?v=ten-pages-1">
+  <link rel="stylesheet" href="css/main.css?v=object-modal-1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -411,82 +411,82 @@
           <p class="objects__counter" id="objects-counter" aria-live="polite">1 / 6</p>
         </div>
         <div class="objects__grid objects__grid--static" id="objects-grid">
-          <article class="object-card" tabindex="0" data-object="apartment" data-analytics-object="apartment" id="object-kvartira">
+          <article class="object-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="object-dialog-kvartira" data-object="apartment" data-analytics-object="apartment" id="object-kvartira">
             <figure class="object-card__media">
               <img src="assets/images/objects-apartment.jpg" alt="Акустика квартиры: жизнь, работа, домашний кинотеатр и защита от шума" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="services/proektirovanie/" class="object-card__title-link">Квартира</a></h3>
+              <h3 class="object-card__title"><a href="#object-dialog-kvartira" class="object-card__title-link">Квартира</a></h3>
               <p class="object-card__text">Акустика для жизни, сна, работы, кабинета, домашнего кинотеатра, студии или защиты от бытового шума.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>сон</li><li>работа</li><li>домашний кинотеатр</li><li>студия</li><li>защита от шума</li>
               </ul>
-              <a href="services/proektirovanie/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#object-dialog-kvartira" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="house" data-analytics-object="house" id="object-chastnyy-dom">
+          <article class="object-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="object-dialog-chastnyy-dom" data-object="house" data-analytics-object="house" id="object-chastnyy-dom">
             <figure class="object-card__media">
               <img src="assets/images/objects-house.jpg" alt="Акустика частного дома под планировку и сценарии" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="services/proektirovanie/" class="object-card__title-link">Частный дом</a></h3>
+              <h3 class="object-card__title"><a href="#object-dialog-chastnyy-dom" class="object-card__title-link">Частный дом</a></h3>
               <p class="object-card__text">Акустика под планировку и сценарии дома: спальни, детские, кабинет, кинозал, технические помещения и межэтажные связи.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>спальни</li><li>кабинет</li><li>кинозал</li><li>техпомещения</li><li>межэтажные связи</li>
               </ul>
-              <a href="services/proektirovanie/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#object-dialog-chastnyy-dom" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="studio" data-analytics-object="studio" id="object-studiya-kinoteatr">
+          <article class="object-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="object-dialog-studiya-kinoteatr" data-object="studio" data-analytics-object="studio" id="object-studiya-kinoteatr">
             <figure class="object-card__media">
               <img src="assets/images/objects-studio.jpg" alt="Акустика студии и домашнего кинотеатра" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="services/spetsproekty/" class="object-card__title-link">Студия, кинотеатр и медиапространство</a></h3>
+              <h3 class="object-card__title"><a href="#object-dialog-studiya-kinoteatr" class="object-card__title-link">Студия, кинотеатр и медиапространство</a></h3>
               <p class="object-card__text">Помещения, где важны точность звучания, внутренняя акустика, защита от внешнего шума и контроль вибраций.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>запись</li><li>кино</li><li>внутренняя акустика</li><li>защита от шума</li>
               </ul>
-              <a href="services/spetsproekty/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#object-dialog-studiya-kinoteatr" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="office" data-analytics-object="office" id="object-ofis">
+          <article class="object-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="object-dialog-ofis" data-object="office" data-analytics-object="office" id="object-ofis">
             <figure class="object-card__media">
               <img src="assets/images/objects-office.jpg" alt="Акустика офиса и переговорной" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="services/spetsproekty/" class="object-card__title-link">Офис и переговорная</a></h3>
+              <h3 class="object-card__title"><a href="#object-dialog-ofis" class="object-card__title-link">Офис и переговорная</a></h3>
               <p class="object-card__text">Приватность речи, разборчивость голоса, видеосвязь, open space, шум инженерных систем и комфорт рабочих зон.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>переговорные</li><li>open space</li><li>видеосвязь</li><li>приватность речи</li>
               </ul>
-              <a href="services/spetsproekty/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#object-dialog-ofis" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="horeca" data-analytics-object="horeca" id="object-horeca">
+          <article class="object-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="object-dialog-horeca" data-object="horeca" data-analytics-object="horeca" id="object-horeca">
             <figure class="object-card__media">
               <img src="assets/images/objects-horeca.jpg" alt="Акустика ресторана и HoReCa" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="services/spetsproekty/" class="object-card__title-link">HoReCa и коммерческие пространства</a></h3>
+              <h3 class="object-card__title"><a href="#object-dialog-horeca" class="object-card__title-link">HoReCa и коммерческие пространства</a></h3>
               <p class="object-card__text">Атмосфера, музыка, гулкость зала, приватность зон, шум кухни, вентиляция и влияние на соседние помещения.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>музыка</li><li>гулкость</li><li>кухня</li><li>соседи</li>
               </ul>
-              <a href="services/spetsproekty/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#object-dialog-horeca" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="industrial" data-analytics-object="industrial" id="object-promyshlennyy-obekt">
+          <article class="object-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="object-dialog-promyshlennyy-obekt" data-object="industrial" data-analytics-object="industrial" id="object-promyshlennyy-obekt">
             <figure class="object-card__media">
               <img src="assets/images/objects-industrial.jpg" alt="Промышленная акустика: шум и вибрация оборудования" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="services/promyshlennaya-akustika/" class="object-card__title-link">Промышленный и технический объект</a></h3>
+              <h3 class="object-card__title"><a href="#object-dialog-promyshlennyy-obekt" class="object-card__title-link">Промышленный и технический объект</a></h3>
               <p class="object-card__text">Исследование шума и вибрации оборудования, инженерных систем, рабочих зон и смежных помещений.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>оборудование</li><li>вентиляция</li><li>рабочие зоны</li><li>смежные помещения</li>
               </ul>
-              <a href="services/promyshlennaya-akustika/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="#object-dialog-promyshlennyy-obekt" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
         </div>
@@ -1420,5 +1420,244 @@
   <script src="js/form.js"></script>
   <script src="js/mobile-ui.js?v=mobile10"></script>
   <script src="js/animations.js?v=dots-parallax3"></script>
+<script src="js/object-modals.js" defer></script>
+<!-- OBJECT MODALS START -->
+<dialog class="object-modal" id="object-dialog-kvartira" aria-labelledby="object-dialog-title-kvartira" data-lenis-prevent><div class="object-modal__toolbar"><button type="button" class="object-modal__close" aria-label="Закрыть описание объекта" autofocus>Закрыть ×</button></div><div class="object-modal__body"><h2 id="object-dialog-title-kvartira">Акустика и звукоизоляция квартиры</h2><p class="seo-page__lead">Воздушный и ударный шум, акустические дыры, потолок, стены, пол и инженерные проходки — проектируем решения до чистовой отделки или обследуем готовый объект.</p><figure class="service-preview"><img src="assets/images/objects-apartment.jpg" alt="Акустика квартиры: звукоизоляция и устранение шума от соседей" width="896" height="560" loading="lazy"></figure><div class="seo-page__content"><h2>Типичные проблемы в квартире</h2>
+<ul><li>Разговоры и музыка от соседей через стены и потолок</li><li>Ударный шум: шаги, дети, перестановка мебели</li><li>Шум лифта, вентиляции, инженерных шахт</li><li>Акустические дыры: розетки, щели, слабые примыкания</li></ul>
+<aside class="seo-callout seo-callout--tip"><p class="seo-callout__title">Простыми словами</p><p>Звук часто идёт не напрямую через ту стену, на которую жалуются. <a href="services/akusticheskiy-zamer/">Акустический замер</a> показывает реальный путь — перекрытие, короб, щель.</p></aside>
+<h2>Подход ЦИА</h2>
+<p>Определяем реальный путь шума. Затем подбираем формат: <a href="services/distancionnaya-otsenka/">дистанционная оценка</a>, замер или полный <a href="services/proektirovanie/">проект</a>. Не предлагаем «типовое решение» без привязки к вашим конструкциям.</p>
+<div class="seo-scenario"><p class="seo-scenario__label">Ситуация</p><p>Слышны шаги сверху и телевизор через стену. Ремонт через два месяца.</p><p class="seo-scenario__label">Что проверяет ЦИА</p><p>Обследование до начала работ: приоритет перекрытия vs перегородки, узлы примыканий, проходки. Проект под планировку.</p></div>
+<h2>Оптимальный этап</h2>
+<p>Лучше всего подключать акустика на этапе ремонта или черновой отделки — см. <a href="blog/#kogda-podklyuchat-akustika-pri-remonte">когда подключать при ремонте</a>. На готовой квартире обследование возможно, но объём работ может быть выше.</p>
+<h2>Что не обещаем</h2>
+<p>Абсолютную тишину и гарантированное число децибел без обследования. Честно обозначаем границы: когда проблема не решается только в вашей квартире.</p>
+<h2>Воздушный шум: стены и проёмы</h2>
+<p>Разговоры и музыка передаются через перегородки и слабые двери. Масса и герметичность — ключевые параметры. Важны дверные короба и отсутствие щелей в примыкании пола к стене.</p>
+<h2>Ударный шум: пол и потолок</h2>
+<p>Шаги и мебель — через перекрытие. Решение с вашей стороны — звукоизоляционный потолок; идеально также мягкий слой у соседа под финишным полом. Подробнее — <a href="blog/#udarnyy-shum-s-potolka">ударный шум с потолка</a>.</p>
+<h2>Инженерия и соседи</h2>
+<p>Лифт, вентиляция, стояки — отдельная группа источников. Иногда жалоба «на соседа» оказывается шумом шахты. <a href="services/akusticheskiy-zamer/">Замер</a> разделяет сценарии.</p>
+<h2>Форматы ЦИА для этого объекта</h2>
+<p>Старт — <a href="services/distancionnaya-otsenka/">дистанционная оценка</a> или <a href="services/akusticheskiy-zamer/">замер</a>. Для капитального решения — <a href="services/proektirovanie/">проект</a> с узлами и контрольным замером. Специальные сценарии — <a href="services/spetsproekty/">спецпроекты</a> или <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<p>Опишите объект в заявке: площадь, стадия, суть проблемы. Инженер предложит адекватный объём работ без навязывания лишнего.</p>
+<h2>Типичный путь заказчика</h2>
+<p>Сначала — понимание проблемы и формата: дистанционно или с выездом. Затем обследование, если нужна точность. Для капитального ремонта или строительства — проект с узлами. После монтажа — контрольный замер, если это предусмотрено договорённостями.</p>
+<h2>Чего не обещаем</h2>
+<p>Абсолютную тишину и гарантированные децибелы без условий. Честно говорим, когда задача выходит за рамки одной квартиры или помещения. Рекомендуем материалы и конструкции по расчёту, а не по каталогу одного производителя.</p>
+<h2>География</h2>
+<p>Работаем по России. Офис в Иваново (ул. Смирнова, 74). Дистанционная оценка — из любого города. Выезд — по согласованию сроков и логистики.</p>
+<h2>Примеры ситуаций</h2>
+<p>Владелец квартиры планирует ремонт и слышит соседей. Владелец офиса открывает переговорную в open space. Владелец дома строит кинозал. Владелец ресторана получает предписание по шуму. У всех разная программа помещения, но общая логика: сначала факт и гипотезы, потом конструкции и проверка.</p>
+<h2>Стадии объекта</h2>
+<p>На голом объекте закладываются каркасы, проходки, плавающие стяжки. На объекте с отделкой возможны локальные решения — потолок, перегородка в одной комнате — но выбор ограничен. Чем раньше подключён акустик, тем больше степеней свободы.</p>
+<h2>Документы для старта</h2>
+<p>План помещения, фото конструкций, описание жалоб, при возможности — данные о типе дома или назначении здания. Для коммерции — режим работы и требования арендодателя или санитарных норм. Этого достаточно для первого шага.</p>
+<p>Связанные услуги: <a href="services/distancionnaya-otsenka/">дистанционная оценка</a>, <a href="services/akusticheskiy-zamer/">замер</a>, <a href="services/proektirovanie/">проектирование</a>. Для нестандартных задач — <a href="services/spetsproekty/">спецпроекты</a> и <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<h2>Кейсы и ограничения</h2>
+<p>Каждый объект уникален: этаж, соседи, тип перекрытия, стадия ремонта. Универсальных ответов «сделайте так» в статьях и на страницах объектов — ориентиры. Точное решение — после данных с вашего объекта.</p>
+<p>Если планируете продажу или сдачу в аренду — акустический комфорт становится аргументом цены. Проект с подтверждением замером — документ для договора с подрядчиком.</p>
+<h2>Связь с блогом</h2>
+<p>Полезные материалы: <a href="blog/#shum-ot-sosedey-chto-delat">шум от соседей</a>, <a href="blog/#akusticheskie-mostiki-i-shcheli">мостики и щели</a>, <a href="blog/#zvukoizolyaciya-vs-akustika">звукоизоляция vs акустика</a>.</p>
+<h2>Почему объект важнее бренда материала</h2>
+<p>Один и тот же материал в разных узлах даёт разный эффект. Контекст — перекрытие, соседи, инженерия — определяет приоритеты. Страница объекта описывает типовые задачи; ваш случай уточняется на <a href="services/distancionnaya-otsenka/">дистанционной оценке</a> или <a href="services/akusticheskiy-zamer/">замере</a>.</p>
+<p>ЦИА рассматривает помещение как систему: источники, ограждения, проходки, сценарий использования. Такой подход особенно важен для объектов с несколькими зонами — дом, офис, ресторан, студия.</p>
+<p>На странице объекта перечислены типовые жалобы и форматы ЦИА — используйте их как чек-лист перед звонком инженеру. Чем точнее описание на старте, тем быстрее рекомендация формата работы.</p></div><section class="seo-page__content"><h2>Частые вопросы</h2><details class="article-faq"><summary>Поможет ли только потолок от шума соседей сверху?</summary><p>Не всегда. Ударный шум может идти через стены и инженерные узлы. Замер показывает доминирующий путь.</p></details><details class="article-faq"><summary>Можно ли сделать звукоизоляцию после ремонта?</summary><p>Да, но выбор решений ограничен. Часть работ потребует демонтажа отделки.</p></details><details class="article-faq"><summary>С чего начать?</summary><p>С описания проблемы и плана. См. статью <a href="blog/#shum-ot-sosedey-chto-delat">шум от соседей</a>.</p></details></section><p><a href="#lead" class="btn btn--primary">Обсудить мой объект</a></p></div></dialog>
+<dialog class="object-modal" id="object-dialog-chastnyy-dom" aria-labelledby="object-dialog-title-chastnyy-dom" data-lenis-prevent><div class="object-modal__toolbar"><button type="button" class="object-modal__close" aria-label="Закрыть описание объекта" autofocus>Закрыть ×</button></div><div class="object-modal__body"><h2 id="object-dialog-title-chastnyy-dom">Акустика и звукоизоляция частного дома</h2><p class="seo-page__lead">Звукоизоляция между этажами и комнатами, защита от уличного шума, медиазоны и технические помещения — проектируем под планировку и сценарий жизни.</p><figure class="service-preview"><img src="assets/images/objects-house.jpg" alt="Акустика частного дома" width="896" height="560" loading="lazy"></figure><div class="seo-page__content"><h2>Типичные задачи</h2>
+<ul><li>Шум между этажами: детская, спальня, гостиная</li><li>Домашний кинотеатр или студия без помех для семьи</li><li>Котельная, насосная, техника — изоляция от жилых зон</li><li>Уличный шум: дорога, соседи, терраса</li></ul>
+<aside class="seo-callout seo-callout--tip"><p class="seo-callout__title">Дом — не квартира</p><p>В доме больше степеней свободы: можно проектировать перекрытия и стены до отделки. Но и больше зон с разным режимом — важно зонирование.</p></aside>
+<h2>Подход</h2>
+<p>На этапе строительства или реконструкции — <a href="services/proektirovanie/">проект</a> с узлами под несущие конструкции. Для медиазон — <a href="services/spetsproekty/">спецпроекты</a> с внутренней акустикой.</p>
+<div class="seo-scenario"><p class="seo-scenario__label">Ситуация</p><p>Кинозал в подвале, спальни на втором этаже. Строительство на стадии коробки.</p><p class="seo-scenario__label">Что проверяет ЦИА</p><p>Комплексный проект: перекрытие между зонами, стены, инженерные проходки, внутренняя акустика зала.</p></div>
+<h2>Этапы</h2>
+<p>Идеально — подключение на стадии проекта дома. На готовом объекте — обследование и проект с учётом допустимых вмешательств.</p>
+<h2>Зонирование</h2>
+<p>Детская, спальня, кинозал, котельная — разные требования. Проект закладывает приоритеты: где нужна максимальная изоляция, где достаточно базовой.</p>
+<h2>Строительство с нуля</h2>
+<p>На стадии коробки закладываются перекрытия, стены и проходки. Дешевле, чем переделывать после отделки. <a href="services/proektirovanie/">Проект</a> согласуется с архитектором.</p>
+<h2>Улица и техника</h2>
+<p>Окна, террасы, наружное оборудование — источники наружного шума. Котельная и насосная — <a href="services/promyshlennaya-akustika/">промышленная акустика</a> в миниатюре.</p>
+<h2>Форматы ЦИА для этого объекта</h2>
+<p>Старт — <a href="services/distancionnaya-otsenka/">дистанционная оценка</a> или <a href="services/akusticheskiy-zamer/">замер</a>. Для капитального решения — <a href="services/proektirovanie/">проект</a> с узлами и контрольным замером. Специальные сценарии — <a href="services/spetsproekty/">спецпроекты</a> или <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<p>Опишите объект в заявке: площадь, стадия, суть проблемы. Инженер предложит адекватный объём работ без навязывания лишнего.</p>
+<h2>Типичный путь заказчика</h2>
+<p>Сначала — понимание проблемы и формата: дистанционно или с выездом. Затем обследование, если нужна точность. Для капитального ремонта или строительства — проект с узлами. После монтажа — контрольный замер, если это предусмотрено договорённостями.</p>
+<h2>Чего не обещаем</h2>
+<p>Абсолютную тишину и гарантированные децибелы без условий. Честно говорим, когда задача выходит за рамки одной квартиры или помещения. Рекомендуем материалы и конструкции по расчёту, а не по каталогу одного производителя.</p>
+<h2>География</h2>
+<p>Работаем по России. Офис в Иваново (ул. Смирнова, 74). Дистанционная оценка — из любого города. Выезд — по согласованию сроков и логистики.</p>
+<h2>Примеры ситуаций</h2>
+<p>Владелец квартиры планирует ремонт и слышит соседей. Владелец офиса открывает переговорную в open space. Владелец дома строит кинозал. Владелец ресторана получает предписание по шуму. У всех разная программа помещения, но общая логика: сначала факт и гипотезы, потом конструкции и проверка.</p>
+<h2>Стадии объекта</h2>
+<p>На голом объекте закладываются каркасы, проходки, плавающие стяжки. На объекте с отделкой возможны локальные решения — потолок, перегородка в одной комнате — но выбор ограничен. Чем раньше подключён акустик, тем больше степеней свободы.</p>
+<h2>Документы для старта</h2>
+<p>План помещения, фото конструкций, описание жалоб, при возможности — данные о типе дома или назначении здания. Для коммерции — режим работы и требования арендодателя или санитарных норм. Этого достаточно для первого шага.</p>
+<p>Связанные услуги: <a href="services/distancionnaya-otsenka/">дистанционная оценка</a>, <a href="services/akusticheskiy-zamer/">замер</a>, <a href="services/proektirovanie/">проектирование</a>. Для нестандартных задач — <a href="services/spetsproekty/">спецпроекты</a> и <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<h2>Кейсы и ограничения</h2>
+<p>Каждый объект уникален: этаж, соседи, тип перекрытия, стадия ремонта. Универсальных ответов «сделайте так» в статьях и на страницах объектов — ориентиры. Точное решение — после данных с вашего объекта.</p>
+<p>Если планируете продажу или сдачу в аренду — акустический комфорт становится аргументом цены. Проект с подтверждением замером — документ для договора с подрядчиком.</p>
+<h2>Связь с блогом</h2>
+<p>Полезные материалы: <a href="blog/#shum-ot-sosedey-chto-delat">шум от соседей</a>, <a href="blog/#akusticheskie-mostiki-i-shcheli">мостики и щели</a>, <a href="blog/#zvukoizolyaciya-vs-akustika">звукоизоляция vs акустика</a>.</p>
+<h2>Почему объект важнее бренда материала</h2>
+<p>Один и тот же материал в разных узлах даёт разный эффект. Контекст — перекрытие, соседи, инженерия — определяет приоритеты. Страница объекта описывает типовые задачи; ваш случай уточняется на <a href="services/distancionnaya-otsenka/">дистанционной оценке</a> или <a href="services/akusticheskiy-zamer/">замере</a>.</p>
+<p>ЦИА рассматривает помещение как систему: источники, ограждения, проходки, сценарий использования. Такой подход особенно важен для объектов с несколькими зонами — дом, офис, ресторан, студия.</p>
+<p>На странице объекта перечислены типовые жалобы и форматы ЦИА — используйте их как чек-лист перед звонком инженеру. Чем точнее описание на старте, тем быстрее рекомендация формата работы.</p></div><section class="seo-page__content"><h2>Частые вопросы</h2><details class="article-faq"><summary>Нужен ли спецпроект для кинотеатра в доме?</summary><p>Для высокого уровня звука и требований к качеству — да. Для базовой звукоизоляции — может хватить стандартного проектирования.</p></details><details class="article-faq"><summary>Как изолировать котельную?</summary><p>Проект с учётом вибрации оборудования и воздушного шума — см. <a href="services/promyshlennaya-akustika/">промышленную акустику</a>.</p></details><details class="article-faq"><summary>Работаете ли на этапе строительства?</summary><p>Да. Это оптимальный момент для закладки решений в конструкции.</p></details></section><p><a href="#lead" class="btn btn--primary">Обсудить мой объект</a></p></div></dialog>
+<dialog class="object-modal" id="object-dialog-studiya-kinoteatr" aria-labelledby="object-dialog-title-studiya-kinoteatr" data-lenis-prevent><div class="object-modal__toolbar"><button type="button" class="object-modal__close" aria-label="Закрыть описание объекта" autofocus>Закрыть ×</button></div><div class="object-modal__body"><h2 id="object-dialog-title-studiya-kinoteatr">Студия и кинотеатр</h2><p class="seo-page__lead">Звукоизоляция, внутренняя акустика, виброразвязка и сценарий использования — проектируем медиапространства как единую систему.</p><figure class="service-preview"><img src="assets/images/objects-studio.jpg" alt="Акустика студии и кинотеатра" width="896" height="560" loading="lazy"></figure><div class="seo-page__content"><h2>Задачи медиапространств</h2>
+<ul><li>Не мешать соседям и не слышать их</li><li>Контроль отражений и эха внутри комнаты</li><li>Точность воспроизведения и разборчивость</li><li>Виброразвязка оборудования и пола</li></ul>
+<aside class="seo-callout seo-callout--tip"><p class="seo-callout__title">Две задачи</p><p><a href="blog/#zvukoizolyaciya-vs-akustika">Звукоизоляция</a> и внутренняя акустика — разное. Спецпроект закрывает обе.</p></aside>
+<h2>Формат работы</h2>
+<p><a href="services/spetsproekty/">Спецпроекты</a>: бриф, обследование, проект конструкций и внутренней обработки, сопровождение монтажа.</p>
+<div class="seo-scenario"><p class="seo-scenario__label">Ситуация</p><p>Подкаст-студия 12 м² в квартире. Нужна запись без эха и без шума в коридор.</p><p class="seo-scenario__label">Что проверяет ЦИА</p><p>Звукоизоляция ограждений, внутренняя обработка, учёт микрофонов и мебели.</p></div>
+<h2>Оборудование</h2>
+<p>Учитываем колонки, сабвуфер, рабочие места, экран. Проект не отрывается от сценария использования.</p>
+<h2>Звукоизоляция ограждений</h2>
+<p>Защита соседей от высокого уровня, особенно низких частот. Масса, развязка, герметичность проёмов.</p>
+<h2>Внутренняя акустика</h2>
+<p>Время реверберации, первые отражения, басовые моды. Для кино — <a href="services/spetsproekty/">спецпроект</a> с привязкой к формату Dolby и размещению колонок.</p>
+<h2>Вибрация</h2>
+<p>Сабвуфер и трансдьюсеры передают вибрацию в конструкции. Нужна развязка пола и креплений.</p>
+<h2>Форматы ЦИА для этого объекта</h2>
+<p>Старт — <a href="services/distancionnaya-otsenka/">дистанционная оценка</a> или <a href="services/akusticheskiy-zamer/">замер</a>. Для капитального решения — <a href="services/proektirovanie/">проект</a> с узлами и контрольным замером. Специальные сценарии — <a href="services/spetsproekty/">спецпроекты</a> или <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<p>Опишите объект в заявке: площадь, стадия, суть проблемы. Инженер предложит адекватный объём работ без навязывания лишнего.</p>
+<h2>Типичный путь заказчика</h2>
+<p>Сначала — понимание проблемы и формата: дистанционно или с выездом. Затем обследование, если нужна точность. Для капитального ремонта или строительства — проект с узлами. После монтажа — контрольный замер, если это предусмотрено договорённостями.</p>
+<h2>Чего не обещаем</h2>
+<p>Абсолютную тишину и гарантированные децибелы без условий. Честно говорим, когда задача выходит за рамки одной квартиры или помещения. Рекомендуем материалы и конструкции по расчёту, а не по каталогу одного производителя.</p>
+<h2>География</h2>
+<p>Работаем по России. Офис в Иваново (ул. Смирнова, 74). Дистанционная оценка — из любого города. Выезд — по согласованию сроков и логистики.</p>
+<h2>Примеры ситуаций</h2>
+<p>Владелец квартиры планирует ремонт и слышит соседей. Владелец офиса открывает переговорную в open space. Владелец дома строит кинозал. Владелец ресторана получает предписание по шуму. У всех разная программа помещения, но общая логика: сначала факт и гипотезы, потом конструкции и проверка.</p>
+<h2>Стадии объекта</h2>
+<p>На голом объекте закладываются каркасы, проходки, плавающие стяжки. На объекте с отделкой возможны локальные решения — потолок, перегородка в одной комнате — но выбор ограничен. Чем раньше подключён акустик, тем больше степеней свободы.</p>
+<h2>Документы для старта</h2>
+<p>План помещения, фото конструкций, описание жалоб, при возможности — данные о типе дома или назначении здания. Для коммерции — режим работы и требования арендодателя или санитарных норм. Этого достаточно для первого шага.</p>
+<p>Связанные услуги: <a href="services/distancionnaya-otsenka/">дистанционная оценка</a>, <a href="services/akusticheskiy-zamer/">замер</a>, <a href="services/proektirovanie/">проектирование</a>. Для нестандартных задач — <a href="services/spetsproekty/">спецпроекты</a> и <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<h2>Кейсы и ограничения</h2>
+<p>Каждый объект уникален: этаж, соседи, тип перекрытия, стадия ремонта. Универсальных ответов «сделайте так» в статьях и на страницах объектов — ориентиры. Точное решение — после данных с вашего объекта.</p>
+<p>Если планируете продажу или сдачу в аренду — акустический комфорт становится аргументом цены. Проект с подтверждением замером — документ для договора с подрядчиком.</p>
+<h2>Связь с блогом</h2>
+<p>Полезные материалы: <a href="blog/#shum-ot-sosedey-chto-delat">шум от соседей</a>, <a href="blog/#akusticheskie-mostiki-i-shcheli">мостики и щели</a>, <a href="blog/#zvukoizolyaciya-vs-akustika">звукоизоляция vs акустика</a>.</p>
+<h2>Почему объект важнее бренда материала</h2>
+<p>Один и тот же материал в разных узлах даёт разный эффект. Контекст — перекрытие, соседи, инженерия — определяет приоритеты. Страница объекта описывает типовые задачи; ваш случай уточняется на <a href="services/distancionnaya-otsenka/">дистанционной оценке</a> или <a href="services/akusticheskiy-zamer/">замере</a>.</p>
+<p>ЦИА рассматривает помещение как систему: источники, ограждения, проходки, сценарий использования. Такой подход особенно важен для объектов с несколькими зонами — дом, офис, ресторан, студия.</p>
+<p>На странице объекта перечислены типовые жалобы и форматы ЦИА — используйте их как чек-лист перед звонком инженеру. Чем точнее описание на старте, тем быстрее рекомендация формата работы.</p></div><section class="seo-page__content"><h2>Частые вопросы</h2><details class="article-faq"><summary>Чем отличается от звукоизоляции квартиры?</summary><p>Добавляется внутренняя акустика: отражения, моды помещения, размещение поглотителей.</p></details><details class="article-faq"><summary>Минимальный размер для кинотеатра?</summary><p>Зависит от программы. Обсудим на <a href="services/distancionnaya-otsenka/">дистанционной оценке</a>.</p></details><details class="article-faq"><summary>Подкаст-студия — тот же формат?</summary><p>Да, с упрощённой программой при малых требованиях.</p></details></section><p><a href="#lead" class="btn btn--primary">Обсудить мой объект</a></p></div></dialog>
+<dialog class="object-modal" id="object-dialog-ofis" aria-labelledby="object-dialog-title-ofis" data-lenis-prevent><div class="object-modal__toolbar"><button type="button" class="object-modal__close" aria-label="Закрыть описание объекта" autofocus>Закрыть ×</button></div><div class="object-modal__body"><h2 id="object-dialog-title-ofis">Офис и переговорная</h2><p class="seo-page__lead">Приватность речи, контроль фонового шума, перегородки, потолки и обходные пути в офисной среде — проектируем под планировку и сценарий работы.</p><figure class="service-preview"><img src="assets/images/objects-office.jpg" alt="Акустика офиса и переговорной" width="896" height="560" loading="lazy"></figure><div class="seo-page__content"><h2>Типичные задачи</h2>
+<ul><li>Слышимость разговоров в переговорных и кабинетах</li><li>Гулкий open space и усталость от фонового шума</li><li>Шум вентиляции и инженерных систем</li><li>Акустика видеоконференций</li></ul>
+<aside class="seo-callout seo-callout--tip"><p class="seo-callout__title">Офис — система путей</p><p>Звук обходит перегородки через потолок, пол и вентиляцию. Усилить только стену переговорной часто недостаточно.</p></aside>
+<h2>Подход ЦИА</h2>
+<p><a href="services/akusticheskiy-zamer/">Обследование</a> фиксирует фактические пути. <a href="services/proektirovanie/">Проект</a> — перегородки, потолочные системы, локальная обработка, требования к дверям и примыканиям.</p>
+<div class="seo-scenario"><p class="seo-scenario__label">Ситуация</p><p>Open space 200 м²: сотрудники жалуются на гул и отсутствие приватности в переговорной.</p><p class="seo-scenario__label">Что проверяет ЦИА</p><p>Карта путей звука; проект перегородок, потолка и зонирования под сценарий работы.</p></div>
+<h2>Этапы внедрения</h2>
+<p>При ремонте офиса — на стадии проекта отделки. В действующем офисе — поэтапно, с минимизацией простоя.</p>
+<h2>Open space</h2>
+<p>Высокий уровень фонового шума снижает продуктивность. Решения: потолочные абсорберы, экраны, зонирование. Это внутренняя акустика плюс планировка.</p>
+<h2>Переговорные</h2>
+<p>Нужна приватность речи. Звукоизоляция перегородок, дверей и потолка — комплекс. См. <a href="blog/#zvukoizolyaciya-vs-akustika">звукоизоляция vs акустика</a>.</p>
+<h2>Видеоконференции</h2>
+<p>Разборчивость речи важнее «тишины в дБ». Проект учитывает микрофоны, отражения от стекла и гул.</p>
+<h2>Форматы ЦИА для этого объекта</h2>
+<p>Старт — <a href="services/distancionnaya-otsenka/">дистанционная оценка</a> или <a href="services/akusticheskiy-zamer/">замер</a>. Для капитального решения — <a href="services/proektirovanie/">проект</a> с узлами и контрольным замером. Специальные сценарии — <a href="services/spetsproekty/">спецпроекты</a> или <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<p>Опишите объект в заявке: площадь, стадия, суть проблемы. Инженер предложит адекватный объём работ без навязывания лишнего.</p>
+<h2>Типичный путь заказчика</h2>
+<p>Сначала — понимание проблемы и формата: дистанционно или с выездом. Затем обследование, если нужна точность. Для капитального ремонта или строительства — проект с узлами. После монтажа — контрольный замер, если это предусмотрено договорённостями.</p>
+<h2>Чего не обещаем</h2>
+<p>Абсолютную тишину и гарантированные децибелы без условий. Честно говорим, когда задача выходит за рамки одной квартиры или помещения. Рекомендуем материалы и конструкции по расчёту, а не по каталогу одного производителя.</p>
+<h2>География</h2>
+<p>Работаем по России. Офис в Иваново (ул. Смирнова, 74). Дистанционная оценка — из любого города. Выезд — по согласованию сроков и логистики.</p>
+<h2>Примеры ситуаций</h2>
+<p>Владелец квартиры планирует ремонт и слышит соседей. Владелец офиса открывает переговорную в open space. Владелец дома строит кинозал. Владелец ресторана получает предписание по шуму. У всех разная программа помещения, но общая логика: сначала факт и гипотезы, потом конструкции и проверка.</p>
+<h2>Стадии объекта</h2>
+<p>На голом объекте закладываются каркасы, проходки, плавающие стяжки. На объекте с отделкой возможны локальные решения — потолок, перегородка в одной комнате — но выбор ограничен. Чем раньше подключён акустик, тем больше степеней свободы.</p>
+<h2>Документы для старта</h2>
+<p>План помещения, фото конструкций, описание жалоб, при возможности — данные о типе дома или назначении здания. Для коммерции — режим работы и требования арендодателя или санитарных норм. Этого достаточно для первого шага.</p>
+<p>Связанные услуги: <a href="services/distancionnaya-otsenka/">дистанционная оценка</a>, <a href="services/akusticheskiy-zamer/">замер</a>, <a href="services/proektirovanie/">проектирование</a>. Для нестандартных задач — <a href="services/spetsproekty/">спецпроекты</a> и <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<h2>Кейсы и ограничения</h2>
+<p>Каждый объект уникален: этаж, соседи, тип перекрытия, стадия ремонта. Универсальных ответов «сделайте так» в статьях и на страницах объектов — ориентиры. Точное решение — после данных с вашего объекта.</p>
+<p>Если планируете продажу или сдачу в аренду — акустический комфорт становится аргументом цены. Проект с подтверждением замером — документ для договора с подрядчиком.</p>
+<h2>Связь с блогом</h2>
+<p>Полезные материалы: <a href="blog/#shum-ot-sosedey-chto-delat">шум от соседей</a>, <a href="blog/#akusticheskie-mostiki-i-shcheli">мостики и щели</a>, <a href="blog/#zvukoizolyaciya-vs-akustika">звукоизоляция vs акустика</a>.</p>
+<h2>Почему объект важнее бренда материала</h2>
+<p>Один и тот же материал в разных узлах даёт разный эффект. Контекст — перекрытие, соседи, инженерия — определяет приоритеты. Страница объекта описывает типовые задачи; ваш случай уточняется на <a href="services/distancionnaya-otsenka/">дистанционной оценке</a> или <a href="services/akusticheskiy-zamer/">замере</a>.</p>
+<p>ЦИА рассматривает помещение как систему: источники, ограждения, проходки, сценарий использования. Такой подход особенно важен для объектов с несколькими зонами — дом, офис, ресторан, студия.</p>
+<p>На странице объекта перечислены типовые жалобы и форматы ЦИА — используйте их как чек-лист перед звонком инженеру. Чем точнее описание на старте, тем быстрее рекомендация формата работы.</p></div><section class="seo-page__content"><h2>Частые вопросы</h2><details class="article-faq"><summary>Помогут ли только перегородки?</summary><p>Часто нет — нужен комплекс: потолок, двери, вентиляция.</p></details><details class="article-faq"><summary>Можно ли улучшить акустику без капитального ремонта?</summary><p>Иногда — локальная обработка и мебель. Серьёзная приватность требует конструктивных решений.</p></details><details class="article-faq"><summary>Учитываете ли видеоконференции?</summary><p>Да. Разборчивость речи и фоновый шум — в программе помещения.</p></details></section><p><a href="#lead" class="btn btn--primary">Обсудить мой объект</a></p></div></dialog>
+<dialog class="object-modal" id="object-dialog-horeca" aria-labelledby="object-dialog-title-horeca" data-lenis-prevent><div class="object-modal__toolbar"><button type="button" class="object-modal__close" aria-label="Закрыть описание объекта" autofocus>Закрыть ×</button></div><div class="object-modal__body"><h2 id="object-dialog-title-horeca">HoReCa: рестораны, отели, общепит</h2><p class="seo-page__lead">Комфорт гостей, приватность зон, соответствие нормам и защита соседних помещений — акустика HoReCa требует баланса атмосферы и инженерных решений.</p><figure class="service-preview"><img src="assets/images/objects-horeca.jpg" alt="Акустика ресторана и HoReCa" width="896" height="560" loading="lazy"></figure><div class="seo-page__content"><h2>Типичные задачи</h2>
+<ul><li>Жалобы соседей на музыку и гул</li><li>Неразборчивость речи в шумном зале</li><li>Звукоизоляция кухни и технических зон</li><li>Акустика банкетных и конференц-залов</li></ul>
+<aside class="seo-callout seo-callout--tip"><p class="seo-callout__title">Не только тишина</p><p>В ресторане нужна атмосфера, но не за счёт соседей. Проект балансирует фоновый уровень и звукоизоляцию ограждений.</p></aside>
+<h2>Подход</h2>
+<p>Обследование путей передачи звука наружу и между зонами. <a href="services/proektirovanie/">Проект</a> с учётом вентиляции, режима работы и отделки.</p>
+<div class="seo-scenario"><p class="seo-scenario__label">Ситуация</p><p>Ресторан в жилом доме: УК предъявляет требования по шуму после 23:00.</p><p class="seo-scenario__label">Что проверяет ЦИА</p><p>Замер исходных уровней; проект ограждений, дверей, инженерных узлов с критериями.</p></div>
+<h2>Нормативы</h2>
+<p>Учитываем санитарные и договорные ограничения. Прогноз — с условиями; подтверждение — замерами.</p>
+<h2>Музыка и гости</h2>
+<p>Уровень в зале должен быть комфортным для гостей и не нарушать нормы для соседей. Ограждения и инженерия — в проекте.</p>
+<h2>Кухня и техника</h2>
+<p>Вытяжки, холодильное оборудование — источники низкочастотного гула. Виброизоляция и экраны.</p>
+<h2>Ремонт под ключ</h2>
+<p>Акустику закладывают до чистовой отделки. Согласование с дизайном и вентиляцией обязательно.</p>
+<h2>Форматы ЦИА для этого объекта</h2>
+<p>Старт — <a href="services/distancionnaya-otsenka/">дистанционная оценка</a> или <a href="services/akusticheskiy-zamer/">замер</a>. Для капитального решения — <a href="services/proektirovanie/">проект</a> с узлами и контрольным замером. Специальные сценарии — <a href="services/spetsproekty/">спецпроекты</a> или <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<p>Опишите объект в заявке: площадь, стадия, суть проблемы. Инженер предложит адекватный объём работ без навязывания лишнего.</p>
+<h2>Типичный путь заказчика</h2>
+<p>Сначала — понимание проблемы и формата: дистанционно или с выездом. Затем обследование, если нужна точность. Для капитального ремонта или строительства — проект с узлами. После монтажа — контрольный замер, если это предусмотрено договорённостями.</p>
+<h2>Чего не обещаем</h2>
+<p>Абсолютную тишину и гарантированные децибелы без условий. Честно говорим, когда задача выходит за рамки одной квартиры или помещения. Рекомендуем материалы и конструкции по расчёту, а не по каталогу одного производителя.</p>
+<h2>География</h2>
+<p>Работаем по России. Офис в Иваново (ул. Смирнова, 74). Дистанционная оценка — из любого города. Выезд — по согласованию сроков и логистики.</p>
+<h2>Примеры ситуаций</h2>
+<p>Владелец квартиры планирует ремонт и слышит соседей. Владелец офиса открывает переговорную в open space. Владелец дома строит кинозал. Владелец ресторана получает предписание по шуму. У всех разная программа помещения, но общая логика: сначала факт и гипотезы, потом конструкции и проверка.</p>
+<h2>Стадии объекта</h2>
+<p>На голом объекте закладываются каркасы, проходки, плавающие стяжки. На объекте с отделкой возможны локальные решения — потолок, перегородка в одной комнате — но выбор ограничен. Чем раньше подключён акустик, тем больше степеней свободы.</p>
+<h2>Документы для старта</h2>
+<p>План помещения, фото конструкций, описание жалоб, при возможности — данные о типе дома или назначении здания. Для коммерции — режим работы и требования арендодателя или санитарных норм. Этого достаточно для первого шага.</p>
+<p>Связанные услуги: <a href="services/distancionnaya-otsenka/">дистанционная оценка</a>, <a href="services/akusticheskiy-zamer/">замер</a>, <a href="services/proektirovanie/">проектирование</a>. Для нестандартных задач — <a href="services/spetsproekty/">спецпроекты</a> и <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<h2>Кейсы и ограничения</h2>
+<p>Каждый объект уникален: этаж, соседи, тип перекрытия, стадия ремонта. Универсальных ответов «сделайте так» в статьях и на страницах объектов — ориентиры. Точное решение — после данных с вашего объекта.</p>
+<p>Если планируете продажу или сдачу в аренду — акустический комфорт становится аргументом цены. Проект с подтверждением замером — документ для договора с подрядчиком.</p>
+<h2>Связь с блогом</h2>
+<p>Полезные материалы: <a href="blog/#shum-ot-sosedey-chto-delat">шум от соседей</a>, <a href="blog/#akusticheskie-mostiki-i-shcheli">мостики и щели</a>, <a href="blog/#zvukoizolyaciya-vs-akustika">звукоизоляция vs акустика</a>.</p>
+<h2>Почему объект важнее бренда материала</h2>
+<p>Один и тот же материал в разных узлах даёт разный эффект. Контекст — перекрытие, соседи, инженерия — определяет приоритеты. Страница объекта описывает типовые задачи; ваш случай уточняется на <a href="services/distancionnaya-otsenka/">дистанционной оценке</a> или <a href="services/akusticheskiy-zamer/">замере</a>.</p>
+<p>ЦИА рассматривает помещение как систему: источники, ограждения, проходки, сценарий использования. Такой подход особенно важен для объектов с несколькими зонами — дом, офис, ресторан, студия.</p>
+<p>На странице объекта перечислены типовые жалобы и форматы ЦИА — используйте их как чек-лист перед звонком инженеру. Чем точнее описание на старте, тем быстрее рекомендация формата работы.</p></div><section class="seo-page__content"><h2>Частые вопросы</h2><details class="article-faq"><summary>Можно ли решить только отделкой?</summary><p>Частично. Серьёзная звукоизоляция — конструктивные решения.</p></details><details class="article-faq"><summary>Учитываете ли живую музыку?</summary><p>Да. Уровни и пути передачи зависят от программы зала.</p></details><details class="article-faq"><summary>Работаете ли с действующими ресторанами?</summary><p>Да, с учётом режима работы и поэтапного внедрения.</p></details></section><p><a href="#lead" class="btn btn--primary">Обсудить мой объект</a></p></div></dialog>
+<dialog class="object-modal" id="object-dialog-promyshlennyy-obekt" aria-labelledby="object-dialog-title-promyshlennyy-obekt" data-lenis-prevent><div class="object-modal__toolbar"><button type="button" class="object-modal__close" aria-label="Закрыть описание объекта" autofocus>Закрыть ×</button></div><div class="object-modal__body"><h2 id="object-dialog-title-promyshlennyy-obekt">Промышленный и технический объект</h2><p class="seo-page__lead">Локализация шума и вибрации оборудования, защита смежных зон и соответствие требованиям — проектируем для действующих и новых площадок.</p><figure class="service-preview"><img src="assets/images/objects-industrial.jpg" alt="Акустика промышленного объекта" width="896" height="560" loading="lazy"></figure><div class="seo-page__content"><h2>Типовые объекты</h2>
+<ul><li>Производственные цеха и линии</li><li>Бойлерные, чиллерные, насосные</li><li>Дизель-генераторы и компрессоры</li><li>Серверные и инженерные помещения в ЖК</li></ul>
+<aside class="seo-callout seo-callout--tip"><p class="seo-callout__title">Режим эксплуатации</p><p>Проект учитывает обслуживание, вентиляцию и безопасность — не только снижение дБ.</p></aside>
+<h2>Услуга</h2>
+<p><a href="services/promyshlennaya-akustika/">Промышленная акустика</a>: замеры, моделирование путей, проект кожухов, виброизоляции, экранов.</p>
+<div class="seo-scenario"><p class="seo-scenario__label">Ситуация</p><p>Компрессорная рядом с офисом: сотрудники не могут работать при включении.</p><p class="seo-scenario__label">Что проверяет ЦИА</p><p>Обследование; проект виброизоляции и акустической изоляции с критериями приёмки.</p></div>
+<h2>Результат</h2>
+<p>Инженерный проект со спецификацией и контрольными замерами после монтажа.</p>
+<h2>Источники шума</h2>
+<p>Станки, компрессоры, генераторы, насосы — разный спектр. Обследование определяет доминирующие частоты.</p>
+<h2>Защита персонала и соседей</h2>
+<p>Рабочие зоны, административные блоки, жилая застройка рядом — разные целевые уровни.</p>
+<h2>Эксплуатация</h2>
+<p>Решения должны допускать обслуживание оборудования без демонтажа всей облицовки.</p>
+<h2>Форматы ЦИА для этого объекта</h2>
+<p>Старт — <a href="services/distancionnaya-otsenka/">дистанционная оценка</a> или <a href="services/akusticheskiy-zamer/">замер</a>. Для капитального решения — <a href="services/proektirovanie/">проект</a> с узлами и контрольным замером. Специальные сценарии — <a href="services/spetsproekty/">спецпроекты</a> или <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<p>Опишите объект в заявке: площадь, стадия, суть проблемы. Инженер предложит адекватный объём работ без навязывания лишнего.</p>
+<h2>Типичный путь заказчика</h2>
+<p>Сначала — понимание проблемы и формата: дистанционно или с выездом. Затем обследование, если нужна точность. Для капитального ремонта или строительства — проект с узлами. После монтажа — контрольный замер, если это предусмотрено договорённостями.</p>
+<h2>Чего не обещаем</h2>
+<p>Абсолютную тишину и гарантированные децибелы без условий. Честно говорим, когда задача выходит за рамки одной квартиры или помещения. Рекомендуем материалы и конструкции по расчёту, а не по каталогу одного производителя.</p>
+<h2>География</h2>
+<p>Работаем по России. Офис в Иваново (ул. Смирнова, 74). Дистанционная оценка — из любого города. Выезд — по согласованию сроков и логистики.</p>
+<h2>Примеры ситуаций</h2>
+<p>Владелец квартиры планирует ремонт и слышит соседей. Владелец офиса открывает переговорную в open space. Владелец дома строит кинозал. Владелец ресторана получает предписание по шуму. У всех разная программа помещения, но общая логика: сначала факт и гипотезы, потом конструкции и проверка.</p>
+<h2>Стадии объекта</h2>
+<p>На голом объекте закладываются каркасы, проходки, плавающие стяжки. На объекте с отделкой возможны локальные решения — потолок, перегородка в одной комнате — но выбор ограничен. Чем раньше подключён акустик, тем больше степеней свободы.</p>
+<h2>Документы для старта</h2>
+<p>План помещения, фото конструкций, описание жалоб, при возможности — данные о типе дома или назначении здания. Для коммерции — режим работы и требования арендодателя или санитарных норм. Этого достаточно для первого шага.</p>
+<p>Связанные услуги: <a href="services/distancionnaya-otsenka/">дистанционная оценка</a>, <a href="services/akusticheskiy-zamer/">замер</a>, <a href="services/proektirovanie/">проектирование</a>. Для нестандартных задач — <a href="services/spetsproekty/">спецпроекты</a> и <a href="services/promyshlennaya-akustika/">промышленная акустика</a>.</p>
+<h2>Кейсы и ограничения</h2>
+<p>Каждый объект уникален: этаж, соседи, тип перекрытия, стадия ремонта. Универсальных ответов «сделайте так» в статьях и на страницах объектов — ориентиры. Точное решение — после данных с вашего объекта.</p>
+<p>Если планируете продажу или сдачу в аренду — акустический комфорт становится аргументом цены. Проект с подтверждением замером — документ для договора с подрядчиком.</p>
+<h2>Связь с блогом</h2>
+<p>Полезные материалы: <a href="blog/#shum-ot-sosedey-chto-delat">шум от соседей</a>, <a href="blog/#akusticheskie-mostiki-i-shcheli">мостики и щели</a>, <a href="blog/#zvukoizolyaciya-vs-akustika">звукоизоляция vs акустика</a>.</p>
+<h2>Почему объект важнее бренда материала</h2>
+<p>Один и тот же материал в разных узлах даёт разный эффект. Контекст — перекрытие, соседи, инженерия — определяет приоритеты. Страница объекта описывает типовые задачи; ваш случай уточняется на <a href="services/distancionnaya-otsenka/">дистанционной оценке</a> или <a href="services/akusticheskiy-zamer/">замере</a>.</p>
+<p>ЦИА рассматривает помещение как систему: источники, ограждения, проходки, сценарий использования. Такой подход особенно важен для объектов с несколькими зонами — дом, офис, ресторан, студия.</p>
+<p>На странице объекта перечислены типовые жалобы и форматы ЦИА — используйте их как чек-лист перед звонком инженеру. Чем точнее описание на старте, тем быстрее рекомендация формата работы.</p></div><section class="seo-page__content"><h2>Частые вопросы</h2><details class="article-faq"><summary>Работаете на действующем производстве?</summary><p>Да, с согласованием графика и мер безопасности.</p></details><details class="article-faq"><summary>Нужна ли экологическая экспертиза?</summary><p>ЦИА готовит акустическую часть; согласования с надзором — зона заказчика.</p></details><details class="article-faq"><summary>Проектируете кожухи?</summary><p>Да, под конкретное оборудование с доступом для ТО.</p></details></section><p><a href="#lead" class="btn btn--primary">Обсудить мой объект</a></p></div></dialog>
+<!-- OBJECT MODALS END -->
 </body>
 </html>

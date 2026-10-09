@@ -60,7 +60,7 @@ for slug in SLUGS:
     d=json.loads((ROOT/f'content/services/{slug}.json').read_text());base='../../'
     title=d['h1'];lead=d['lead']
     content='<div class="seo-page__content">'+body(d['body'],base)+'</div>'+faq(d.get('faq',[]),base)
-    if d.get('image'):content=f'<figure class="seo-page__hero-media"><img src="{base}{d["image"]}" alt="{html.escape(d.get("imageAlt",title))}" width="896" height="560" loading="lazy"></figure>'+content
+    if d.get('image'):content=f'<figure class="service-preview"><img src="{base}{d["image"]}" alt="{html.escape(d.get("imageAlt",title))}" width="896" height="560" loading="lazy"></figure>'+content
     context=d.get('diagnoseContext',{})|{'pageType':'services','pageSlug':'services/'+slug,'sourceLabel':title,'defaultService':{'distancionnaya-otsenka':'remote','akusticheskiy-zamer':'measurement','proektirovanie':'design','spetsproekty':'special','promyshlennaya-akustika':'industrial'}[slug]}
     page('/services/'+slug+'/',title,lead,content,context)
 
@@ -82,6 +82,26 @@ page('/blog/','Статьи и ответы','Материалы об акуст
 
 about=json.loads((ROOT/'content/about.json').read_text())
 page('/about/',about['h1'],about['lead'],'<div class="seo-page__content">'+body(about['body'],'../').replace('<h2>География работы</h2>', '<h2 id="geography">География работы</h2>').replace('<h2>Контакты</h2>', '<h2 id="contacts">Контакты</h2>')+'</div>')
+
+
+# Object descriptions stay in native dialogs on the homepage, with no extra pages.
+home=ROOT/'index.html'
+home_text=home.read_text()
+home_text=re.sub(r'<!-- OBJECT MODALS START -->.*?<!-- OBJECT MODALS END -->\s*', '', home_text, flags=re.S)
+modals='<!-- OBJECT MODALS START -->\n'
+for slug in OBJECTS:
+    d=json.loads((ROOT/f'content/objects/{slug}.json').read_text())
+    title=html.escape(d['h1'])
+    modals+=f'<dialog class="object-modal" id="object-dialog-{slug}" aria-labelledby="object-dialog-title-{slug}" data-lenis-prevent><div class="object-modal__toolbar"><button type="button" class="object-modal__close" aria-label="Закрыть описание объекта" autofocus>Закрыть ×</button></div><div class="object-modal__body"><h2 id="object-dialog-title-{slug}">{title}</h2><p class="seo-page__lead">{html.escape(d["lead"])}</p><figure class="service-preview"><img src="{html.escape(d["image"],quote=True)}" alt="{html.escape(d.get("imageAlt",d["h1"]),quote=True)}" width="896" height="560" loading="lazy"></figure><div class="seo-page__content">'+body(d['body'],'')+'</div>'+faq(d.get('faq',[]),'')+'<p><a href="#lead" class="btn btn--primary">Обсудить мой объект</a></p></div></dialog>\n'
+    pattern=r'(<article\b[^>]*id="object-'+slug+r'"[^>]*>)(.*?)(</article>)'
+    def update_card(m):
+        inner=re.sub(r'href="[^"]+"', 'href="#object-dialog-'+slug+'"', m[2])
+        return m[1].replace('tabindex="0"','tabindex="0" role="button" aria-haspopup="dialog" aria-controls="object-dialog-'+slug+'"')+inner+m[3] if 'aria-haspopup' not in m[1] else m[1]+inner+m[3]
+    home_text=re.sub(pattern,update_card,home_text,flags=re.S)
+modals+='<!-- OBJECT MODALS END -->\n'
+home_text=home_text.replace('</body>',modals+'</body>')
+if 'js/object-modals.js' not in home_text:home_text=home_text.replace('</body>','<script src="js/object-modals.js" defer></script>\n</body>')
+home.write_text(home_text)
 
 # Remove retired published pages; keep their source JSON for reference.
 keep={ROOT/r.strip('/')/'index.html' for r in ROUTES if r!='/' and r.endswith('/')}

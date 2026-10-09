@@ -54,7 +54,7 @@ def page(route,title,lead,content,context=None):
           'DIAGNOSE_CONTEXT_SCRIPT':'window.__CIA_DIAGNOSE_CONTEXT = '+json.dumps(context,ensure_ascii=False)+';'}
     for k,v in data.items():tpl=tpl.replace('{{'+k+'}}',v)
     if re.search(r'{{[A-Z_]+}}',tpl):raise ValueError('Unresolved template token')
-    dest=ROOT/route.strip('/')/'index.html';dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(tpl)
+    dest=ROOT/route.strip('/')/'index.html';dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text('\n'.join(line.rstrip() for line in tpl.splitlines())+'\n')
 
 for slug in SLUGS:
     d=json.loads((ROOT/f'content/services/{slug}.json').read_text());base='../../'

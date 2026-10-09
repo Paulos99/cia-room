@@ -34,7 +34,7 @@
       document.documentElement.style.colorScheme = theme;
     })();
   </script>
-  <link rel="stylesheet" href="{{BASE}}css/main.css?v=seo9">
+  <link rel="stylesheet" href="{{BASE}}css/main.css?v=ten-pages-1">
   <script type="application/ld+json">{{SCHEMA_JSON}}</script>
 </head>
 <body>
@@ -116,7 +116,7 @@
   <script src="{{BASE}}js/seo.js"></script>
   <script src="{{BASE}}js/theme.js"></script>
   <script src="{{BASE}}js/analytics.js"></script>
-  <script src="{{BASE}}js/main.js?v=seo1"></script>
+  <script src="{{BASE}}js/main.js?v=ten-pages-1"></script>
   <script src="{{BASE}}js/faq.js"></script>
   <script src="{{BASE}}js/diagnose-storage.js"></script>
   <script>{{DIAGNOSE_CONTEXT_SCRIPT}}</script>

@@ -145,6 +145,7 @@
     const id = hash.replace('#', '');
     const target = document.getElementById(id);
     if (!target) return;
+    if (target.matches('details.article-entry')) target.open = true;
 
     const onScrollDone = () => {
       const heading = target.querySelector('h1, h2, .section-title, .section-label');

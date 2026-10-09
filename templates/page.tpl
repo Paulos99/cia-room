@@ -34,34 +34,11 @@
       document.documentElement.style.colorScheme = theme;
     })();
   </script>
-  <link rel="stylesheet" href="{{BASE}}css/main.css?v=cia-trust-1">
+  <link rel="stylesheet" href="{{BASE}}css/main.css?v=site-pages-2">
   <script type="application/ld+json">{{SCHEMA_JSON}}</script>
 </head>
 <body>
-  <header class="header seo-header--minimal" id="header">
-    <div class="header__shell container">
-      <a href="{{BASE}}" class="header__brand" aria-label="ЦИА Помещения — на главную">
-        <span class="header__lockup">
-          <span class="header__name">ЦИА</span>
-          <span class="header__sep" aria-hidden="true">/</span>
-          <span class="header__unit">Помещения</span>
-        </span>
-      </a>
-      <div class="header__center">
-        <nav class="header__nav" aria-label="Основная навигация">
-          <div class="header__nav-inner">
-            <a href="{{BASE}}#services" class="header__nav-link">Услуги</a>
-            <a href="{{BASE}}#objects" class="header__nav-link">Объекты</a>
-            <a href="{{BASE}}about/#geography" class="header__nav-link">О ЦИА и контакты</a>
-            <a href="{{BASE}}blog/" class="header__nav-link">Статьи и ответы</a>
-          </div>
-        </nav>
-      </div>
-      <div class="header__actions">
-        <a href="{{BASE}}#lead" class="btn btn--primary btn--sm header__cta">Оставить заявку на разбор проблемы <span class="btn__arrow" aria-hidden="true">→</span></a>
-      </div>
-    </div>
-  </header>
+{{SITE_HEADER}}
 
   <main id="main" class="seo-page" tabindex="-1">
     <div class="container">
@@ -123,5 +100,6 @@
   <script src="{{BASE}}js/diagnose.js"></script>
   <script src="{{BASE}}js/form.js"></script>
 <script src="{{BASE}}js/articles.js"></script>
+<script src="{{BASE}}js/site-nav.js" defer></script>
 </body>
 </html>

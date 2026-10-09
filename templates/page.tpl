@@ -50,10 +50,10 @@
       <div class="header__center">
         <nav class="header__nav" aria-label="Основная навигация">
           <div class="header__nav-inner">
-            <a href="{{BASE}}services/" class="header__nav-link">Услуги</a>
-            <a href="{{BASE}}objects/" class="header__nav-link">Объекты</a>
-            <a href="{{BASE}}geography/" class="header__nav-link">География</a>
-            <a href="{{BASE}}blog/" class="header__nav-link">Блог</a>
+            <a href="{{BASE}}#services" class="header__nav-link">Услуги</a>
+            <a href="{{BASE}}#objects" class="header__nav-link">Объекты</a>
+            <a href="{{BASE}}about/#geography" class="header__nav-link">О ЦИА и контакты</a>
+            <a href="{{BASE}}blog/" class="header__nav-link">Статьи и ответы</a>
           </div>
         </nav>
       </div>
@@ -88,13 +88,13 @@
         <div>
           <p class="footer__title">Навигация</p>
           <nav class="footer__links" aria-label="Ссылки в подвале">
-            <a href="{{BASE}}services/" class="footer__link">Услуги</a>
-            <a href="{{BASE}}objects/" class="footer__link">Объекты</a>
-            <a href="{{BASE}}geography/" class="footer__link">География</a>
-            <a href="{{BASE}}blog/" class="footer__link">Блог</a>
+            <a href="{{BASE}}#services" class="footer__link">Услуги</a>
+            <a href="{{BASE}}#objects" class="footer__link">Объекты</a>
+            <a href="{{BASE}}about/#geography" class="footer__link">О ЦИА и контакты</a>
+            <a href="{{BASE}}blog/" class="footer__link">Статьи и ответы</a>
             <a href="{{BASE}}#faq" class="footer__link">FAQ</a>
             <a href="{{BASE}}privacy.html" class="footer__link">Политика конфиденциальности</a>
-          </nav>
+          <a href="{{BASE}}consent.html" class="footer__link">Согласие на обработку данных</a></nav>
         </div>
         <div class="footer__contacts" id="footer-contacts">
           <p class="footer__title">Контакты</p>
@@ -122,5 +122,6 @@
   <script>{{DIAGNOSE_CONTEXT_SCRIPT}}</script>
   <script src="{{BASE}}js/diagnose.js"></script>
   <script src="{{BASE}}js/form.js"></script>
+<script src="{{BASE}}js/articles.js"></script>
 </body>
 </html>

@@ -49,23 +49,21 @@ leadForm: {
 
 `index.html` лежит в корне репозитория — дополнительная сборка не требуется для главной, но **SEO-кластер** генерируется скриптом (см. ниже).
 
-## SEO и контентный кластер
+## Структура и сборка
 
-Сайт включает главный лендинг и SEO-страницы: услуги, объекты, география, блог.
+Сайт содержит ровно 10 публичных HTML-страниц. Карта страниц и условия миграции: [docs/SITE_STRUCTURE.md](docs/SITE_STRUCTURE.md).
 
-### Сборка страниц
-
-После изменения контента в `content/`:
+После изменения контента:
 
 ```bash
 python scripts/build-pages.py
 ```
 
-Скрипт генерирует HTML в `services/`, `objects/`, `geography/`, `blog/` и обновляет `sitemap.xml`.
+Сборщик создаёт пять страниц услуг, страницу «О ЦИА, контакты и география», единую страницу статей и карту сайта. Главная и юридические документы редактируются напрямую. Сборщик удаляет HTML снятых разделов; их JSON-источники сохраняются для редакционной работы.
 
-Контент: `content/services/*.json`, `content/objects/*.json`, `content/geography/*.json`, `content/blog/*.json`, каталоги — `content/catalogs/*.json`.
+Источники: `content/services/*.json`, `content/blog/*.json`, порядок статей — `content/catalogs/blog.json`, сведения о центре — `content/about.json`. Шаблоны имеют расширение `.tpl`, чтобы не создавать дополнительные HTML-страницы.
 
-Домен для sitemap берётся из `content/site.json` (должен совпадать с `js/config.js` → `domain`).
+Домен берётся из `content/site.json` и должен совпадать с `js/config.js` → `domain`.
 
 ### AI и нейровыдача
 
@@ -89,30 +87,18 @@ python scripts/build-pages.py
 4. Переотправить sitemap в Search Console и Вебмастер
 5. Проверить canonical и OG-теги на главной и 2–3 страницах кластера (`js/seo.js` подставляет домен автоматически)
 
-### OG-изображение
+## Файлы
 
-```bash
-python scripts/generate-og.py
-```
-
-Результат: `assets/og/og-image.jpg` (1200×630).
-
-## Структура
-
-- `index.html` — главный лендинг
-- `services/`, `objects/`, `geography/`, `blog/` — SEO-кластер (генерируются)
-- `content/` — исходники страниц кластера
-- `templates/page.html` — шаблон SEO-страниц
-- `scripts/build-pages.py`, `scripts/generate-og.py`
-- `llms.txt`, `llms-full.txt`
-- `css/` — стили
-- `js/config.js`, `js/seo.js` — конфиг, SEO-патч canonical/schema
-- `js/main.js`, `form.js`, `faq.js`, `analytics.js`, `animations.js`
-- `js/visuals/` — SVG-сцены
-- `docs/LEAD_FORM_INTEGRATION.md` — API формы заявок
-- `server/lead-webhook/` — эталонный приёмник заявок
-- `privacy.html`, `consent.html` — юридические шаблоны (TODO)
-- `robots.txt`, `sitemap.xml`
+- `index.html` — главная с объектами, услугами, проблемомером и заявкой
+- `services/*/index.html` — пять самостоятельных направлений
+- `about/index.html` — о центре, контакты и география
+- `blog/index.html` — десять статей целиком на одной странице
+- `privacy.html`, `consent.html` — юридические документы
+- `content/` — исходники страниц и архив содержания снятых разделов
+- `templates/*.tpl`, `scripts/build-pages.py` — шаблоны и сборка
+- `js/articles.js` — раскрытие статьи по якорю
+- `docs/LEAD_FORM_INTEGRATION.md` — подключение отправки заявок
+- `sitemap.xml` — десять адресов
 
 ## Лицензия
 

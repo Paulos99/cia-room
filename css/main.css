@@ -7,3 +7,11 @@
 @import url('sections.css?v=hero-why-v2');
 @import url('visuals.css');
 @import url('mobile.css?v=hero-why-v2');
+
+/* Consolidated article library: one public URL, addressable article sections. */
+.article-entry { border: 1px solid var(--color-border); border-radius: 12px; margin-block: 1rem; scroll-margin-top: 110px; }
+.article-entry > summary { cursor: pointer; padding: 1.25rem; font-size: var(--text-lg); font-weight: 600; }
+.article-entry > .seo-page__content { padding: 0 1.25rem 1.25rem; }
+.article-entry summary:focus-visible, .article-faq summary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+.article-faq { margin-block: 1rem; }
+.article-faq summary { cursor: pointer; font-weight: 600; }

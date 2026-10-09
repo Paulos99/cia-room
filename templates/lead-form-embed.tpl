@@ -87,7 +87,7 @@
         <div class="form-group">
           <label class="form-checkbox">
             <input type="checkbox" id="consent" name="consent" required>
-            <span>Согласен на обработку данных (<a href="{{BASE}}privacy.html" class="link-underline">политика</a>)</span>
+            <span><a href="{{BASE}}consent.html" class="link-underline">Согласен на обработку персональных данных</a> в соответствии с <a href="{{BASE}}privacy.html" class="link-underline">политикой</a></span>
           </label>
           <p class="form-error" id="error-consent" role="alert" hidden></p>
         </div>

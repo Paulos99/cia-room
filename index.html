@@ -178,11 +178,11 @@
         <nav class="header__nav" aria-label="Основная навигация">
           <div class="header__nav-inner">
             <a href="#benefits" class="header__nav-link" data-nav="benefits">Задачи</a>
-            <a href="#about-cia" class="header__nav-link" data-nav="about-cia">О нас</a>
+            <a href="about/" class="header__nav-link">О нас</a>
             <a href="#why" class="header__nav-link" data-nav="why">Проблема</a>
             <a href="#objects" class="header__nav-link" data-nav="objects">Объекты</a>
             <a href="#services" class="header__nav-link" data-nav="services">Услуги</a>
-            <a href="blog/" class="header__nav-link">Блог</a>
+            <a href="blog/" class="header__nav-link">Статьи и ответы</a>
             <a href="#diagnose" class="header__nav-link" data-nav="diagnose">Тест/подбор</a>
             <a href="#faq" class="header__nav-link" data-nav="faq">Вопросы</a>
           </div>
@@ -222,7 +222,7 @@
     <nav class="section-rail" id="section-rail" aria-label="Разделы страницы">
       <div class="section-rail__scroll container" id="section-rail-scroll">
         <a href="#benefits" class="section-rail__link" data-nav="benefits">Задачи ЦИА</a>
-        <a href="#about-cia" class="section-rail__link" data-nav="about-cia">О компании</a>
+        <a href="about/" class="section-rail__link">О компании</a>
         <a href="#why" class="section-rail__link" data-nav="why">Проблема</a>
         <a href="#system" class="section-rail__link" data-nav="system">Система</a>
         <a href="#objects" class="section-rail__link" data-nav="objects">Объекты</a>
@@ -234,10 +234,10 @@
         <a href="#faq" class="section-rail__link" data-nav="faq">Вопросы</a>
         <a href="#lead" class="section-rail__link" data-nav="lead">Заявка</a>
         <a href="#materials" class="section-rail__link" data-nav="materials">Материалы</a>
-        <a href="services/" class="section-rail__link">Услуги ↗</a>
-        <a href="objects/" class="section-rail__link">Объекты ↗</a>
-        <a href="geography/" class="section-rail__link">География</a>
-        <a href="blog/" class="section-rail__link">Блог</a>
+        <a href="#services" class="section-rail__link">Пять направлений услуг</a>
+        <a href="#objects" class="section-rail__link">Типы объектов</a>
+        <a href="about/#geography" class="section-rail__link">О ЦИА и контакты</a>
+        <a href="blog/" class="section-rail__link">Статьи и ответы</a>
       </div>
     </nav>
   </header>
@@ -280,7 +280,7 @@
           <p class="hero__objects">Квартиры · дома · студии · офисы · HoReCa · спецпроекты · промышленные объекты</p>
           <p class="hero__trust">
             <span class="hero__trust-badge">30 лет инженерной практики</span>
-            <a href="#about-cia" class="hero__trust-link">О ЦИА <span aria-hidden="true">→</span></a>
+            <a href="about/" class="hero__trust-link">О ЦИА <span aria-hidden="true">→</span></a>
           </p>
         </div>
       </div>
@@ -332,25 +332,7 @@
     </section>
 
     <!-- CIA IDENTITY -->
-    <section class="section cia-identity" id="about-cia" aria-labelledby="cia-title">
-      <div class="container cia-identity__grid">
-        <div class="cia-identity__content">
-          <p class="section-label">02 / КТО МЫ</p>
-          <h2 class="section-title" id="cia-title">ЦИА — инженерная акустика помещений</h2>
-          <div class="cia-identity__intro">
-            <p>Центр инновационной акустики работает с жилыми, коммерческими, специальными и техническими объектами. Смотрим, как звук ведёт себя в конкретном помещении, и проектируем решение под его назначение — жить, работать, записывать, смотреть, вести переговоры или эксплуатировать оборудование.</p>
-            <p>В основе работы — 30 лет инженерной практики <a href="https://stp-russia.ru/" class="cia-identity__link" target="_blank" rel="noopener noreferrer">StP СТАНДАРТПЛАСТ</a> в исследовании шума, вибраций, материалов и реальных конструкций.</p>
-          </div>
-          <article class="cia-identity__mission">
-            <h3 class="cia-identity__mission-title">Миссия</h3>
-            <p class="cia-identity__mission-text">Дать проверяемый инженерный результат: что происходит в помещении, что менять и по каким критериям это оценивать.</p>
-          </article>
-        </div>
-        <figure class="media-slot media-slot--tall" data-image="assets/images/cia-identity.jpg">
-          <img src="assets/images/cia-identity.jpg" alt="Инженер анализирует данные акустического обследования и проектирует решение для помещения" width="800" height="1000" loading="lazy" class="media-slot__img">
-        </figure>
-      </div>
-    </section>
+
 
     <!-- WHY -->
     <section class="section why" id="why" aria-labelledby="why-title">
@@ -423,88 +405,88 @@
         <p class="section-label">05 / ОБЪЕКТЫ</p>
         <h2 class="section-title" id="objects-title">Работаем с разными объектами и сценариями</h2>
         <p class="section-intro">Тип помещения важен, но программу работ определяет задача: защита от шума, качество звучания внутри или работа с источником шума и вибрации.</p>
-        <p class="section-more"><a href="objects/" class="section-more__link">Все типы объектов <span aria-hidden="true">→</span></a></p>
+        <p class="section-more"><a href="#objects" class="section-more__link">Подобрать формат для моего объекта <span aria-hidden="true">→</span></a></p>
         <div class="objects__carousel-head objects__carousel-head--mobile-only">
           <p class="objects__scroll-hint" id="objects-scroll-hint">Листайте →</p>
           <p class="objects__counter" id="objects-counter" aria-live="polite">1 / 6</p>
         </div>
         <div class="objects__grid objects__grid--static" id="objects-grid">
-          <article class="object-card" tabindex="0" data-object="apartment" data-analytics-object="apartment">
+          <article class="object-card" tabindex="0" data-object="apartment" data-analytics-object="apartment" id="object-kvartira">
             <figure class="object-card__media">
               <img src="assets/images/objects-apartment.jpg" alt="Акустика квартиры: жизнь, работа, домашний кинотеатр и защита от шума" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="objects/kvartira/" class="object-card__title-link">Квартира</a></h3>
+              <h3 class="object-card__title"><a href="services/proektirovanie/" class="object-card__title-link">Квартира</a></h3>
               <p class="object-card__text">Акустика для жизни, сна, работы, кабинета, домашнего кинотеатра, студии или защиты от бытового шума.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>сон</li><li>работа</li><li>домашний кинотеатр</li><li>студия</li><li>защита от шума</li>
               </ul>
-              <a href="objects/kvartira/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="services/proektirovanie/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="house" data-analytics-object="house">
+          <article class="object-card" tabindex="0" data-object="house" data-analytics-object="house" id="object-chastnyy-dom">
             <figure class="object-card__media">
               <img src="assets/images/objects-house.jpg" alt="Акустика частного дома под планировку и сценарии" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="objects/chastnyy-dom/" class="object-card__title-link">Частный дом</a></h3>
+              <h3 class="object-card__title"><a href="services/proektirovanie/" class="object-card__title-link">Частный дом</a></h3>
               <p class="object-card__text">Акустика под планировку и сценарии дома: спальни, детские, кабинет, кинозал, технические помещения и межэтажные связи.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>спальни</li><li>кабинет</li><li>кинозал</li><li>техпомещения</li><li>межэтажные связи</li>
               </ul>
-              <a href="objects/chastnyy-dom/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="services/proektirovanie/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="studio" data-analytics-object="studio">
+          <article class="object-card" tabindex="0" data-object="studio" data-analytics-object="studio" id="object-studiya-kinoteatr">
             <figure class="object-card__media">
               <img src="assets/images/objects-studio.jpg" alt="Акустика студии и домашнего кинотеатра" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="objects/studiya-kinoteatr/" class="object-card__title-link">Студия, кинотеатр и медиапространство</a></h3>
+              <h3 class="object-card__title"><a href="services/spetsproekty/" class="object-card__title-link">Студия, кинотеатр и медиапространство</a></h3>
               <p class="object-card__text">Помещения, где важны точность звучания, внутренняя акустика, защита от внешнего шума и контроль вибраций.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>запись</li><li>кино</li><li>внутренняя акустика</li><li>защита от шума</li>
               </ul>
-              <a href="objects/studiya-kinoteatr/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="services/spetsproekty/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="office" data-analytics-object="office">
+          <article class="object-card" tabindex="0" data-object="office" data-analytics-object="office" id="object-ofis">
             <figure class="object-card__media">
               <img src="assets/images/objects-office.jpg" alt="Акустика офиса и переговорной" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="objects/ofis/" class="object-card__title-link">Офис и переговорная</a></h3>
+              <h3 class="object-card__title"><a href="services/spetsproekty/" class="object-card__title-link">Офис и переговорная</a></h3>
               <p class="object-card__text">Приватность речи, разборчивость голоса, видеосвязь, open space, шум инженерных систем и комфорт рабочих зон.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>переговорные</li><li>open space</li><li>видеосвязь</li><li>приватность речи</li>
               </ul>
-              <a href="objects/ofis/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="services/spetsproekty/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="horeca" data-analytics-object="horeca">
+          <article class="object-card" tabindex="0" data-object="horeca" data-analytics-object="horeca" id="object-horeca">
             <figure class="object-card__media">
               <img src="assets/images/objects-horeca.jpg" alt="Акустика ресторана и HoReCa" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="objects/horeca/" class="object-card__title-link">HoReCa и коммерческие пространства</a></h3>
+              <h3 class="object-card__title"><a href="services/spetsproekty/" class="object-card__title-link">HoReCa и коммерческие пространства</a></h3>
               <p class="object-card__text">Атмосфера, музыка, гулкость зала, приватность зон, шум кухни, вентиляция и влияние на соседние помещения.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>музыка</li><li>гулкость</li><li>кухня</li><li>соседи</li>
               </ul>
-              <a href="objects/horeca/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="services/spetsproekty/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="object-card" tabindex="0" data-object="industrial" data-analytics-object="industrial">
+          <article class="object-card" tabindex="0" data-object="industrial" data-analytics-object="industrial" id="object-promyshlennyy-obekt">
             <figure class="object-card__media">
               <img src="assets/images/objects-industrial.jpg" alt="Промышленная акустика: шум и вибрация оборудования" width="1600" height="900" loading="lazy" class="object-card__img" decoding="async">
             </figure>
             <div class="object-card__content">
-              <h3 class="object-card__title"><a href="objects/promyshlennyy-obekt/" class="object-card__title-link">Промышленный и технический объект</a></h3>
+              <h3 class="object-card__title"><a href="services/promyshlennaya-akustika/" class="object-card__title-link">Промышленный и технический объект</a></h3>
               <p class="object-card__text">Исследование шума и вибрации оборудования, инженерных систем, рабочих зон и смежных помещений.</p>
               <ul class="object-card__tags" aria-label="Сценарии">
                 <li>оборудование</li><li>вентиляция</li><li>рабочие зоны</li><li>смежные помещения</li>
               </ul>
-              <a href="objects/promyshlennyy-obekt/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
+              <a href="services/promyshlennaya-akustika/" class="object-card__more">Подробнее <span aria-hidden="true">→</span></a>
             </div>
           </article>
         </div>
@@ -518,7 +500,7 @@
           <p class="section-label">06 / УСЛУГИ</p>
           <h2 class="section-title" id="services-title">Пять форматов работы</h2>
           <p class="section-intro">Формат зависит от задачи, стадии объекта и требуемой точности: от дистанционной оценки до проектирования и контрольных измерений.</p>
-          <p class="section-more"><a href="services/" class="section-more__link">Все услуги — подробные страницы <span aria-hidden="true">→</span></a></p>
+          <p class="section-more"><a href="#services" class="section-more__link">Выберите формат работы <span aria-hidden="true">→</span></a></p>
         </div>
 
         <div class="services__tabs" role="tablist" aria-label="Переключение услуг">
@@ -1345,33 +1327,33 @@
     <section class="section landing-hub" id="materials" aria-labelledby="landing-hub-title">
       <div class="container">
         <p class="section-label">МАТЕРИАЛЫ</p>
-        <h2 class="section-title" id="landing-hub-title">Подробнее об услугах, объектах и акустике</h2>
-        <p class="section-intro landing-hub__intro">Отдельные страницы с развёрнутым описанием форматов работы, типов объектов, географии и полезными статьями.</p>
+        <h2 class="section-title" id="landing-hub-title">Услуги, статьи и связь с ЦИА</h2>
+        <p class="section-intro landing-hub__intro">Выберите услугу, изучите материалы об акустике или свяжитесь с инженером ЦИА.</p>
         <div class="landing-hub__grid">
-          <a href="services/" class="seo-card">
+          <a href="#services" class="seo-card">
             <p class="seo-card__title">Услуги</p>
             <p class="seo-card__text">5 форматов: от дистанционной оценки до промышленного проекта</p>
           </a>
-          <a href="objects/" class="seo-card">
+          <a href="#objects" class="seo-card">
             <p class="seo-card__title">Объекты</p>
             <p class="seo-card__text">Квартира, дом, офис, студия, HoReCa, промышленность</p>
           </a>
-          <a href="geography/" class="seo-card">
-            <p class="seo-card__title">География</p>
+          <a href="about/#geography" class="seo-card">
+            <p class="seo-card__title">О ЦИА и контакты</p>
             <p class="seo-card__text">Работаем по всей России, выезд по согласованию</p>
           </a>
           <a href="blog/" class="seo-card">
-            <p class="seo-card__title">Блог</p>
+            <p class="seo-card__title">Статьи и ответы</p>
             <p class="seo-card__text">Шум от соседей, замер vs проект, акустика при ремонте</p>
           </a>
         </div>
         <ul class="landing-hub__quick" aria-label="Популярные страницы">
           <li><a href="services/akusticheskiy-zamer/">Акустический замер</a></li>
           <li><a href="services/proektirovanie/">Проектирование акустики</a></li>
-          <li><a href="objects/kvartira/">Акустика квартиры</a></li>
-          <li><a href="blog/shum-ot-sosedey-chto-delat/">Шум от соседей</a></li>
-          <li><a href="geography/ivanovo/">Иваново — офис ЦИА</a></li>
-          <li><a href="geography/moskva/">Москва</a></li>
+          <li><a href="services/proektirovanie/">Акустика квартиры</a></li>
+          <li><a href="blog/#shum-ot-sosedey-chto-delat">Шум от соседей</a></li>
+          <li><a href="about/#geography">Иваново — офис ЦИА</a></li>
+          <li><a href="services/spetsproekty/">Разработка специальных проектов</a></li>
         </ul>
       </div>
     </section>
@@ -1388,10 +1370,10 @@
         <div>
           <p class="footer__title">Навигация</p>
           <nav class="footer__links" aria-label="Ссылки в подвале">
-            <a href="services/" class="footer__link">Услуги</a>
-            <a href="objects/" class="footer__link">Объекты</a>
-            <a href="geography/" class="footer__link">География</a>
-            <a href="blog/" class="footer__link">Блог</a>
+            <a href="#services" class="footer__link">Услуги</a>
+            <a href="#objects" class="footer__link">Объекты</a>
+            <a href="about/#geography" class="footer__link">О ЦИА и контакты</a>
+            <a href="blog/" class="footer__link">Статьи и ответы</a>
             <a href="#process" class="footer__link">Процесс</a>
             <a href="#faq" class="footer__link">FAQ</a>
             <a href="privacy.html" class="footer__link">Политика конфиденциальности</a>

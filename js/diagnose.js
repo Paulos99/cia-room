@@ -1326,7 +1326,20 @@
   function openService(service) {
     if (window.CIA_SET_SERVICE) window.CIA_SET_SERVICE(service);
     const panel = document.getElementById(`service-${service}`);
-    if (panel) scrollToElement(panel, 'start');
+    if (panel) {
+      scrollToElement(panel, 'start');
+      return;
+    }
+    const slugs = {
+      remote: 'distancionnaya-otsenka',
+      measurement: 'akusticheskiy-zamer',
+      design: 'proektirovanie',
+      special: 'spetsproekty',
+      industrial: 'promyshlennaya-akustika',
+    };
+    const slug = slugs[service];
+    const link = slug && document.querySelector(`.site-menu__panel a[href$="services/${slug}/"]`);
+    if (link) window.location.assign(link.href);
   }
 
   function renderProgress() {

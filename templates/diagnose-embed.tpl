@@ -1,6 +1,6 @@
 <section class="seo-diagnose diagnose diagnose--embedded" id="diagnose" aria-labelledby="diagnose-title">
   <p class="services__diagnose-label">Проблемомер</p>
-  <h2 class="section-title" id="diagnose-title" style="font-size: var(--text-xl);">Проверьте свой случай</h2>
+  <h2 class="section-title" id="diagnose-title">Подберите формат работы</h2>
   <p class="diagnose__intro">{{DIAGNOSE_INTRO}}</p>
   <div class="diagnose__shell" id="diagnose-app" data-current-node="q1_signal">
     <div class="diagnose__topline">

@@ -101,7 +101,7 @@
   <script src="{{BASE}}js/faq.js"></script>
   <script src="{{BASE}}js/diagnose-storage.js"></script>
   <script>{{DIAGNOSE_CONTEXT_SCRIPT}}</script>
-  <script src="{{BASE}}js/diagnose.js"></script>
+  <script src="{{BASE}}js/diagnose.js?v=embedded-1"></script>
   <script src="{{BASE}}js/form.js"></script>
 <script src="{{BASE}}js/articles.js"></script>
 <script src="{{BASE}}js/site-nav.js" defer></script>

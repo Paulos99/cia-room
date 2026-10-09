@@ -46,11 +46,12 @@ def page(route,title,lead,content,context=None):
     base='../'*len(route.strip('/').split('/'))
     tpl=(ROOT/'templates/page.tpl').read_text()
     context=context or {'intro':'Опишите помещение и задачу — подскажем формат работы ЦИА.'}
+    diagnose=(ROOT/'templates/diagnose-embed.tpl').read_text().replace('{{DIAGNOSE_INTRO}}',html.escape(context.get('intro','Опишите помещение и задачу — подскажем формат работы ЦИА.')))
     data={'TITLE':html.escape(title+' — ЦИА'),'META_DESCRIPTION':html.escape(lead,quote=True),'CANONICAL_PATH':DOMAIN+route,'OG_IMAGE':DOMAIN+'/assets/og/og-image.jpg','BASE':base,
           'SCHEMA_JSON':json.dumps({'@context':'https://schema.org','@type':'WebPage','name':title,'url':DOMAIN+route},ensure_ascii=False),
           'BREADCRUMB':f'<a href="{base}">Главная</a> / <span aria-current="page">{html.escape(title)}</span>',
           'SITE_HEADER':(ROOT/'templates/header.tpl').read_text().replace('{{BASE}}',base),'CLUSTER_NAV':'','HERO_BLOCK':f'<header class="seo-page__hero"><h1 class="section-title">{html.escape(title)}</h1><p class="seo-page__lead">{html.escape(lead)}</p></header>',
-          'BODY':content,'FAQ_BLOCK':'','DIAGNOSE_BLOCK':'','LEAD_BLOCK':(ROOT/'templates/lead-form-embed.tpl').read_text().replace('{{BASE}}',base),'CLUSTER_PAGER':'','RELATED_BLOCK':'',
+          'BODY':content,'FAQ_BLOCK':'','DIAGNOSE_BLOCK':diagnose,'LEAD_BLOCK':(ROOT/'templates/lead-form-embed.tpl').read_text().replace('{{BASE}}',base),'CLUSTER_PAGER':'','RELATED_BLOCK':'',
           'DIAGNOSE_CONTEXT_SCRIPT':'window.__CIA_DIAGNOSE_CONTEXT = '+json.dumps(context,ensure_ascii=False)+';'}
     for k,v in data.items():tpl=tpl.replace('{{'+k+'}}',v)
     if re.search(r'{{[A-Z_]+}}',tpl):raise ValueError('Unresolved template token')

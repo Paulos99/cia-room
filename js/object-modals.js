@@ -7,6 +7,7 @@
     const dialog = document.getElementById(card.getAttribute('aria-controls'));
     if (!dialog) return;
     trigger = card;
+    if (window.CIA_SMOOTH_SCROLL) window.CIA_SMOOTH_SCROLL.lenis.stop();
     dialog.showModal();
     dialog.scrollTop = 0;
     document.body.classList.add('object-modal-open');
@@ -38,6 +39,7 @@
     }, true);
     dialog.addEventListener('close', function () {
       document.body.classList.remove('object-modal-open');
+      if (window.CIA_SMOOTH_SCROLL) window.CIA_SMOOTH_SCROLL.lenis.start();
       if (trigger) trigger.focus({ preventScroll: true });
       trigger = null;
     });

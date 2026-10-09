@@ -101,3 +101,19 @@
 .service-related__link { color: var(--color-accent-light); font-size: var(--text-sm); }
 @media (max-width: 899px) { .service-hero, .service-section { grid-template-columns: 1fr; } .service-hero__image img { height: clamp(240px, 50vw, 400px); } .service-related__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 539px) { .service-section__body ul, .service-section__body ol, .service-related__grid { grid-template-columns: 1fr; } .service-hero { padding-bottom: 40px; } }
+
+/* Entrance transforms are cleared by GSAP; hover remains controlled by CSS. */
+.about-contact__card, .about-geography__formats article, .service-section__body li, .service-detail, .article-entry, .seo-card { transition: transform .35s var(--ease-out), border-color .35s var(--ease-out), box-shadow .35s var(--ease-out), background .35s var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+ .about-contact__card:hover, .about-geography__formats article:hover, .service-section__body li:hover, .seo-card:hover { transform: translateY(-4px); border-color: var(--color-accent-border); box-shadow: 0 12px 32px var(--color-accent-shadow-soft); }
+ .service-detail:hover, .article-entry:hover { border-color: var(--color-accent-border); box-shadow: 0 0 24px var(--color-accent-shadow-soft); }
+ .about-page .process__step:hover { opacity: 1; }
+ .about-page .process__step:hover .process__step-marker { border-color: var(--color-accent); background: var(--color-accent-subtle); box-shadow: 0 0 24px var(--color-accent-shadow-soft); }
+}
+.seo-card:focus-visible, .about-contact__card:focus-within { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+.site-menu-open .header__center { overscroll-behavior: contain; }
+@media (prefers-reduced-motion: reduce) {
+ .about-contact__card, .about-geography__formats article, .service-section__body li, .service-detail, .article-entry, .seo-card { transition: none; }
+ .about-contact__card:hover, .about-geography__formats article:hover, .service-section__body li:hover, .seo-card:hover { transform: none; }
+ .seo-card__image img, .media-slot__img { transform: none !important; transition: none !important; }
+}

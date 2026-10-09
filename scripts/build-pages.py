@@ -116,7 +116,7 @@ about_page.write_text(about_page.read_text().replace('class="seo-page"', 'class=
 home=ROOT/'index.html'
 home_text=home.read_text()
 home_text=re.sub(r'<header class="header[^"]*".*?</header>', (ROOT/'templates/header.tpl').read_text().replace('{{BASE}}','./'), home_text, count=1, flags=re.S)
-home_text=home_text.replace('cia-trust-1','site-pages-2')
+home_text=home_text.replace('cia-trust-1','site-motion-1')
 if 'js/site-nav.js' not in home_text:home_text=home_text.replace('</body>','<script src="js/site-nav.js" defer></script>\n</body>')
 home_text=re.sub(r'<!-- OBJECT MODALS START -->.*?<!-- OBJECT MODALS END -->\s*', '', home_text, flags=re.S)
 modals='<!-- OBJECT MODALS START -->\n'
@@ -166,5 +166,12 @@ for name in ['privacy.html','consent.html']:
     txt=re.sub(r'<header class="header[^"]*".*?</header>\s*', '', txt, count=1, flags=re.S)
     txt=txt.replace('<body>','<body>\n'+(ROOT/'templates/header.tpl').read_text().replace('{{BASE}}','./'))
     if 'js/site-nav.js' not in txt:txt=txt.replace('</body>','<script src="js/site-nav.js" defer></script>\n</body>')
-    txt=re.sub(r'css/main.css(?:\?[^"]*)?', 'css/main.css?v=site-pages-2', txt)
+    txt=re.sub(r'css/main.css(?:\?[^"]*)?', 'css/main.css?v=site-motion-1', txt)
+    p.write_text(txt)
+
+for name in ['privacy.html','consent.html']:
+    p=ROOT/name;txt=p.read_text()
+    if 'js/vendor/gsap.min.js' not in txt:
+        txt=txt.replace('<script src="js/main.js">', '<script src="js/vendor/gsap.min.js"></script>\n<script src="js/vendor/ScrollTrigger.min.js"></script>\n<script src="js/vendor/lenis.min.js"></script>\n<script src="js/smooth-scroll.js?v=scroll2"></script>\n<script src="js/main.js">')
+    if 'js/animations.js' not in txt:txt=txt.replace('</body>','<script src="js/animations.js?v=site-motion-1"></script>\n</body>')
     p.write_text(txt)

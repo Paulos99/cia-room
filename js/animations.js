@@ -31,6 +31,7 @@
       y: 28,
       duration: 0.8,
       ease: 'power3.out',
+      clearProps: 'opacity,transform',
       stagger: 0.1,
       scrollTrigger: { trigger, start: revealStart(), once: true },
       ...options,
@@ -172,6 +173,7 @@
           scale: 0.97,
           duration: 0.65,
           delay: i * 0.1,
+          clearProps: 'opacity,transform',
           ease: 'power3.out',
           scrollTrigger: { trigger: '#approach', start: 'top 75%', once: true },
         });
@@ -412,8 +414,10 @@
       pulse.style.top = '20px';
     };
 
-    if (isMobileViewport()) {
+    if (isMobileViewport() || prefersReducedMotion() || typeof ScrollTrigger === 'undefined') {
       steps.forEach((step) => step.classList.add('is-reached'));
+      if (lineFill && !isMobileViewport()) lineFill.style.width = '100%';
+      pulse.hidden = true;
       return;
     }
 
@@ -601,7 +605,56 @@
     }, { passive: true });
   }
 
+  function initPageMotion() {
+    // Animate real content only; closed article/detail bodies stay readable on opening.
+    const seen = new Set();
+    const reveal = (elements, trigger) => {
+      const targets = Array.from(elements).filter(el => {
+        if (seen.has(el)) return false;
+        seen.add(el);
+        return true;
+      });
+      if (!targets.length) return;
+      gsap.from(targets, {
+        opacity: 0, y: isMobileViewport() ? 16 : 28,
+        duration: 0.8, stagger: 0.08, ease: 'power3.out',
+        clearProps: 'opacity,transform',
+        scrollTrigger: { trigger: trigger || targets[0], start: revealStart(), once: true },
+      });
+    };
+    document.querySelectorAll('.service-hero__copy, .seo-page__hero, .cia-identity__content').forEach(el => reveal(el.children, el));
+    document.querySelectorAll('.service-hero__image, .cia-identity .media-slot, .process__media').forEach(el => reveal([el], el));
+    document.querySelectorAll('.service-section').forEach(section => {
+      reveal(section.querySelectorAll(':scope > header'), section);
+      reveal(section.querySelectorAll('.service-section__body > p, .service-section__body > aside, .service-section__body > .seo-scenario'), section);
+      section.querySelectorAll('ul, ol').forEach(list => reveal(list.children, list));
+    });
+    document.querySelectorAll('.about-page .section, .service-details, .service-faq, .service-related, .seo-page__catalog, .legal-page, .lead').forEach(section => {
+      reveal(section.querySelectorAll(':scope > .section-label, :scope > .section-title, :scope > .section-intro, :scope > h1, :scope > h2, :scope > .container > .section-label, :scope > .container > .section-title'), section);
+    });
+    document.querySelectorAll('.principles__grid, .about-directions__grid, .about-contact__grid, .about-geography__formats, .service-related__grid, .seo-page__grid').forEach(grid => reveal(grid.children, grid));
+    document.querySelectorAll('.about-geography > div:first-child, .lead__grid').forEach(el => reveal(el.children, el));
+    // Each accordion gets its own trigger, avoiding one long stagger below the fold.
+    document.querySelectorAll('.service-detail, .article-entry, .legal-page__body > *').forEach(el => reveal([el], el));
+    document.querySelectorAll('.process__step-marker').forEach(el => reveal([el], document.getElementById('process-track')));
+    document.querySelectorAll('details:not(.site-menu)').forEach(detail => {
+      detail.addEventListener('toggle', () => {
+        if (detail.open && !prefersReducedMotion()) {
+          const panel = detail.querySelector(':scope > div');
+          if (panel) gsap.fromTo(panel, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out', clearProps: 'opacity,transform', overwrite: 'auto' });
+        }
+        requestAnimationFrame(() => {
+          window.CIA_SMOOTH_SCROLL?.lenis?.resize();
+          ScrollTrigger.refresh();
+        });
+      });
+    });
+    initMediaParallax();
+    initScrollRefresh();
+  }
+
   function boot() {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
     initAmbientDotsParallax();
     initProcessPulse();
 
@@ -630,6 +683,11 @@
       ignoreMobileResize: true,
       autoRefreshEvents: 'visibilitychange,DOMContentLoaded,load',
     });
+
+    if (!document.querySelector('.hero')) {
+      initPageMotion();
+      return;
+    }
 
     initHeroMotion();
     initSectionReveals();

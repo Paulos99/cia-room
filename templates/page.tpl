@@ -34,7 +34,7 @@
       document.documentElement.style.colorScheme = theme;
     })();
   </script>
-  <link rel="stylesheet" href="{{BASE}}css/main.css?v=site-pages-2">
+  <link rel="stylesheet" href="{{BASE}}css/main.css?v=site-motion-1">
   <script type="application/ld+json">{{SCHEMA_JSON}}</script>
 </head>
 <body>
@@ -92,6 +92,10 @@
   <script src="{{BASE}}js/config.js"></script>
   <script src="{{BASE}}js/seo.js"></script>
   <script src="{{BASE}}js/theme.js"></script>
+  <script src="{{BASE}}js/vendor/gsap.min.js"></script>
+  <script src="{{BASE}}js/vendor/ScrollTrigger.min.js"></script>
+  <script src="{{BASE}}js/vendor/lenis.min.js"></script>
+  <script src="{{BASE}}js/smooth-scroll.js?v=scroll2"></script>
   <script src="{{BASE}}js/analytics.js"></script>
   <script src="{{BASE}}js/main.js?v=ten-pages-1"></script>
   <script src="{{BASE}}js/faq.js"></script>
@@ -101,5 +105,6 @@
   <script src="{{BASE}}js/form.js"></script>
 <script src="{{BASE}}js/articles.js"></script>
 <script src="{{BASE}}js/site-nav.js" defer></script>
+<script src="{{BASE}}js/animations.js?v=site-motion-1"></script>
 </body>
 </html>

@@ -69,7 +69,13 @@ articles=[]
 for card in catalog['cards']:
     slug=card['href'].strip('/').split('/')[-1]
     articles.append(json.loads((ROOT/f'content/blog/{slug}.json').read_text()))
-content='<nav class="seo-page__content" aria-label="Оглавление статей"><h2>Выберите тему</h2><ul>'+''.join(f'<li><a href="#{d["slug"]}">{html.escape(d["h1"])}</a></li>' for d in articles)+'</ul></nav>'
+content='<section class="seo-page__catalog" aria-labelledby="articles-grid-title"><h2 id="articles-grid-title">Выберите тему</h2><div class="seo-page__grid seo-page__grid--cards">'
+for d, card in zip(articles, catalog['cards']):
+    image=html.escape(d['image'], quote=True)
+    alt=html.escape(d.get('imageAlt', d['h1']), quote=True)
+    content+=f'<a href="#{d["slug"]}" class="seo-card seo-card--with-image"><figure class="seo-card__image"><img src="../{image}" alt="{alt}" width="896" height="560" loading="lazy" decoding="async"></figure><h3 class="seo-card__title">{html.escape(d["h1"])}</h3><p class="seo-card__text">{html.escape(card["text"])}</p></a>'
+content+='</div></section>'
+
 for d in articles:
     content+=f'<details class="article-entry" id="{d["slug"]}"><summary>{html.escape(d["h1"])}</summary><div class="seo-page__content"><p class="seo-page__lead">{html.escape(d["lead"])}</p>'+body(d['body'],'../')+faq(d.get('faq',[]),'../')+'<p><a href="#lead" class="btn btn--primary">Обсудить мою задачу</a></p></div></details>'
 page('/blog/','Статьи и ответы','Материалы об акустике помещений: источники шума, обследование, звукоизоляция и проектирование.',content)

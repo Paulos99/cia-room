@@ -81,7 +81,9 @@ for d in articles:
 page('/blog/','Статьи и ответы','Материалы об акустике помещений: источники шума, обследование, звукоизоляция и проектирование.',content)
 
 about=json.loads((ROOT/'content/about.json').read_text())
-page('/about/',about['h1'],about['lead'],'<div class="seo-page__content">'+body(about['body'],'../').replace('<h2>География работы</h2>', '<h2 id="geography">География работы</h2>').replace('<h2>Контакты</h2>', '<h2 id="contacts">Контакты</h2>')+'</div>')
+page('/about/','О Центре инновационной акустики',about['lead'],(ROOT/'templates/about-content.tpl').read_text())
+about_page=ROOT/'about/index.html'
+about_page.write_text(about_page.read_text().replace('class="seo-page"', 'class="seo-page about-page"'))
 
 
 # Object descriptions stay in native dialogs on the homepage, with no extra pages.
